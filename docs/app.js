@@ -93,13 +93,64 @@ const metrics = {
 };
 
 const stacks = {
-  dataspeed: {kicker:'VEHICLE DEVELOPMENT BASE',title:'DataSpeed AV software architecture',description:'A ROS-based pipeline connecting sensing and localization to motion planning, trajectory control and drive-by-wire actuation.',nodes:[
-    ['Sensors & drivers','Cameras, LiDAR, radar','accent'],['Perception','LiDAR segmentation · obstacle tracking',''],['Motion planning','Route · speed profile · trajectory',''],['Trajectory control','Steering and speed commands',''],['DataSpeed DBW','Vehicle interface · CAN bus','accent'],['GNSS / IMU','NovAtel positioning','row-two'],['Localization','Pose and vehicle state','row-two'],['Route database','HD map and route path','row-two'],['Safety & system manager','Run enable · diagnostics · trajectory status','row-two monitor'],['Visualization','RViz · autonomy_viz · diagnostics','row-two monitor no-arrow']
-  ]},
-  autoware: {kicker:'MODULAR AUTONOMY BASE',title:'Autoware software architecture',description:'A modular autonomy stack organized around sensing, perception, planning, control, vehicle interfaces and system-level APIs.',nodes:[
-    ['Sensing','Camera · LiDAR · radar · GNSS / INS','accent'],['Perception','Objects · traffic lights · free space',''],['Planning','Mission · behavior · motion trajectory',''],['Control','Lateral and longitudinal control',''],['Vehicle interface','Commands · status · platform adapters','accent'],['Map','Lanelet2 vector map · point cloud map','row-two'],['Localization','Pose · twist · acceleration','row-two'],['System / AD API','Operation mode · routing · diagnostics · fail-safe','row-two accent'],['Monitoring & HMI','System state · operator access','row-two monitor no-arrow']
-  ]}
+  dataspeed: {
+    key:'dataspeed', kicker:'VEHICLE DEVELOPMENT BASE', title:'DataSpeed AV software architecture',
+    description:'A ROS-based pipeline connecting sensing and localization to motion planning, trajectory control and drive-by-wire actuation.',
+    note:'ROS topics grouped by functional role',
+    label:'DataSpeed architecture: sensing and localization feed planning, control and drive-by-wire, with separate safety monitoring and visualization paths.',
+    nodes:[
+      {id:'sensors',title:'Sensors & drivers',body:'Cameras, LiDAR, radar',x:2,y:8,w:17,h:23,kind:'accent'},
+      {id:'perception',title:'Perception',body:'LiDAR segmentation<br>Obstacle tracking',x:21.5,y:8,w:17,h:23},
+      {id:'motion',title:'Motion planning',body:'Route, speed profile<br>Trajectory',x:41,y:8,w:18,h:23},
+      {id:'control',title:'Trajectory control',body:'Steering and speed<br>commands',x:62,y:8,w:18,h:23},
+      {id:'dbw',title:'DataSpeed DBW',body:'Vehicle interface, CAN bus',x:82,y:8,w:16,h:23,kind:'accent'},
+      {id:'gnss',title:'GNSS / IMU',body:'NovAtel positioning',x:3,y:47,w:18,h:22},
+      {id:'localization',title:'Localization',body:'Pose and vehicle state',x:27,y:47,w:18,h:22},
+      {id:'safety',title:'Safety & system<br>manager',body:'Run enable, diagnostics<br>Trajectory status',x:52,y:47,w:21,h:22,kind:'safety'},
+      {id:'visualization',title:'Visualization',body:'RViz, autonomy_viz<br>Markers and diagnostics',x:82,y:47,w:16,h:22,kind:'monitor'},
+      {id:'route',title:'Route database',body:'HD map and route path',x:3,y:75,w:18,h:19}
+    ],
+    paths:[
+      ['M228 109 H258','data'],['M462 109 H492','data'],['M708 109 H744','control'],['M960 109 H984','control'],
+      ['M252 325 H324','data'],['M432 263 V225 H600 V174','data'],['M252 473 H600 V174','data'],['M432 473 V386','data'],
+      ['M750 263 V220 H852 V174','monitor'],['M876 325 H984','monitor'],['M1080 174 V263','monitor']
+    ]
+  },
+  autoware: {
+    key:'autoware', kicker:'MODULAR AUTONOMY BASE', title:'Autoware software architecture',
+    description:'A modular autonomy stack organized around sensing, perception, planning, control, vehicle interfaces and system-level APIs.',
+    note:'Core stack names follow Autoware Architecture 1.0',
+    label:'Autoware architecture: sensing, perception, planning, control and the vehicle interface form the main chain, supported by maps, localization, system APIs and monitoring.',
+    nodes:[
+      {id:'api',title:'System / AD API',body:'Operation mode, routing, diagnostics, fail-safe and external interfaces',x:8,y:5,w:84,h:18,kind:'accent wide'},
+      {id:'sensing',title:'Sensing',body:'Camera, LiDAR, radar<br>GNSS / INS',x:2,y:35,w:16,h:24,kind:'accent'},
+      {id:'perception',title:'Perception',body:'Objects, traffic lights<br>Free space',x:21,y:35,w:16,h:24},
+      {id:'planning',title:'Planning',body:'Mission, behavior<br>Motion trajectory',x:40,y:35,w:16,h:24},
+      {id:'control',title:'Control',body:'Lateral and longitudinal<br>control',x:59,y:35,w:16,h:24},
+      {id:'vehicle',title:'Vehicle interface',body:'Commands, status and platform<br>adapters',x:78,y:35,w:20,h:24,kind:'accent'},
+      {id:'map',title:'Map',body:'Lanelet2 vector map<br>Point cloud map',x:12,y:71,w:22,h:21},
+      {id:'localization',title:'Localization',body:'Pose, twist and acceleration',x:41,y:71,w:22,h:21},
+      {id:'monitoring',title:'Monitoring & HMI',body:'System state and operator access',x:69,y:71,w:22,h:21,kind:'monitor'}
+    ],
+    paths:[
+      ['M216 263 H252','data'],['M444 263 H480','data'],['M672 263 H708','control'],['M900 263 H936','control'],
+      ['M120 330 V365 H624 V398','data'],['M348 365 V330','data'],['M576 365 V330','data'],['M276 365 V398','data'],
+      ['M408 457 H492','data'],['M756 457 H804 V330','data'],
+      ['M600 129 L576 196','monitor'],['M1010 129 V176 H1056 V196','monitor'],['M1056 330 V365 H960 V398','monitor']
+    ]
+  }
 };
+
+function renderStackDiagram(stack){
+  const markers=`<defs>
+    <marker id="${stack.key}-data-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#d90812"/></marker>
+    <marker id="${stack.key}-control-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#f5f5f5"/></marker>
+    <marker id="${stack.key}-monitor-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#a8adb2"/></marker>
+  </defs>`;
+  const paths=stack.paths.map(([d,type])=>`<path class="arch-path ${type}" d="${d}" marker-end="url(#${stack.key}-${type}-arrow)"/>`).join('');
+  const nodes=stack.nodes.map(node=>`<div class="arch-node ${node.kind||''}" style="--x:${node.x}%;--y:${node.y}%;--w:${node.w}%;--h:${node.h}%"><strong>${node.title}</strong><span>${node.body}</span></div>`).join('');
+  return `<div class="architecture-scroll"><div class="architecture-canvas ${stack.key}" role="img" aria-label="${stack.label}"><svg class="architecture-lines" viewBox="0 0 1200 560" aria-hidden="true">${markers}${paths}</svg>${nodes}</div></div>`;
+}
 
 function setLocation(key){
   const item=locations[key]; if(!item) return;
@@ -134,7 +185,8 @@ function setMetric(key){
 function setStack(key){
   const s=stacks[key];document.querySelectorAll('[data-stack]').forEach(b=>{const on=b.dataset.stack===key;b.classList.toggle('active',on);b.setAttribute('aria-selected',on)});
   document.querySelector('#stack-kicker').textContent=s.kicker;document.querySelector('#stack-title').textContent=s.title;document.querySelector('#stack-description').textContent=s.description;
-  document.querySelector('#stack-diagram').innerHTML=s.nodes.map(([t,p,c])=>`<div class="stack-node ${c}"><strong>${t}</strong><small>${p}</small></div>`).join('');
+  document.querySelector('#stack-diagram').innerHTML=renderStackDiagram(s);
+  document.querySelector('#stack-note').textContent=s.note;
 }
 
 document.querySelectorAll('.map-marker').forEach(m=>{m.addEventListener('click',()=>setLocation(m.dataset.location));m.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();setLocation(m.dataset.location)}})});
