@@ -106,92 +106,125 @@
         <p>Our collection includes complete rural AV runs, comparable to existing data portals, plus focused records of the moments when automation degrades or requires driver takeover.</p>
       </div>
 
-      <div class="data-type-overview proposed-data-types" aria-label="Two proposed rural automated-vehicle data streams">
-        <article class="data-type-card failure-data-card">
+      <div class="data-type-overview proposed-data-types" role="tablist" aria-label="Proposed rural automated-vehicle data stream">
+        <button class="data-type-card collection-tab failure-data-card active" id="collection-tab-failure" type="button" role="tab" aria-selected="true" aria-controls="collection-failure" data-collection-tab="failure">
           <div class="data-type-meta"><span>01</span><small>FAILURE-EVENT DATA</small></div>
           <h3>Automation Failure Data<br />in Rural Areas</h3>
           <p>Event-centered records of system degradation, disengagement, driver takeover and recovery, linked to the rural scene that caused the intervention.</p>
           <div class="data-type-question"><small>PRIMARY QUESTION</small><strong>When and why can automation no longer continue?</strong></div>
           <div class="data-type-examples">Outputs · Failure scene · Takeover margin · Recovery</div>
-        </article>
-        <article class="data-type-card driving-data-card">
+        </button>
+        <button class="data-type-card collection-tab driving-data-card" id="collection-tab-driving" type="button" role="tab" aria-selected="false" aria-controls="collection-driving" data-collection-tab="driving" tabindex="-1">
           <div class="data-type-meta"><span>02</span><small>ROUTE-LEVEL DATA</small></div>
           <h3>Rural AV<br />Driving Data</h3>
           <p>Complete, repeated rural runs recording perception, localization, vehicle state, planning, control and road conditions in a portal-ready format.</p>
           <div class="data-type-question"><small>PRIMARY QUESTION</small><strong>How does an AV perform across rural roads?</strong></div>
           <div class="data-type-examples">Reference formats · ADS for Rural America · Automated Vehicles for All</div>
-        </article>
+        </button>
       </div>
 
-      <div class="plan-grid">
-        <div class="plan-manifesto">
-          <span class="manifesto-number">60</span>
-          <h3>planned paired runs</h3>
-          <p>3 fixed routes × 2 seasons × 5 repeated runs, collected in both human-driven and automated modes.</p>
-          <div class="range-bar"><span style="width:72%"></span></div>
-          <div class="range-label"><span>Estimated AV driving</span><strong>5–7.5 hours</strong></div>
-        </div>
-        <ol class="plan-steps">
-          <li><span>01</span><div><strong>Choose failure-edge routes</strong><p>Prioritize unmarked, narrow, damaged, unpaved or flooded road segments.</p></div></li>
-          <li><span>02</span><div><strong>Capture rural long-tail events</strong><p>Animals, agricultural machinery, slow-moving vehicles and limited visibility.</p></div></li>
-          <li><span>03</span><div><strong>Build event-centered records</strong><p>Synchronize the system state, rural scene and driver response before, during and after each takeover.</p></div></li>
-          <li><span>04</span><div><strong>Repeat and compare</strong><p>Pair human and AV runs on the same routes across seasons and infrastructure changes.</p></div></li>
-        </ol>
-      </div>
-
-      <div class="metric-intro">
-        <div>
-          <span class="metric-overline">Evaluation framework</span>
-          <h3>What made the driver take over?</h3>
-          <p>A takeover timestamp tells us <em>when</em> the driver intervened. The metrics below help explain <em>why</em>—whether the vehicle was running out of road space, approaching another vehicle, or losing system stability.</p>
-        </div>
-        <aside class="metric-principle">
-          <strong>No single metric determines safety.</strong>
-          <p>We use several signals together to find events that need review. The limits shown here are starting points from literature or simulation, not validated limits for our vehicle.</p>
-        </aside>
-      </div>
-
-      <div class="takeover-sequence" aria-label="How takeover metrics describe an event">
-        <div class="sequence-step"><span>01</span><div><small>System condition</small><strong>Performance begins to degrade</strong><p>Perception confidence or control quality changes.</p></div></div>
-        <div class="sequence-arrow" aria-hidden="true">→</div>
-        <div class="sequence-step"><span>02</span><div><small>Safety margin</small><strong>Available time becomes short</strong><p>Lane or following-distance risk increases.</p></div></div>
-        <div class="sequence-arrow" aria-hidden="true">→</div>
-        <div class="sequence-step"><span>03</span><div><small>Driver response</small><strong>The driver takes control</strong><p>We measure the remaining margin and recovery.</p></div></div>
-      </div>
-
-      <div class="metric-workspace">
-        <div class="metric-selector" role="tablist" aria-label="Takeover metric dimensions">
-          <button class="metric-tab active" type="button" role="tab" aria-selected="true" data-metric="tlc"><span>01</span><div><strong>Lane departure</strong><small>Time to Lane Crossing · TLC</small></div></button>
-          <button class="metric-tab" type="button" role="tab" aria-selected="false" data-metric="ttc"><span>02</span><div><strong>Closing conflict</strong><small>Inverse Time to Collision · invTTC</small></div></button>
-          <button class="metric-tab" type="button" role="tab" aria-selected="false" data-metric="control"><span>03</span><div><strong>Steering behavior</strong><small>Control oscillation</small></div></button>
-          <button class="metric-tab" type="button" role="tab" aria-selected="false" data-metric="odd"><span>04</span><div><strong>System degradation</strong><small>Perception + lateral stability</small></div></button>
-        </div>
-        <article class="metric-display" aria-live="polite">
-          <header class="metric-card-header">
-            <div><p class="metric-question-label">Question this metric answers</p><h3 id="metric-question">Is there enough time to keep the vehicle inside its lane?</h3></div>
-            <span class="metric-code-badge" id="metric-code">TLC</span>
-          </header>
-          <p class="metric-summary" id="metric-copy">TLC estimates how long it would take the vehicle to reach a lane boundary if its current motion continued without corrective steering.</p>
-          <div class="metric-reading-grid">
-            <section class="metric-read-block">
-              <p class="metric-block-label">How to read it</p>
-              <strong id="metric-direction">Smaller TLC = less time to react</strong>
-              <p id="metric-meaning">If the driver reacts late, little time may remain to prevent a lane departure.</p>
-            </section>
-            <section class="metric-threshold-block">
-              <p class="metric-block-label">Candidate screening rule</p>
-              <strong id="metric-threshold">TLC<sub>remaining</sub> &lt; 0.5 s</strong>
-              <p id="metric-note">Flag the event for closer review; calibrate with simulator and field data.</p>
-            </section>
+      <div class="collection-panel" id="collection-failure" role="tabpanel" aria-labelledby="collection-tab-failure" data-collection-panel="failure">
+        <div class="plan-grid">
+          <div class="plan-manifesto event-manifesto">
+            <span class="manifesto-number">EVENT</span>
+            <h3>takeover-centered records</h3>
+            <p>Each record preserves a synchronized window before, during and after system degradation, disengagement or driver intervention.</p>
+            <div class="range-bar"><span style="width:100%"></span></div>
+            <div class="range-label"><span>Primary outcome</span><strong>Takeover event</strong></div>
           </div>
-          <details class="metric-method">
-            <summary>Show calculation and terms</summary>
-            <div class="metric-method-content">
-              <div class="formula-wrap"><p class="metric-block-label">Calculation</p><div class="formula" id="metric-formula">TLC<sub>remaining</sub> = TLC<sub>at failure</sub> − driver reaction time</div></div>
-              <div class="term-list" id="metric-terms"><div><strong>TLC at failure</strong><span>Predicted time from automation failure to lane crossing.</span></div><div><strong>Driver reaction time</strong><span>Time between the failure and the driver's response.</span></div></div>
+          <ol class="plan-steps">
+            <li><span>01</span><div><strong>Detect system degradation</strong><p>Track perception quality, localization, planning behavior and control stability before intervention.</p></div></li>
+            <li><span>02</span><div><strong>Mark the takeover</strong><p>Align failure, warning, driver response and manual-control timestamps.</p></div></li>
+            <li><span>03</span><div><strong>Preserve the rural scene</strong><p>Retain road geometry, markings, surface condition, traffic, weather and long-tail objects.</p></div></li>
+            <li><span>04</span><div><strong>Measure recovery</strong><p>Record the remaining safety margin and how the vehicle stabilizes after the driver responds.</p></div></li>
+          </ol>
+        </div>
+
+        <div class="metric-intro">
+          <div>
+            <span class="metric-overline">Evaluation framework</span>
+            <h3>What made the driver take over?</h3>
+            <p>A takeover timestamp tells us <em>when</em> the driver intervened. The metrics below help explain <em>why</em>—whether the vehicle was running out of road space, approaching another vehicle, or losing system stability.</p>
+          </div>
+          <aside class="metric-principle">
+            <strong>No single metric determines safety.</strong>
+            <p>We use several signals together to find events that need review. The limits shown here are starting points from literature or simulation, not validated limits for our vehicle.</p>
+          </aside>
+        </div>
+
+        <div class="takeover-sequence" aria-label="How takeover metrics describe an event">
+          <div class="sequence-step"><span>01</span><div><small>System condition</small><strong>Performance begins to degrade</strong><p>Perception confidence or control quality changes.</p></div></div>
+          <div class="sequence-arrow" aria-hidden="true">→</div>
+          <div class="sequence-step"><span>02</span><div><small>Safety margin</small><strong>Available time becomes short</strong><p>Lane or following-distance risk increases.</p></div></div>
+          <div class="sequence-arrow" aria-hidden="true">→</div>
+          <div class="sequence-step"><span>03</span><div><small>Driver response</small><strong>The driver takes control</strong><p>We measure the remaining margin and recovery.</p></div></div>
+        </div>
+
+        <div class="metric-workspace">
+          <div class="metric-selector" role="tablist" aria-label="Takeover metric dimensions">
+            <button class="metric-tab active" type="button" role="tab" aria-selected="true" data-metric="tlc"><span>01</span><div><strong>Lane departure</strong><small>Time to Lane Crossing · TLC</small></div></button>
+            <button class="metric-tab" type="button" role="tab" aria-selected="false" data-metric="ttc"><span>02</span><div><strong>Closing conflict</strong><small>Inverse Time to Collision · invTTC</small></div></button>
+            <button class="metric-tab" type="button" role="tab" aria-selected="false" data-metric="control"><span>03</span><div><strong>Steering behavior</strong><small>Control oscillation</small></div></button>
+            <button class="metric-tab" type="button" role="tab" aria-selected="false" data-metric="odd"><span>04</span><div><strong>System degradation</strong><small>Perception + lateral stability</small></div></button>
+          </div>
+          <article class="metric-display" aria-live="polite">
+            <header class="metric-card-header">
+              <div><p class="metric-question-label">Question this metric answers</p><h3 id="metric-question">Is there enough time to keep the vehicle inside its lane?</h3></div>
+              <span class="metric-code-badge" id="metric-code">TLC</span>
+            </header>
+            <p class="metric-summary" id="metric-copy">TLC estimates how long it would take the vehicle to reach a lane boundary if its current motion continued without corrective steering.</p>
+            <div class="metric-reading-grid">
+              <section class="metric-read-block">
+                <p class="metric-block-label">How to read it</p>
+                <strong id="metric-direction">Smaller TLC = less time to react</strong>
+                <p id="metric-meaning">If the driver reacts late, little time may remain to prevent a lane departure.</p>
+              </section>
+              <section class="metric-threshold-block">
+                <p class="metric-block-label">Candidate screening rule</p>
+                <strong id="metric-threshold">TLC<sub>remaining</sub> &lt; 0.5 s</strong>
+                <p id="metric-note">Flag the event for closer review; calibrate with simulator and field data.</p>
+              </section>
             </div>
-          </details>
-        </article>
+            <details class="metric-method">
+              <summary>Show calculation and terms</summary>
+              <div class="metric-method-content">
+                <div class="formula-wrap"><p class="metric-block-label">Calculation</p><div class="formula" id="metric-formula">TLC<sub>remaining</sub> = TLC<sub>at failure</sub> − driver reaction time</div></div>
+                <div class="term-list" id="metric-terms"><div><strong>TLC at failure</strong><span>Predicted time from automation failure to lane crossing.</span></div><div><strong>Driver reaction time</strong><span>Time between the failure and the driver's response.</span></div></div>
+              </div>
+            </details>
+          </article>
+        </div>
+      </div>
+
+      <div class="collection-panel route-collection-panel" id="collection-driving" role="tabpanel" aria-labelledby="collection-tab-driving" data-collection-panel="driving" hidden>
+        <div class="plan-grid">
+          <div class="plan-manifesto">
+            <span class="manifesto-number">60</span>
+            <h3>planned paired runs</h3>
+            <p>3 fixed routes × 2 seasons × 5 repeated runs, collected in both human-driven and automated modes.</p>
+            <div class="range-bar"><span style="width:72%"></span></div>
+            <div class="range-label"><span>Estimated AV driving</span><strong>5–7.5 hours</strong></div>
+          </div>
+          <ol class="plan-steps">
+            <li><span>01</span><div><strong>Fix the route design</strong><p>Use three rural routes that capture variation in road type, infrastructure and operating conditions.</p></div></li>
+            <li><span>02</span><div><strong>Pair the driving modes</strong><p>Collect human-driven and automated runs on the same routes under comparable conditions.</p></div></li>
+            <li><span>03</span><div><strong>Repeat across seasons</strong><p>Two seasons × five repetitions reveal variability instead of presenting a single demonstration.</p></div></li>
+            <li><span>04</span><div><strong>Publish synchronized runs</strong><p>Organize sensor, vehicle, control and road-condition streams for portal-style access and reuse.</p></div></li>
+          </ol>
+        </div>
+
+        <div class="route-data-intro">
+          <span class="metric-overline">Run-level data package</span>
+          <h3>What each rural run records</h3>
+          <p>Every repeated run links what the vehicle sensed, where it was, what the automated driving system planned, and how the vehicle responded.</p>
+        </div>
+        <div class="route-data-grid">
+          <article><span>01</span><h4>Perception &amp; scene</h4><p>Camera, LiDAR, radar, detected objects, lane boundaries and drivable space.</p></article>
+          <article><span>02</span><h4>Localization &amp; trajectory</h4><p>GNSS/IMU, pose, route, planned trajectory and realized vehicle path.</p></article>
+          <article><span>03</span><h4>Vehicle &amp; control</h4><p>CAN data, speed, acceleration, steering, commanded states and measured response.</p></article>
+          <article><span>04</span><h4>Road, environment &amp; driver</h4><p>Road type, surface condition, weather, automation status and human/AV driving mode.</p></article>
+        </div>
+        <p class="route-data-note">Designed for portal-style browsing and reuse, following the data organization examples of ADS for Rural America and Automated Vehicles for All (AVA).</p>
       </div>
     </section>
 
