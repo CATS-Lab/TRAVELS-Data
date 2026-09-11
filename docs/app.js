@@ -1,14 +1,44 @@
 const locations = {
-  iowa: { kicker: 'SITE 01 · PUBLIC RUN DETAIL', title: 'Iowa', context: 'Eastern Iowa', description: 'A 47-mile mixed route connects Iowa City, Hills, Riverside and Kalona across urban, small-town and rural roads.', facts: [['Program','ADS for Rural America'],['Public record','80 completed drives'],['Roads','Highway · gravel · unmarked']] },
-  texas: { kicker: 'SITE 02 · PUBLIC RUN DETAIL', title: 'Texas', context: 'Bryan area', description: 'Four AVA portal runs organize rural driving by pavement condition, from good pavement to severely degraded roads.', facts: [['Program','Automated Vehicles for All'],['Public record','4 portal runs'],['Focus','Trajectory · planning · control']] },
-  illinois: { kicker: 'SITE 03 · PROGRAM COVERAGE', title: 'Illinois', context: 'State-level coverage', description: 'Illinois is named in the AVA multi-university program footprint. The working deck does not identify a specific public route here.', facts: [['Program','AVA'],['Detail level','Program-reported'],['Status','Route detail to verify']] },
-  virginia: { kicker: 'SITE 04 · PROGRAM COVERAGE', title: 'Virginia', context: 'Northern Virginia', description: 'Northern Virginia is listed among AVA collection locations; route-level information is not specified in the working deck.', facts: [['Program','AVA'],['Detail level','Program-reported'],['Status','Route detail to verify']] },
-  dc: { kicker: 'SITE 05 · PROGRAM COVERAGE', title: 'Washington, D.C.', context: 'District-level coverage', description: 'Washington, D.C. appears in the AVA project collection footprint and is retained here as contextual program coverage.', facts: [['Program','AVA'],['Detail level','Program-reported'],['Status','Route detail to verify']] }
+  iowa: {
+    kicker: 'SITE 01 · PUBLIC RUN DETAIL', title: 'Iowa', context: 'Eastern Iowa',
+    description: 'A 47-mile mixed route connects Iowa City, Hills, Riverside and Kalona across urban, small-town and rural roads.',
+    facts: [['Program','ADS for Rural America'],['Public record','80 completed drives'],['Roads','Highway · gravel · unmarked']],
+    stats: [['47 mi','mixed-road route'],['80','completed drives'],['6','collection phases'],['2021–23','collection period']],
+    link: 'https://data.adsforruralamerica.uiowa.edu/', linkLabel: 'Open ADS for Rural America data ↗'
+  },
+  texas: {
+    kicker: 'SITE 02 · PUBLIC RUN DETAIL', title: 'Texas', context: 'Bryan area',
+    description: 'Four Automated Vehicles for All portal runs organize rural driving by pavement condition, from good pavement to severely degraded roads.',
+    facts: [['Program','Automated Vehicles for All (AVA)'],['Public record','4 portal runs'],['Focus','Trajectory · planning · control']],
+    stats: [['4','portal runs'],['2024–25','collection dates'],['2','good-pavement runs'],['2','degraded-road runs']],
+    link: 'https://avadataportal.web.illinois.edu/visualization.html', linkLabel: 'Open Automated Vehicles for All data ↗'
+  },
+  illinois: {
+    kicker: 'SITE 03 · PROGRAM COVERAGE', title: 'Illinois', context: 'State-level coverage',
+    description: 'Illinois is named in the Automated Vehicles for All multi-university program footprint. The working deck does not identify a specific public route here.',
+    facts: [['Program','Automated Vehicles for All (AVA)'],['Detail level','Program-reported'],['Status','Route detail to verify']],
+    stats: [['IL','reported location'],['AVA','Automated Vehicles for All'],['Program','coverage level'],['—','public route not specified']],
+    link: 'https://avadataportal.web.illinois.edu/visualization.html', linkLabel: 'Open Automated Vehicles for All data ↗'
+  },
+  virginia: {
+    kicker: 'SITE 04 · PROGRAM COVERAGE', title: 'Virginia', context: 'Northern Virginia',
+    description: 'Northern Virginia is listed among Automated Vehicles for All collection locations; route-level information is not specified in the working deck.',
+    facts: [['Program','Automated Vehicles for All (AVA)'],['Detail level','Program-reported'],['Status','Route detail to verify']],
+    stats: [['VA','reported location'],['AVA','Automated Vehicles for All'],['Program','coverage level'],['—','public route not specified']],
+    link: 'https://avadataportal.web.illinois.edu/visualization.html', linkLabel: 'Open Automated Vehicles for All data ↗'
+  },
+  dc: {
+    kicker: 'SITE 05 · PROGRAM COVERAGE', title: 'Washington, D.C.', context: 'District-level coverage',
+    description: 'Washington, D.C. appears in the Automated Vehicles for All collection footprint and is retained here as contextual program coverage.',
+    facts: [['Program','Automated Vehicles for All (AVA)'],['Detail level','Program-reported'],['Status','Route detail to verify']],
+    stats: [['D.C.','reported location'],['AVA','Automated Vehicles for All'],['Program','coverage level'],['—','public route not specified']],
+    link: 'https://avadataportal.web.illinois.edu/visualization.html', linkLabel: 'Open Automated Vehicles for All data ↗'
+  }
 };
 
 const datasets = {
   iowa: {
-    tab: 'tab-iowa', org: 'University of Iowa · DSRI', name: 'ADS for Rural America', intro: 'A multimodal record linking road conditions, vehicle behavior, Apollo automation and people across six collection phases.',
+    tab: 'tab-iowa', org: 'University of Iowa · DSRI', name: 'ADS for Rural America', intro: 'Public multimodal driving data connecting automation performance with vehicle, roadway, environmental and human-factor measurements.', link: 'https://data.adsforruralamerica.uiowa.edu/', linkLabel: 'Open ADS data portal ↗',
     modalities: [
       ['01','Perception','Camera video · VLP-32C and VLP-16 LiDAR · ARS 408-21 radar · Mobileye 6'],
       ['02','Localization & vehicle','NovAtel GNSS/IMU · CAN · PACMod feedback · HD map'],
@@ -17,7 +47,7 @@ const datasets = {
     ]
   },
   ava: {
-    tab: 'tab-ava', org: 'Texas A&M–led collaboration', name: 'Automated Vehicles for All', intro: 'Rural-road perception, trajectory and vehicle-control data designed for roads without dependable HD maps.',
+    tab: 'tab-ava', org: 'Texas A&M–led collaboration', name: 'Automated Vehicles for All (AVA)', intro: 'Rural-driving data and playback centered on perception, motion planning, control, trajectory and vehicle performance.', link: 'https://avadataportal.web.illinois.edu/visualization.html', linkLabel: 'Open AVA Data Hub ↗',
     modalities: [
       ['01','Perception','Camera imagery · LiDAR · radar · multi-sensor fusion'],
       ['02','Localization & trajectory','GPS/IMU · NovAtel odometry · smoothed trajectories · UTM Zone 14N'],
@@ -78,13 +108,15 @@ function setLocation(key){
   document.querySelector('#location-context').textContent=item.context;
   document.querySelector('#location-description').textContent=item.description;
   document.querySelector('#location-facts').innerHTML=item.facts.map(([a,b])=>`<div><dt>${a}</dt><dd>${b}</dd></div>`).join('');
-  document.querySelector('[data-dataset-target]').dataset.datasetTarget=key==='iowa'?'iowa':'ava';
+  document.querySelector('#location-stats').innerHTML=item.stats.map(([value,label])=>`<div><strong>${value}</strong><span>${label}</span></div>`).join('');
+  const link=document.querySelector('#location-link');link.href=item.link;link.textContent=item.linkLabel;
 }
 function setDataset(key){
   const d=datasets[key];
   document.querySelectorAll('[data-dataset]').forEach(b=>{const on=b.dataset.dataset===key;b.setAttribute('aria-selected',on);});
   const panel=document.querySelector('#dataset-panel');panel.setAttribute('aria-labelledby',d.tab);
   document.querySelector('#dataset-org').textContent=d.org;document.querySelector('#dataset-name').textContent=d.name;document.querySelector('#dataset-intro').textContent=d.intro;
+  const link=document.querySelector('#dataset-link');link.href=d.link;link.textContent=d.linkLabel;
   document.querySelector('#modality-grid').innerHTML=d.modalities.map(([n,t,p])=>`<div class="modality"><small>${n}</small><strong>${t}</strong><p>${p}</p></div>`).join('');
 }
 function setMetric(key){
@@ -108,7 +140,6 @@ function setStack(key){
 document.querySelectorAll('.map-marker').forEach(m=>{m.addEventListener('click',()=>setLocation(m.dataset.location));m.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();setLocation(m.dataset.location)}})});
 document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-filter]').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.map-marker').forEach(m=>m.classList.toggle('is-hidden',b.dataset.filter!=='all'&&!m.classList.contains(`${b.dataset.filter}-marker`)))}));
 document.querySelectorAll('[data-dataset]').forEach(b=>b.addEventListener('click',()=>setDataset(b.dataset.dataset)));
-document.querySelector('[data-dataset-target]').addEventListener('click',e=>{setDataset(e.currentTarget.dataset.datasetTarget);document.querySelector('.dataset-tabs').scrollIntoView({behavior:'smooth',block:'center'})});
 document.querySelectorAll('[data-metric]').forEach(b=>b.addEventListener('click',()=>setMetric(b.dataset.metric)));
 document.querySelectorAll('[data-stack]').forEach(b=>b.addEventListener('click',()=>setStack(b.dataset.stack)));
 const menu=document.querySelector('.menu-button');menu.addEventListener('click',()=>{const nav=document.querySelector('.main-nav');const open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',open)});document.querySelectorAll('.main-nav a').forEach(a=>a.addEventListener('click',()=>{document.querySelector('.main-nav').classList.remove('open');menu.setAttribute('aria-expanded','false')}));
