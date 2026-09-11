@@ -1,9 +1,9 @@
 const locations = {
-  iowa: { kicker: 'PUBLIC RUN DETAIL', title: 'Eastern Iowa', description: 'A 47-mile mixed route connects Iowa City, Hills, Riverside and Kalona across urban, small-town and rural roads.', facts: [['Program','ADS for Rural America'],['Public record','80 completed drives'],['Roads','Highway · gravel · unmarked']] },
-  texas: { kicker: 'PUBLIC RUN DETAIL', title: 'Bryan, Texas', description: 'Four AVA portal runs organize rural driving by pavement condition, from good pavement to severely degraded roads.', facts: [['Program','Automated Vehicles for All'],['Public record','4 portal runs'],['Focus','Trajectory · planning · control']] },
-  illinois: { kicker: 'PROGRAM COVERAGE', title: 'Illinois', description: 'Illinois is named in the AVA multi-university program footprint. The working deck does not identify a specific public route here.', facts: [['Program','AVA'],['Detail level','Program-reported'],['Status','Route detail to verify']] },
-  virginia: { kicker: 'PROGRAM COVERAGE', title: 'Northern Virginia', description: 'Northern Virginia is listed among AVA collection locations; route-level information is not specified in the working deck.', facts: [['Program','AVA'],['Detail level','Program-reported'],['Status','Route detail to verify']] },
-  dc: { kicker: 'PROGRAM COVERAGE', title: 'Washington, D.C.', description: 'Washington, D.C. appears in the AVA project collection footprint and is retained here as contextual program coverage.', facts: [['Program','AVA'],['Detail level','Program-reported'],['Status','Route detail to verify']] }
+  iowa: { kicker: 'SITE 01 · PUBLIC RUN DETAIL', title: 'Iowa', context: 'Eastern Iowa', description: 'A 47-mile mixed route connects Iowa City, Hills, Riverside and Kalona across urban, small-town and rural roads.', facts: [['Program','ADS for Rural America'],['Public record','80 completed drives'],['Roads','Highway · gravel · unmarked']] },
+  texas: { kicker: 'SITE 02 · PUBLIC RUN DETAIL', title: 'Texas', context: 'Bryan area', description: 'Four AVA portal runs organize rural driving by pavement condition, from good pavement to severely degraded roads.', facts: [['Program','Automated Vehicles for All'],['Public record','4 portal runs'],['Focus','Trajectory · planning · control']] },
+  illinois: { kicker: 'SITE 03 · PROGRAM COVERAGE', title: 'Illinois', context: 'State-level coverage', description: 'Illinois is named in the AVA multi-university program footprint. The working deck does not identify a specific public route here.', facts: [['Program','AVA'],['Detail level','Program-reported'],['Status','Route detail to verify']] },
+  virginia: { kicker: 'SITE 04 · PROGRAM COVERAGE', title: 'Virginia', context: 'Northern Virginia', description: 'Northern Virginia is listed among AVA collection locations; route-level information is not specified in the working deck.', facts: [['Program','AVA'],['Detail level','Program-reported'],['Status','Route detail to verify']] },
+  dc: { kicker: 'SITE 05 · PROGRAM COVERAGE', title: 'Washington, D.C.', context: 'District-level coverage', description: 'Washington, D.C. appears in the AVA project collection footprint and is retained here as contextual program coverage.', facts: [['Program','AVA'],['Detail level','Program-reported'],['Status','Route detail to verify']] }
 };
 
 const datasets = {
@@ -75,6 +75,7 @@ function setLocation(key){
   const item=locations[key]; if(!item) return;
   document.querySelector('#location-kicker').textContent=item.kicker;
   document.querySelector('#location-title').textContent=item.title;
+  document.querySelector('#location-context').textContent=item.context;
   document.querySelector('#location-description').textContent=item.description;
   document.querySelector('#location-facts').innerHTML=item.facts.map(([a,b])=>`<div><dt>${a}</dt><dd>${b}</dd></div>`).join('');
   document.querySelector('[data-dataset-target]').dataset.datasetTarget=key==='iowa'?'iowa':'ava';
