@@ -170,6 +170,20 @@ function setDataset(key){
   const link=document.querySelector('#dataset-link');link.href=d.link;link.textContent=d.linkLabel;
   document.querySelector('#modality-grid').innerHTML=d.modalities.map(([n,t,p])=>`<div class="modality"><small>${n}</small><strong>${t}</strong><p>${p}</p></div>`).join('');
 }
+function setCollection(key,focus=false){
+  let activeTab=null;
+  document.querySelectorAll('[data-collection-tab]').forEach(tab=>{
+    const on=tab.dataset.collectionTab===key;
+    tab.classList.toggle('active',on);
+    tab.setAttribute('aria-selected',on);
+    tab.tabIndex=on?0:-1;
+    if(on) activeTab=tab;
+  });
+  document.querySelectorAll('[data-collection-panel]').forEach(panel=>{
+    panel.hidden=panel.dataset.collectionPanel!==key;
+  });
+  if(focus&&activeTab) activeTab.focus();
+}
 function setMetric(key){
   const m=metrics[key];document.querySelectorAll('[data-metric]').forEach(b=>{const on=b.dataset.metric===key;b.classList.toggle('active',on);b.setAttribute('aria-selected',on)});
   document.querySelector('#metric-code').textContent=m.code;
@@ -192,7 +206,20 @@ function setStack(key){
 document.querySelectorAll('.map-marker').forEach(m=>{m.addEventListener('click',()=>setLocation(m.dataset.location));m.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();setLocation(m.dataset.location)}})});
 document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-filter]').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.map-marker').forEach(m=>m.classList.toggle('is-hidden',b.dataset.filter!=='all'&&!m.classList.contains(`${b.dataset.filter}-marker`)))}));
 document.querySelectorAll('[data-dataset]').forEach(b=>b.addEventListener('click',()=>setDataset(b.dataset.dataset)));
+document.querySelectorAll('[data-collection-tab]').forEach((tab,index,tabs)=>{
+  tab.addEventListener('click',()=>setCollection(tab.dataset.collectionTab));
+  tab.addEventListener('keydown',event=>{
+    if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key)) return;
+    event.preventDefault();
+    let next=index;
+    if(event.key==='ArrowLeft') next=(index-1+tabs.length)%tabs.length;
+    if(event.key==='ArrowRight') next=(index+1)%tabs.length;
+    if(event.key==='Home') next=0;
+    if(event.key==='End') next=tabs.length-1;
+    setCollection(tabs[next].dataset.collectionTab,true);
+  });
+});
 document.querySelectorAll('[data-metric]').forEach(b=>b.addEventListener('click',()=>setMetric(b.dataset.metric)));
 document.querySelectorAll('[data-stack]').forEach(b=>b.addEventListener('click',()=>setStack(b.dataset.stack)));
 const menu=document.querySelector('.menu-button');menu.addEventListener('click',()=>{const nav=document.querySelector('.main-nav');const open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',open)});document.querySelectorAll('.main-nav a').forEach(a=>a.addEventListener('click',()=>{document.querySelector('.main-nav').classList.remove('open');menu.setAttribute('aria-expanded','false')}));
-setDataset('iowa');setMetric('tlc');setStack('dataspeed');
+setDataset('iowa');setCollection('failure');setMetric('tlc');setStack('dataspeed');
