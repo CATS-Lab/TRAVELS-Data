@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="An interactive overview of rural automated-driving datasets, a takeover-centered collection plan, and the DataSpeed and Autoware development stacks." />
+  <meta name="description" content="An interactive overview of rural AV driving data, automation-failure data collection, and the DataSpeed and Autoware development stacks." />
   <meta name="theme-color" content="#111111" />
   <title>Rural AV Research Atlas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,8 +20,8 @@
     </a>
     <button class="menu-button" type="button" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
     <nav class="main-nav" aria-label="Primary navigation">
-      <a href="#data">Data</a>
-      <a href="#collection-plan">Collection plan</a>
+      <a href="#data">Data collection</a>
+      <a href="#collection-plan">Failure data</a>
       <a href="#av-stack">AV Stack</a>
       <a href="#sources">Sources</a>
     </nav>
@@ -31,8 +31,30 @@
   <main id="main">
     <section class="section" id="data">
       <div class="section-heading">
-        <div><p class="eyebrow">Part 01 · Data landscape</p><h2>Where rural AV data exists</h2></div>
-        <p>Two public programs provide complementary evidence: Iowa contributes multimodal automation and human-factor records; AVA emphasizes rural-road perception, trajectory and control.</p>
+        <div><p class="eyebrow">Part 01 · Data collection</p><h2>Two types of rural AV data</h2></div>
+        <p>Existing portals document how automated vehicles operate across rural routes. Our collection targets the complementary evidence that is hardest to find: what happens when automation reaches its limit.</p>
+      </div>
+
+      <div class="data-type-overview" aria-label="Two rural automated-vehicle data types">
+        <article class="data-type-card driving-data-card">
+          <div class="data-type-meta"><span>01</span><small>EXISTING PUBLIC DATA</small></div>
+          <h3>Rural AV<br />Driving Data</h3>
+          <p>Continuous or run-level records of perception, localization, vehicle state, planning, control, road conditions and human response during rural operation.</p>
+          <div class="data-type-question"><small>PRIMARY QUESTION</small><strong>How does an AV perform across rural roads?</strong></div>
+          <div class="data-type-examples">Examples · ADS for Rural America · Automated Vehicles for All</div>
+        </article>
+        <article class="data-type-card failure-data-card">
+          <div class="data-type-meta"><span>02</span><small>PROPOSED DATA</small></div>
+          <h3>Automation Failure Data<br />in Rural Areas</h3>
+          <p>Event-centered records of system degradation, disengagement, driver takeover and recovery, linked to the rural scene that caused the intervention.</p>
+          <div class="data-type-question"><small>PRIMARY QUESTION</small><strong>When and why can automation no longer continue?</strong></div>
+          <div class="data-type-examples">Outputs · Failure scene · Takeover margin · Recovery</div>
+        </article>
+      </div>
+
+      <div class="data-section-intro" id="rural-driving-data">
+        <div><span>Type 01 · Existing public datasets</span><h3>Rural AV driving data</h3></div>
+        <p>These sources describe complete trips or selected runs across rural roads. The map summarizes reported collection locations; the profiles show what each portal records.</p>
       </div>
 
       <div class="map-toolbar" role="group" aria-label="Map filters">
@@ -46,7 +68,7 @@
           <div class="map-title-row"><span>United States · reported collection footprint</span><span class="map-scale">Not a route map</span></div>
           <svg class="us-map" viewBox="0 0 940 560" role="img" aria-labelledby="map-title map-desc">
             <title id="map-title">United States map of rural automated-driving data collection</title>
-            <desc id="map-desc">Primary public run locations in eastern Iowa and near Bryan, Texas, with additional AVA program coverage noted in Illinois, Northern Virginia, and Washington, D.C.</desc>
+            <desc id="map-desc">Primary public run locations in eastern Iowa and near Bryan, Texas, with additional Automated Vehicles for All program coverage noted in Illinois, Northern Virginia, and Washington, D.C.</desc>
             <path class="map-land" d="M111 119L151 103L194 113L230 105L268 121L310 116L349 132L393 121L438 139L481 132L514 148L567 139L601 154L648 143L679 161L712 156L749 172L797 175L824 195L814 222L830 246L805 267L795 296L767 311L754 344L722 355L709 387L678 401L650 427L608 422L583 445L548 438L511 459L474 448L432 462L396 441L360 447L328 429L289 431L254 412L224 419L202 392L170 381L155 349L132 331L139 296L117 269L125 240L105 209L119 181L101 150Z" />
             <path class="map-water" d="M540 157c16-17 45-16 64-1 10 8 16 23 6 33-11 11-30 2-41 11-8 7-6 19-12 27-10 12-31 9-39-4-8-14 3-30 11-41 5-7 5-17 11-25z" />
             <path class="map-grid" d="M179 117l6 270M249 113l1 303M319 119l-3 311M389 124l4 316M461 137l-2 311M531 145l12 291M604 151l20 269M680 163l18 222M135 206l678 20M131 286l660 13M160 359l576-4" />
@@ -78,32 +100,32 @@
             <div><dt>Public record</dt><dd>80 completed drives</dd></div>
             <div><dt>Roads</dt><dd>Highway · gravel · unmarked</dd></div>
           </dl>
-          <button class="text-button" type="button" data-dataset-target="iowa">Open dataset profile →</button>
+          <a class="text-button" id="location-link" href="https://data.adsforruralamerica.uiowa.edu/" target="_blank" rel="noopener">Open ADS for Rural America data ↗</a>
         </aside>
       </div>
 
-      <div class="stat-strip">
+      <div class="stat-strip" id="location-stats" aria-live="polite">
         <div><strong>47 mi</strong><span>Iowa mixed-road route</span></div>
         <div><strong>80</strong><span>completed Iowa drives</span></div>
-        <div><strong>4</strong><span>AVA portal runs shown</span></div>
-        <div><strong>2021–25</strong><span>combined public coverage</span></div>
+        <div><strong>6</strong><span>collection phases</span></div>
+        <div><strong>2021–23</strong><span>collection period</span></div>
       </div>
 
-      <div class="subsection-heading"><div><span>Dataset profiles</span><h3>Complementary evidence, different strengths</h3></div><p>Select a profile to compare the modalities that are publicly described.</p></div>
+      <div class="subsection-heading"><div><span>Public data portals</span><h3>Two examples of rural AV driving data</h3></div><p>Select a profile to compare the data recorded by ADS for Rural America and Automated Vehicles for All (AVA).</p></div>
       <div class="dataset-tabs" role="tablist" aria-label="Dataset profile">
         <button role="tab" aria-selected="true" aria-controls="dataset-panel" id="tab-iowa" data-dataset="iowa" type="button"><span>01</span> ADS for Rural America</button>
-        <button role="tab" aria-selected="false" aria-controls="dataset-panel" id="tab-ava" data-dataset="ava" type="button"><span>02</span> AVA</button>
+        <button role="tab" aria-selected="false" aria-controls="dataset-panel" id="tab-ava" data-dataset="ava" type="button"><span>02</span> Automated Vehicles for All (AVA)</button>
       </div>
       <article class="dataset-panel" id="dataset-panel" role="tabpanel" aria-labelledby="tab-iowa">
-        <div class="dataset-summary"><p class="eyebrow" id="dataset-org">University of Iowa · DSRI</p><h3 id="dataset-name">ADS for Rural America</h3><p id="dataset-intro">A multimodal record linking road conditions, vehicle behavior, Apollo automation and people across six collection phases.</p></div>
+        <div class="dataset-summary"><p class="eyebrow" id="dataset-org">University of Iowa · DSRI</p><h3 id="dataset-name">ADS for Rural America</h3><p id="dataset-intro">Public multimodal driving data connecting automation performance with vehicle, roadway, environmental and human-factor measurements.</p><a class="portal-link" id="dataset-link" href="https://data.adsforruralamerica.uiowa.edu/" target="_blank" rel="noopener">Open ADS data portal ↗</a></div>
         <div class="modality-grid" id="modality-grid"></div>
       </article>
     </section>
 
     <section class="section dark-section" id="collection-plan">
       <div class="section-heading light">
-        <div><p class="eyebrow">Part 02 · Collection plan</p><h2>Collect where automation fails</h2></div>
-        <p>Extend existing rural datasets with synchronized, event-centered records around takeover and disengagement—rather than collecting more routine driving alone.</p>
+        <div><p class="eyebrow">Type 02 · Proposed collection</p><h2>Automation Failure Data in Rural Areas</h2></div>
+        <p>Existing portals describe rural driving broadly. Our planned dataset isolates the safety-critical moments when automation degrades, disengages or requires driver takeover—and preserves the context before and after each event.</p>
       </div>
 
       <div class="plan-grid">
@@ -117,7 +139,7 @@
         <ol class="plan-steps">
           <li><span>01</span><div><strong>Choose failure-edge routes</strong><p>Prioritize unmarked, narrow, damaged, unpaved or flooded road segments.</p></div></li>
           <li><span>02</span><div><strong>Capture rural long-tail events</strong><p>Animals, agricultural machinery, slow-moving vehicles and limited visibility.</p></div></li>
-          <li><span>03</span><div><strong>Center each record on takeover</strong><p>Synchronize context before, during and after disengagement or driver intervention.</p></div></li>
+          <li><span>03</span><div><strong>Build event-centered records</strong><p>Synchronize the system state, rural scene and driver response before, during and after each takeover.</p></div></li>
           <li><span>04</span><div><strong>Repeat and compare</strong><p>Pair human and AV runs on the same routes across seasons and infrastructure changes.</p></div></li>
         </ol>
       </div>
