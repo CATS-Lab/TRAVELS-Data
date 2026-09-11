@@ -20,8 +20,8 @@
     </a>
     <button class="menu-button" type="button" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
     <nav class="main-nav" aria-label="Primary navigation">
-      <a href="#data">Data collection</a>
-      <a href="#collection-plan">Failure data</a>
+      <a href="#data">Existing data</a>
+      <a href="#collection-plan">Proposed collection</a>
       <a href="#av-stack">AV Stack</a>
       <a href="#sources">Sources</a>
     </nav>
@@ -31,30 +31,8 @@
   <main id="main">
     <section class="section" id="data">
       <div class="section-heading">
-        <div><p class="eyebrow">Part 01 · Data collection</p><h2>Two types of rural AV data</h2></div>
-        <p>Existing portals document how automated vehicles operate across rural routes. Our collection targets the complementary evidence that is hardest to find: what happens when automation reaches its limit.</p>
-      </div>
-
-      <div class="data-type-overview" aria-label="Two rural automated-vehicle data types">
-        <article class="data-type-card driving-data-card">
-          <div class="data-type-meta"><span>01</span><small>EXISTING PUBLIC DATA</small></div>
-          <h3>Rural AV<br />Driving Data</h3>
-          <p>Continuous or run-level records of perception, localization, vehicle state, planning, control, road conditions and human response during rural operation.</p>
-          <div class="data-type-question"><small>PRIMARY QUESTION</small><strong>How does an AV perform across rural roads?</strong></div>
-          <div class="data-type-examples">Examples · ADS for Rural America · Automated Vehicles for All</div>
-        </article>
-        <article class="data-type-card failure-data-card">
-          <div class="data-type-meta"><span>02</span><small>PROPOSED DATA</small></div>
-          <h3>Automation Failure Data<br />in Rural Areas</h3>
-          <p>Event-centered records of system degradation, disengagement, driver takeover and recovery, linked to the rural scene that caused the intervention.</p>
-          <div class="data-type-question"><small>PRIMARY QUESTION</small><strong>When and why can automation no longer continue?</strong></div>
-          <div class="data-type-examples">Outputs · Failure scene · Takeover margin · Recovery</div>
-        </article>
-      </div>
-
-      <div class="data-section-intro" id="rural-driving-data">
-        <div><span>Type 01 · Existing public datasets</span><h3>Rural AV driving data</h3></div>
-        <p>These sources describe complete trips or selected runs across rural roads. The map summarizes reported collection locations; the profiles show what each portal records.</p>
+        <div><p class="eyebrow">Part 01 · Existing data landscape</p><h2>Where rural AV data exists</h2></div>
+        <p>ADS for Rural America and Automated Vehicles for All (AVA) provide examples of route-level rural driving data, including vehicle, environment, perception, trajectory and control records.</p>
       </div>
 
       <div class="map-toolbar" role="group" aria-label="Map filters">
@@ -124,8 +102,25 @@
 
     <section class="section dark-section" id="collection-plan">
       <div class="section-heading light">
-        <div><p class="eyebrow">Type 02 · Proposed collection</p><h2>Automation Failure Data in Rural Areas</h2></div>
-        <p>Existing portals describe rural driving broadly. Our planned dataset isolates the safety-critical moments when automation degrades, disengages or requires driver takeover—and preserves the context before and after each event.</p>
+        <div><p class="eyebrow">Part 02 · Proposed collection</p><h2>Two complementary data streams</h2></div>
+        <p>Our collection includes complete rural AV runs, comparable to existing data portals, plus focused records of the moments when automation degrades or requires driver takeover.</p>
+      </div>
+
+      <div class="data-type-overview proposed-data-types" aria-label="Two proposed rural automated-vehicle data streams">
+        <article class="data-type-card failure-data-card">
+          <div class="data-type-meta"><span>01</span><small>FAILURE-EVENT DATA</small></div>
+          <h3>Automation Failure Data<br />in Rural Areas</h3>
+          <p>Event-centered records of system degradation, disengagement, driver takeover and recovery, linked to the rural scene that caused the intervention.</p>
+          <div class="data-type-question"><small>PRIMARY QUESTION</small><strong>When and why can automation no longer continue?</strong></div>
+          <div class="data-type-examples">Outputs · Failure scene · Takeover margin · Recovery</div>
+        </article>
+        <article class="data-type-card driving-data-card">
+          <div class="data-type-meta"><span>02</span><small>ROUTE-LEVEL DATA</small></div>
+          <h3>Rural AV<br />Driving Data</h3>
+          <p>Complete, repeated rural runs recording perception, localization, vehicle state, planning, control and road conditions in a portal-ready format.</p>
+          <div class="data-type-question"><small>PRIMARY QUESTION</small><strong>How does an AV perform across rural roads?</strong></div>
+          <div class="data-type-examples">Reference formats · ADS for Rural America · Automated Vehicles for All</div>
+        </article>
       </div>
 
       <div class="plan-grid">
