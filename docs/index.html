@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="An interactive overview of rural AV driving data, automation-failure data collection, and the DataSpeed and Autoware development stacks." />
+  <meta name="description" content="A comparison of existing rural automated-vehicle datasets and a proposed framework for linked raw, processed, infrastructure, and disengagement-event data." />
   <meta name="theme-color" content="#111111" />
-  <title>Rural AV Research Atlas</title>
+  <title>Rural AV Data Collection Framework</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -14,258 +14,311 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header" id="top">
-    <a class="brand" href="#top" aria-label="Rural AV Research Atlas home">
+    <a class="brand" href="#overview" aria-label="Rural AV Data Collection Framework home">
       <span class="brand-mark" aria-hidden="true">R</span>
-      <span><strong>Rural AV</strong><small>Research Atlas</small></span>
+      <span><strong>Rural AV</strong><small>Data Framework</small></span>
     </a>
     <button class="menu-button" type="button" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
     <nav class="main-nav" aria-label="Primary navigation">
-      <a href="#data">Existing data</a>
-      <a href="#collection-plan">Proposed collection</a>
-      <a href="#av-stack">AV Stack</a>
+      <a href="#existing-data">Existing data</a>
+      <a href="#collection-plan">Data products</a>
+      <a href="#disengagement">Disengagement</a>
+      <a href="#data-pipeline">Data pipeline</a>
       <a href="#sources">Sources</a>
     </nav>
     <span class="issue-tag">Research workspace · 2026</span>
   </header>
 
   <main id="main">
-    <section class="section" id="data">
+    <section class="purpose-hero" id="overview">
+      <div class="hero-copy">
+        <p class="eyebrow">Rural automated driving research</p>
+        <h1>Rural AV data,<br /><span>from evidence to collection.</span></h1>
+        <p class="hero-purpose">This page summarizes publicly available rural automated-vehicle datasets and presents our proposed framework for collecting linked raw, processed, infrastructure, and disengagement-event data.</p>
+      </div>
+      <div class="hero-path" aria-label="Page research flow">
+        <div><span>01</span><strong>Compare public datasets</strong><small>What already exists?</small></div>
+        <i aria-hidden="true">→</i>
+        <div><span>02</span><strong>Define four data products</strong><small>What will we deliver?</small></div>
+        <i aria-hidden="true">→</i>
+        <div><span>03</span><strong>Study disengagement</strong><small>How and why does automation end?</small></div>
+      </div>
+      <div class="hero-stats" aria-label="Page scope">
+        <div><strong>02</strong><span>public dataset programs reviewed</span></div>
+        <div><strong>04</strong><span>linked planned data products</span></div>
+        <div><strong>01</strong><span>central event unit: disengagement</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="existing-data">
       <div class="section-heading">
-        <div><p class="eyebrow">Part 01 · Existing data landscape</p><h2>Where rural AV data exists</h2></div>
-        <p>ADS for Rural America and Automated Vehicles for All (AVA) provide examples of route-level rural driving data, including vehicle, environment, perception, trajectory and control records.</p>
+        <div><p class="eyebrow">Part 01 · Existing data landscape</p><h2>What public rural AV datasets contain</h2></div>
+        <p>The comparison focuses on the records needed to reuse a driving run: route context, raw measurements, processed outputs, human factors, and identifiable events.</p>
       </div>
 
-      <div class="map-toolbar" role="group" aria-label="Map filters">
-        <button class="filter-chip active" data-filter="all" type="button">All locations <span>5</span></button>
-        <button class="filter-chip" data-filter="public" type="button">Public run detail <span>2</span></button>
-        <button class="filter-chip" data-filter="program" type="button">Program coverage <span>3</span></button>
+      <div class="comparison-head">
+        <div><span>Dataset comparison</span><strong>Public information reviewed for this project</strong></div>
+        <p>“Not publicly specified” marks information that was not identified in the reviewed project materials.</p>
+      </div>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Comparison of public rural automated-vehicle datasets">
+        <table class="dataset-comparison">
+          <thead>
+            <tr>
+              <th scope="col">Dataset</th>
+              <th scope="col">Location / road type</th>
+              <th scope="col">Collection period</th>
+              <th scope="col">Route / runs</th>
+              <th scope="col">Sensors &amp; raw data</th>
+              <th scope="col">Forms / human factors</th>
+              <th scope="col">Structured / processed data</th>
+              <th scope="col">Event records</th>
+              <th scope="col">Public availability</th>
+              <th scope="col">Data link</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><span>01</span><strong>ADS for Rural America</strong><small>University of Iowa · DSRI</small></th>
+              <td>Eastern Iowa<br /><small>Urban, small-town and rural roads; highway, gravel and unmarked segments</small></td>
+              <td>2021–2023</td>
+              <td><strong>47 mi</strong> mixed-road route<br /><strong>80</strong> completed drives</td>
+              <td>Camera video; VLP-32C / VLP-16 LiDAR; ARS 408-21 radar; Mobileye 6; GNSS/IMU; CAN; PACMod</td>
+              <td>Surveys and physiological signals</td>
+              <td>HD map; Apollo perception; planned path; vehicle and control records</td>
+              <td>Automation engagement and takeover records</td>
+              <td><span class="status public">Public portal</span></td>
+              <td><a class="table-link" href="https://adsforruralamerica.uiowa.edu/data" target="_blank" rel="noopener">Open data ↗</a></td>
+            </tr>
+            <tr>
+              <th scope="row"><span>02</span><strong>Automated Vehicles for All (AVA)</strong><small>Texas A&amp;M–led collaboration</small></th>
+              <td>Bryan, Texas area<br /><small>Rural roads ranging from good pavement to severely degraded surfaces</small></td>
+              <td>2024–2025</td>
+              <td><strong>4</strong> portal runs shown<br /><small>2 good-pavement + 2 degraded-road runs</small></td>
+              <td>Camera; LiDAR; radar; GPS/IMU; NovAtel odometry</td>
+              <td><span class="not-specified">Not publicly specified</span></td>
+              <td>Objects and lanes; segmentation; trajectories; motion planning; control and vehicle performance</td>
+              <td>Automation status is available; dedicated disengagement-event records are not specified</td>
+              <td><span class="status public">Public portal</span></td>
+              <td><a class="table-link" href="https://avadataportal.web.illinois.edu/index.html" target="_blank" rel="noopener">Open data ↗</a></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <div class="map-layout">
-        <div class="us-map-card">
-          <div class="map-title-row"><span>United States · reported collection footprint</span><span class="map-scale">Not a route map</span></div>
-          <svg class="us-map" viewBox="0 0 940 560" role="img" aria-labelledby="map-title map-desc">
-            <title id="map-title">United States map of rural automated-driving data collection</title>
-            <desc id="map-desc">Primary public run locations in eastern Iowa and near Bryan, Texas, with additional Automated Vehicles for All program coverage noted in Illinois, Northern Virginia, and Washington, D.C.</desc>
+      <div class="map-support">
+        <div class="map-copy">
+          <p class="panel-kicker">Supporting location view</p>
+          <h3>Reported U.S. collection footprint</h3>
+          <p>The comparison table contains the two portals with public run-level detail. The map also retains locations reported at program level, where a specific public route was not identified in the reviewed materials.</p>
+          <div class="map-legend"><span><i class="legend-dot solid"></i>Public run detail</span><span><i class="legend-dot ring"></i>Program-reported coverage</span></div>
+        </div>
+        <div class="mini-map-card">
+          <svg class="mini-map" viewBox="0 0 940 560" role="img" aria-labelledby="map-title map-desc">
+            <title id="map-title">United States map of reported rural automated-driving data collection</title>
+            <desc id="map-desc">Public run locations in eastern Iowa and near Bryan, Texas, with additional program-reported coverage in Illinois, Northern Virginia, and Washington, D.C.</desc>
             <path class="map-land" d="M111 119L151 103L194 113L230 105L268 121L310 116L349 132L393 121L438 139L481 132L514 148L567 139L601 154L648 143L679 161L712 156L749 172L797 175L824 195L814 222L830 246L805 267L795 296L767 311L754 344L722 355L709 387L678 401L650 427L608 422L583 445L548 438L511 459L474 448L432 462L396 441L360 447L328 429L289 431L254 412L224 419L202 392L170 381L155 349L132 331L139 296L117 269L125 240L105 209L119 181L101 150Z" />
             <path class="map-water" d="M540 157c16-17 45-16 64-1 10 8 16 23 6 33-11 11-30 2-41 11-8 7-6 19-12 27-10 12-31 9-39-4-8-14 3-30 11-41 5-7 5-17 11-25z" />
             <path class="map-grid" d="M179 117l6 270M249 113l1 303M319 119l-3 311M389 124l4 316M461 137l-2 311M531 145l12 291M604 151l20 269M680 163l18 222M135 206l678 20M131 286l660 13M160 359l576-4" />
-            <g class="map-marker public-marker" tabindex="0" data-location="iowa" transform="translate(525 246)">
-              <circle class="marker-ring" r="21"/><circle r="8"/><text x="17" y="-18">IOWA</text>
-            </g>
-            <g class="map-marker public-marker" tabindex="0" data-location="texas" transform="translate(447 403)">
-              <circle class="marker-ring" r="21"/><circle r="8"/><text x="17" y="-18">TEXAS</text>
-            </g>
-            <g class="map-marker program-marker" tabindex="0" data-location="illinois" transform="translate(585 250)">
-              <circle class="marker-ring" r="15"/><circle r="6"/><text x="14" y="17">IL</text>
-            </g>
-            <g class="map-marker program-marker" tabindex="0" data-location="virginia" transform="translate(722 301)">
-              <circle class="marker-ring" r="15"/><circle r="6"/><text x="14" y="17">VA</text>
-            </g>
-            <g class="map-marker program-marker" tabindex="0" data-location="dc" transform="translate(744 278)">
-              <circle class="marker-ring" r="15"/><circle r="6"/><text x="14" y="-12">DC</text>
-            </g>
+            <g class="map-marker public-marker" transform="translate(525 246)"><circle class="marker-ring" r="21"/><circle r="8"/><text x="17" y="-18">IOWA</text></g>
+            <g class="map-marker public-marker" transform="translate(447 403)"><circle class="marker-ring" r="21"/><circle r="8"/><text x="17" y="-18">TEXAS</text></g>
+            <g class="map-marker program-marker" transform="translate(585 250)"><circle class="marker-ring" r="15"/><circle r="6"/><text x="14" y="17">IL</text></g>
+            <g class="map-marker program-marker" transform="translate(722 301)"><circle class="marker-ring" r="15"/><circle r="6"/><text x="14" y="17">VA</text></g>
+            <g class="map-marker program-marker" transform="translate(744 278)"><circle class="marker-ring" r="15"/><circle r="6"/><text x="14" y="-12">DC</text></g>
           </svg>
-          <div class="map-legend"><span><i class="legend-dot solid"></i>Public run detail</span><span><i class="legend-dot ring"></i>Program-reported coverage</span></div>
         </div>
-        <aside class="location-panel" aria-live="polite">
-          <p class="panel-kicker" id="location-kicker">SITE 01 · PUBLIC RUN DETAIL</p>
-          <h3 id="location-title">Iowa</h3>
-          <div class="location-context" id="location-context">Eastern Iowa</div>
-          <p id="location-description">A 47-mile mixed route connects Iowa City, Hills, Riverside and Kalona across urban, small-town and rural roads.</p>
-          <dl class="location-facts" id="location-facts">
-            <div><dt>Program</dt><dd>ADS for Rural America</dd></div>
-            <div><dt>Public record</dt><dd>80 completed drives</dd></div>
-            <div><dt>Roads</dt><dd>Highway · gravel · unmarked</dd></div>
-          </dl>
-          <a class="text-button" id="location-link" href="https://data.adsforruralamerica.uiowa.edu/" target="_blank" rel="noopener">Open ADS for Rural America data ↗</a>
-        </aside>
       </div>
-
-      <div class="stat-strip" id="location-stats" aria-live="polite">
-        <div><strong>47 mi</strong><span>Iowa mixed-road route</span></div>
-        <div><strong>80</strong><span>completed Iowa drives</span></div>
-        <div><strong>6</strong><span>collection phases</span></div>
-        <div><strong>2021–23</strong><span>collection period</span></div>
-      </div>
-
-      <div class="subsection-heading"><div><span>Public data portals</span><h3>Two examples of rural AV driving data</h3></div><p>Select a profile to compare the data recorded by ADS for Rural America and Automated Vehicles for All (AVA).</p></div>
-      <div class="dataset-tabs" role="tablist" aria-label="Dataset profile">
-        <button role="tab" aria-selected="true" aria-controls="dataset-panel" id="tab-iowa" data-dataset="iowa" type="button"><span>01</span> ADS for Rural America</button>
-        <button role="tab" aria-selected="false" aria-controls="dataset-panel" id="tab-ava" data-dataset="ava" type="button"><span>02</span> Automated Vehicles for All (AVA)</button>
-      </div>
-      <article class="dataset-panel" id="dataset-panel" role="tabpanel" aria-labelledby="tab-iowa">
-        <div class="dataset-summary"><p class="eyebrow" id="dataset-org">University of Iowa · DSRI</p><h3 id="dataset-name">ADS for Rural America</h3><p id="dataset-intro">Public multimodal driving data connecting automation performance with vehicle, roadway, environmental and human-factor measurements.</p><a class="portal-link" id="dataset-link" href="https://data.adsforruralamerica.uiowa.edu/" target="_blank" rel="noopener">Open ADS data portal ↗</a></div>
-        <div class="modality-grid" id="modality-grid"></div>
-      </article>
     </section>
 
     <section class="section dark-section" id="collection-plan">
       <div class="section-heading light">
-        <div><p class="eyebrow">Part 02 · Proposed collection</p><h2>Two complementary data streams</h2></div>
-        <p>Our collection includes complete rural AV runs, comparable to existing data portals, plus focused records of the moments when automation degrades or requires driver takeover.</p>
+        <div><p class="eyebrow">Part 02 · Proposed collection</p><h2>Four linked data products</h2></div>
+        <p>The final collection is organized as four deliverables. Stable run and timestamp identifiers connect every raw record to processed outputs, route context, and event windows.</p>
       </div>
 
-      <div class="data-type-overview proposed-data-types" role="tablist" aria-label="Proposed rural automated-vehicle data stream">
-        <button class="data-type-card collection-tab failure-data-card active" id="collection-tab-failure" type="button" role="tab" aria-selected="true" aria-controls="collection-failure" data-collection-tab="failure">
-          <div class="data-type-meta"><span>01</span><small>FAILURE-EVENT DATA</small></div>
-          <h3>Automation Failure Data<br />in Rural Areas</h3>
-          <p>Event-centered records of system degradation, disengagement, driver takeover and recovery, linked to the rural scene that caused the intervention.</p>
-          <div class="data-type-question"><small>PRIMARY QUESTION</small><strong>When and why can automation no longer continue?</strong></div>
-          <div class="data-type-examples">Outputs · Failure scene · Takeover margin · Recovery</div>
-        </button>
-        <button class="data-type-card collection-tab driving-data-card" id="collection-tab-driving" type="button" role="tab" aria-selected="false" aria-controls="collection-driving" data-collection-tab="driving" tabindex="-1">
-          <div class="data-type-meta"><span>02</span><small>ROUTE-LEVEL DATA</small></div>
-          <h3>Rural AV<br />Driving Data</h3>
-          <p>Complete, repeated rural runs recording perception, localization, vehicle state, planning, control and road conditions in a portal-ready format.</p>
-          <div class="data-type-question"><small>PRIMARY QUESTION</small><strong>How does an AV perform across rural roads?</strong></div>
-          <div class="data-type-examples">Reference formats · ADS for Rural America · Automated Vehicles for All</div>
-        </button>
+      <div class="product-relationship" aria-label="Relationship among the four proposed data products">
+        <div class="relationship-main">
+          <div class="relationship-node"><span>01</span><strong>Raw data</strong><small>Original observations</small></div>
+          <i aria-hidden="true">→</i>
+          <div class="relationship-node"><span>02</span><strong>Structured data</strong><small>Synchronized and processed</small></div>
+          <i aria-hidden="true">→</i>
+          <div class="relationship-node event-node"><span>04</span><strong>Event data</strong><small>Indexed disengagement windows</small></div>
+        </div>
+        <div class="relationship-context"><span>03</span><strong>Infrastructure data</strong><small>Road and environment context joined to runs and events by position and time</small></div>
       </div>
 
-      <div class="collection-panel" id="collection-failure" role="tabpanel" aria-labelledby="collection-tab-failure" data-collection-panel="failure">
-        <div class="plan-grid">
-          <div class="plan-manifesto event-manifesto">
-            <span class="manifesto-number">EVENT</span>
-            <h3>takeover-centered records</h3>
-            <p>Each record preserves a synchronized window before, during and after system degradation, disengagement or driver intervention.</p>
-            <div class="range-bar"><span style="width:100%"></span></div>
-            <div class="range-label"><span>Primary outcome</span><strong>Takeover event</strong></div>
-          </div>
-          <ol class="plan-steps">
-            <li><span>01</span><div><strong>Detect system degradation</strong><p>Track perception quality, localization, planning behavior and control stability before intervention.</p></div></li>
-            <li><span>02</span><div><strong>Mark the takeover</strong><p>Align failure, warning, driver response and manual-control timestamps.</p></div></li>
-            <li><span>03</span><div><strong>Preserve the rural scene</strong><p>Retain road geometry, markings, surface condition, traffic, weather and long-tail objects.</p></div></li>
-            <li><span>04</span><div><strong>Measure recovery</strong><p>Record the remaining safety margin and how the vehicle stabilizes after the driver responds.</p></div></li>
-          </ol>
-        </div>
-
-        <div class="metric-intro">
-          <div>
-            <span class="metric-overline">Evaluation framework</span>
-            <h3>What made the driver take over?</h3>
-            <p>A takeover timestamp tells us <em>when</em> the driver intervened. The metrics below help explain <em>why</em>—whether the vehicle was running out of road space, approaching another vehicle, or losing system stability.</p>
-          </div>
-          <aside class="metric-principle">
-            <strong>No single metric determines safety.</strong>
-            <p>We use several signals together to find events that need review. The limits shown here are starting points from literature or simulation, not validated limits for our vehicle.</p>
-          </aside>
-        </div>
-
-        <div class="takeover-sequence" aria-label="How takeover metrics describe an event">
-          <div class="sequence-step"><span>01</span><div><small>System condition</small><strong>Performance begins to degrade</strong><p>Perception confidence or control quality changes.</p></div></div>
-          <div class="sequence-arrow" aria-hidden="true">→</div>
-          <div class="sequence-step"><span>02</span><div><small>Safety margin</small><strong>Available time becomes short</strong><p>Lane or following-distance risk increases.</p></div></div>
-          <div class="sequence-arrow" aria-hidden="true">→</div>
-          <div class="sequence-step"><span>03</span><div><small>Driver response</small><strong>The driver takes control</strong><p>We measure the remaining margin and recovery.</p></div></div>
-        </div>
-
-        <div class="metric-workspace">
-          <div class="metric-selector" role="tablist" aria-label="Takeover metric dimensions">
-            <button class="metric-tab active" type="button" role="tab" aria-selected="true" data-metric="tlc"><span>01</span><div><strong>Lane departure</strong><small>Time to Lane Crossing · TLC</small></div></button>
-            <button class="metric-tab" type="button" role="tab" aria-selected="false" data-metric="ttc"><span>02</span><div><strong>Closing conflict</strong><small>Inverse Time to Collision · invTTC</small></div></button>
-            <button class="metric-tab" type="button" role="tab" aria-selected="false" data-metric="control"><span>03</span><div><strong>Steering behavior</strong><small>Control oscillation</small></div></button>
-            <button class="metric-tab" type="button" role="tab" aria-selected="false" data-metric="odd"><span>04</span><div><strong>System degradation</strong><small>Perception + lateral stability</small></div></button>
-          </div>
-          <article class="metric-display" aria-live="polite">
-            <header class="metric-card-header">
-              <div><p class="metric-question-label">Question this metric answers</p><h3 id="metric-question">Is there enough time to keep the vehicle inside its lane?</h3></div>
-              <span class="metric-code-badge" id="metric-code">TLC</span>
-            </header>
-            <p class="metric-summary" id="metric-copy">TLC estimates how long it would take the vehicle to reach a lane boundary if its current motion continued without corrective steering.</p>
-            <div class="metric-reading-grid">
-              <section class="metric-read-block">
-                <p class="metric-block-label">How to read it</p>
-                <strong id="metric-direction">Smaller TLC = less time to react</strong>
-                <p id="metric-meaning">If the driver reacts late, little time may remain to prevent a lane departure.</p>
-              </section>
-              <section class="metric-threshold-block">
-                <p class="metric-block-label">Candidate screening rule</p>
-                <strong id="metric-threshold">TLC<sub>remaining</sub> &lt; 0.5 s</strong>
-                <p id="metric-note">Flag the event for closer review; calibrate with simulator and field data.</p>
-              </section>
-            </div>
-            <details class="metric-method">
-              <summary>Show calculation and terms</summary>
-              <div class="metric-method-content">
-                <div class="formula-wrap"><p class="metric-block-label">Calculation</p><div class="formula" id="metric-formula">TLC<sub>remaining</sub> = TLC<sub>at failure</sub> − driver reaction time</div></div>
-                <div class="term-list" id="metric-terms"><div><strong>TLC at failure</strong><span>Predicted time from automation failure to lane crossing.</span></div><div><strong>Driver reaction time</strong><span>Time between the failure and the driver's response.</span></div></div>
-              </div>
-            </details>
-          </article>
-        </div>
+      <div class="product-grid">
+        <article class="product-card raw-product">
+          <header><span>01</span><div><small>PRIMARY RECORD</small><h3>Raw data</h3></div></header>
+          <dl>
+            <div><dt>Purpose</dt><dd>Preserve original sensor, vehicle, and system measurements for replay and reprocessing.</dd></div>
+            <div><dt>Example contents</dt><dd>Camera, LiDAR, radar, GNSS/IMU, CAN, actuation feedback, and raw autonomy topics.</dd></div>
+            <div><dt>Planned format</dt><dd>MCAP / ROS bag, video or image files, point clouds, and timestamped CSV.</dd></div>
+            <div><dt>Connection</dt><dd>Source for processed outputs; event records point back to exact raw time windows.</dd></div>
+          </dl>
+        </article>
+        <article class="product-card structured-product">
+          <header><span>02</span><div><small>ANALYSIS-READY RECORD</small><h3>Structured / processed data</h3></div></header>
+          <dl>
+            <div><dt>Purpose</dt><dd>Provide synchronized, quality-checked records that can be compared across runs.</dd></div>
+            <div><dt>Example contents</dt><dd>Objects, lanes, drivable space, localization, trajectories, commands, vehicle states, confidence, and annotations.</dd></div>
+            <div><dt>Planned format</dt><dd>Parquet or CSV tables with JSON metadata and GeoJSON where spatial records are required.</dd></div>
+            <div><dt>Connection</dt><dd>Derived from raw data and joined to infrastructure and event tables through run, time, and location keys.</dd></div>
+          </dl>
+        </article>
+        <article class="product-card infrastructure-product">
+          <header><span>03</span><div><small>CONTEXT RECORD</small><h3>Infrastructure data</h3></div></header>
+          <dl>
+            <div><dt>Purpose</dt><dd>Describe the road and operating environment in which each AV record was produced.</dd></div>
+            <div><dt>Example contents</dt><dd>Road geometry, lane markings, surface condition, signs, intersections, shoulders, work zones, and visibility.</dd></div>
+            <div><dt>Planned format</dt><dd>GeoJSON or Lanelet2 layers, route tables, geotagged images, and inspection records.</dd></div>
+            <div><dt>Connection</dt><dd>Provides spatial context for complete runs and for the road segment surrounding each event.</dd></div>
+          </dl>
+        </article>
+        <article class="product-card event-product">
+          <header><span>04</span><div><small>RESEARCH-FOCUSED RECORD</small><h3>Event data</h3></div></header>
+          <dl>
+            <div><dt>Purpose</dt><dd>Make disengagements and other safety-relevant transitions searchable and directly reviewable.</dd></div>
+            <div><dt>Example contents</dt><dd>Degradation, warning, disengagement, takeover, manual-control, recovery, causes, outcomes, and derived variables.</dd></div>
+            <div><dt>Planned format</dt><dd>Event table, metadata JSON, synchronized video clips, and linked pre-event / post-event data windows.</dd></div>
+            <div><dt>Connection</dt><dd>Acts as an index into the corresponding raw, structured, and infrastructure records.</dd></div>
+          </dl>
+        </article>
       </div>
 
-      <div class="collection-panel route-collection-panel" id="collection-driving" role="tabpanel" aria-labelledby="collection-tab-driving" data-collection-panel="driving" hidden>
-        <div class="plan-grid">
-          <div class="plan-manifesto">
-            <span class="manifesto-number">60</span>
-            <h3>planned paired runs</h3>
-            <p>3 fixed routes × 2 seasons × 5 repeated runs, collected in both human-driven and automated modes.</p>
-            <div class="range-bar"><span style="width:72%"></span></div>
-            <div class="range-label"><span>Estimated AV driving</span><strong>5–7.5 hours</strong></div>
-          </div>
-          <ol class="plan-steps">
-            <li><span>01</span><div><strong>Fix the route design</strong><p>Use three rural routes that capture variation in road type, infrastructure and operating conditions.</p></div></li>
-            <li><span>02</span><div><strong>Pair the driving modes</strong><p>Collect human-driven and automated runs on the same routes under comparable conditions.</p></div></li>
-            <li><span>03</span><div><strong>Repeat across seasons</strong><p>Two seasons × five repetitions reveal variability instead of presenting a single demonstration.</p></div></li>
-            <li><span>04</span><div><strong>Publish synchronized runs</strong><p>Organize sensor, vehicle, control and road-condition streams for portal-style access and reuse.</p></div></li>
-          </ol>
+      <div class="run-design">
+        <div class="run-total"><span>60</span><div><small>PLANNED COLLECTION</small><h3>paired rural runs</h3><p>Comparable human-driven and automated runs across fixed routes and operating conditions.</p></div></div>
+        <div class="run-equation" aria-label="Collection design calculation">
+          <div><strong>3</strong><span>fixed routes</span></div><i>×</i>
+          <div><strong>2</strong><span>seasons</span></div><i>×</i>
+          <div><strong>5</strong><span>repetitions</span></div><i>×</i>
+          <div><strong>2</strong><span>driving modes</span></div><i>=</i>
+          <div class="equation-total"><strong>60</strong><span>runs</span></div>
         </div>
-
-        <div class="route-data-intro">
-          <span class="metric-overline">Run-level data package</span>
-          <h3>What each rural run records</h3>
-          <p>Every repeated run links what the vehicle sensed, where it was, what the automated driving system planned, and how the vehicle responded.</p>
-        </div>
-        <div class="route-data-grid">
-          <article><span>01</span><h4>Perception &amp; scene</h4><p>Camera, LiDAR, radar, detected objects, lane boundaries and drivable space.</p></article>
-          <article><span>02</span><h4>Localization &amp; trajectory</h4><p>GNSS/IMU, pose, route, planned trajectory and realized vehicle path.</p></article>
-          <article><span>03</span><h4>Vehicle &amp; control</h4><p>CAN data, speed, acceleration, steering, commanded states and measured response.</p></article>
-          <article><span>04</span><h4>Road, environment &amp; driver</h4><p>Road type, surface condition, weather, automation status and human/AV driving mode.</p></article>
-        </div>
-        <p class="route-data-note">Designed for portal-style browsing and reuse, following the data organization examples of ADS for Rural America and Automated Vehicles for All (AVA).</p>
       </div>
     </section>
 
-    <section class="section" id="av-stack">
+    <section class="section disengagement-section" id="disengagement">
       <div class="section-heading">
-        <div><p class="eyebrow">Part 03 · AV Stack</p><h2>Two platforms form our development base</h2></div>
-        <p>DataSpeed provides the vehicle-interface and control foundation; Autoware supplies a modular autonomy architecture for sensing, perception, planning and system operation.</p>
+        <div><p class="eyebrow">Part 03 · Central research topic</p><h2>Disengagement Events</h2></div>
+        <p>A consistent event definition makes it possible to connect system behavior, driver action, road context, and vehicle recovery without treating every term as interchangeable.</p>
       </div>
 
-      <div class="stack-switch" role="tablist" aria-label="AV development platform">
-        <button type="button" role="tab" aria-selected="true" class="active" data-stack="dataspeed"><span>01</span> DataSpeed</button>
-        <button type="button" role="tab" aria-selected="false" data-stack="autoware"><span>02</span> Autoware</button>
+      <div class="definition-box">
+        <span>WORKING DEFINITION</span>
+        <p>A <strong>disengagement event</strong> is a transition in which automated driving is terminated, either by the system or through human intervention.</p>
       </div>
 
-      <article class="stack-board" id="stack-board" aria-live="polite">
-        <div class="stack-board-top"><div><p class="panel-kicker" id="stack-kicker">VEHICLE DEVELOPMENT BASE</p><h3 id="stack-title">DataSpeed AV software architecture</h3></div><p id="stack-description">A ROS-based pipeline connecting sensing and localization to motion planning, trajectory control and drive-by-wire actuation.</p></div>
-        <div class="stack-diagram" id="stack-diagram"></div>
-        <div class="stack-legend"><span><i class="flow data"></i>Data flow</span><span><i class="flow control"></i>Control command</span><span><i class="flow monitor"></i>Monitoring</span><span class="stack-note" id="stack-note">ROS topics grouped by functional role</span></div>
-      </article>
+      <div class="event-lifecycle" tabindex="0" role="region" aria-label="Possible stages of a disengagement event">
+        <article><span>01</span><small>SYSTEM ATTRIBUTE</small><strong>Degradation</strong><p>Performance or confidence begins to decline.</p></article>
+        <i aria-hidden="true">→</i>
+        <article><span>02</span><small>SYSTEM ACTION</small><strong>Warning / request</strong><p>The system issues an alert or takeover request.</p></article>
+        <i aria-hidden="true">→</i>
+        <article class="central-event"><span>03</span><small>CENTRAL EVENT</small><strong>Disengagement</strong><p>Automated driving mode ends.</p></article>
+        <i aria-hidden="true">→</i>
+        <article><span>04</span><small>RESPONSE</small><strong>Takeover / fallback</strong><p>The driver intervenes or the system executes fallback.</p></article>
+        <i aria-hidden="true">→</i>
+        <article><span>05</span><small>STATE</small><strong>Manual control</strong><p>The driver controls the vehicle after automation ends.</p></article>
+        <i aria-hidden="true">→</i>
+        <article><span>06</span><small>OUTCOME</small><strong>Recovery</strong><p>The vehicle returns to a stable operating state.</p></article>
+      </div>
+      <p class="lifecycle-note">Not every event must contain every stage. The event record preserves which transitions occurred, their order, and their timestamps.</p>
 
-      <div class="extension-heading"><div><span>Project contributions</span><h3>What we add to the base platforms</h3></div><p>This area is intentionally reserved for the modules, interfaces and validation work developed by our team.</p></div>
-      <div class="extension-grid">
-        <article class="extension-placeholder"><span>01</span><div><small>ADD CONTRIBUTION</small><h4>Module or system change</h4><p>Describe the component, the platform it extends and the rural failure mode it addresses.</p></div></article>
-        <article class="extension-placeholder"><span>02</span><div><small>ADD CONTRIBUTION</small><h4>Safety or takeover logic</h4><p>Describe triggering conditions, fallback behavior and the metrics used for evaluation.</p></div></article>
-        <article class="extension-placeholder"><span>03</span><div><small>ADD CONTRIBUTION</small><h4>Data and validation pipeline</h4><p>Describe logging, synchronization, scenario labeling and benchmark outputs.</p></div></article>
+      <div class="terminology-layout">
+        <div class="terminology-heading"><span>Consistent terminology</span><h3>One event, distinct stages and attributes</h3><p>“Disengagement event” is the central record. The remaining terms describe a precursor, trigger, response, state, outcome, or possible cause.</p></div>
+        <dl class="terminology-list">
+          <div><dt>System degradation</dt><dd>A measurable reduction in perception, localization, planning, or control performance.</dd></div>
+          <div><dt>Warning / takeover request</dt><dd>A system notification asking the driver to prepare or assume control.</dd></div>
+          <div><dt>Takeover / intervention</dt><dd>The driver’s action to assume control; it may initiate or follow disengagement.</dd></div>
+          <div><dt>Manual control</dt><dd>The vehicle operating state after the driver has assumed control.</dd></div>
+          <div><dt>Recovery</dt><dd>The stabilization of the vehicle and completion of the immediate response.</dd></div>
+          <div class="failure-term"><dt>Failure</dt><dd>A cause or attribute of an event—not a synonym for every degradation, intervention, or disengagement.</dd></div>
+        </dl>
+      </div>
+
+      <div class="event-record">
+        <div><p class="panel-kicker">Event-data deliverable</p><h3>What one disengagement record contains</h3></div>
+        <ol>
+          <li><span>01</span><p><strong>Event identity</strong>Run ID, event ID, location, start time, disengagement time, and end time.</p></li>
+          <li><span>02</span><p><strong>System sequence</strong>Degradation indicators, warnings, mode transitions, faults, and automation status.</p></li>
+          <li><span>03</span><p><strong>Human response</strong>Intervention type, reaction time, manual-control onset, and driver inputs.</p></li>
+          <li><span>04</span><p><strong>Linked evidence</strong>References to raw sensors, processed outputs, route infrastructure, and synchronized event windows.</p></li>
+          <li><span>05</span><p><strong>Outcome</strong>Minimum safety margin, recovery behavior, final vehicle state, and review labels.</p></li>
+        </ol>
+      </div>
+
+      <details class="technical-appendix">
+        <summary><span>Technical appendix</span><strong>Derived variables for disengagement-event review</strong><i aria-hidden="true">+</i></summary>
+        <div class="appendix-content">
+          <p>These variables are derived from the linked raw and structured records. Candidate thresholds are screening values from literature or simulation and require calibration on our vehicle, routes, and operating conditions.</p>
+          <div class="table-scroll" tabindex="0" role="region" aria-label="Derived event variables">
+            <table class="method-table">
+              <thead><tr><th>Variable</th><th>Question</th><th>Calculation / candidate rule</th><th>Event-data role</th></tr></thead>
+              <tbody>
+                <tr><th>TLC</th><td>How much time remains before a lane boundary is crossed?</td><td>TLC<sub>remaining</sub> = TLC<sub>at failure</sub> − reaction time; candidate flag &lt; 0.5 s</td><td>Lane-departure margin at disengagement and takeover</td></tr>
+                <tr><th>Inverse TTC</th><td>How urgently is the vehicle closing on an obstacle?</td><td>Closing speed ÷ distance; candidate flag &gt; 0.3 s<sup>−1</sup></td><td>Longitudinal conflict urgency</td></tr>
+                <tr><th>Control stability</th><td>Is steering becoming unstable or uncomfortable?</td><td>Low-frequency and high-frequency steering oscillation reviewed separately</td><td>Control degradation before and after disengagement</td></tr>
+                <tr><th>Perception quality</th><td>Is lane or object perception deteriorating?</td><td>Confidence, overlap, continuity, and missed-detection indicators</td><td>Candidate degradation cause or event attribute</td></tr>
+                <tr><th>Response &amp; recovery</th><td>How quickly did the driver respond and the vehicle stabilize?</td><td>Warning-to-input, disengagement-to-manual-control, and stabilization intervals</td><td>Driver response and event outcome</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="section dark-section pipeline-section" id="data-pipeline">
+      <div class="section-heading light">
+        <div><p class="eyebrow">Part 04 · AV Stack and data</p><h2>How the AV system produces the dataset</h2></div>
+        <p>DataSpeed and Autoware are the development bases. Their sensor, autonomy, vehicle-interface, and system-state outputs are recorded and transformed into the four connected data products.</p>
+      </div>
+
+      <div class="platform-bases">
+        <article><span>01 · VEHICLE PLATFORM</span><h3>DataSpeed</h3><p>Provides drive-by-wire integration, CAN and vehicle-state feedback, actuation commands, and the interface between autonomy software and the vehicle.</p></article>
+        <article><span>02 · AUTONOMY PLATFORM</span><h3>Autoware</h3><p>Provides sensing, perception, localization, planning, control, system operation, diagnostics, and automation-state outputs.</p></article>
+      </div>
+
+      <div class="production-flow" aria-label="AV data production pipeline">
+        <article><span>01</span><small>RECORD</small><strong>Vehicle + AV stack</strong><p>Capture sensors, autonomy topics, CAN, commands, feedback, modes, and diagnostics.</p></article>
+        <i aria-hidden="true">→</i>
+        <article><span>02</span><small>ALIGN</small><strong>Time synchronization</strong><p>Assign common clocks, coordinate frames, route IDs, run IDs, and data-quality flags.</p></article>
+        <i aria-hidden="true">→</i>
+        <article><span>03</span><small>ENRICH</small><strong>Processing + context</strong><p>Generate objects, lanes, trajectories, states, annotations, and route-infrastructure joins.</p></article>
+        <i aria-hidden="true">→</i>
+        <article class="flow-output"><span>04</span><small>DELIVER</small><strong>Runs + events</strong><p>Publish linked raw, structured, infrastructure, and disengagement-event records.</p></article>
+      </div>
+
+      <div class="pipeline-table-wrap">
+        <div class="pipeline-table-head"><span>Data provenance</span><strong>From system component to data product</strong></div>
+        <div class="table-scroll dark-table-scroll" tabindex="0" role="region" aria-label="AV stack data provenance table">
+          <table class="pipeline-table">
+            <thead><tr><th>System source</th><th>Records produced</th><th>Primary data products</th></tr></thead>
+            <tbody>
+              <tr><th>Sensors &amp; drivers</th><td>Camera images, LiDAR point clouds, radar detections, GNSS/IMU</td><td><span>Raw</span><span>Structured</span></td></tr>
+              <tr><th>Perception &amp; localization</th><td>Objects, lanes, drivable space, pose, velocity, confidence, localization quality</td><td><span>Structured</span><span>Event</span></td></tr>
+              <tr><th>Planning &amp; control</th><td>Behavior state, planned trajectory, steering and speed commands, tracking error</td><td><span>Raw</span><span>Structured</span><span>Event</span></td></tr>
+              <tr><th>DataSpeed vehicle interface</th><td>CAN states, actuation feedback, automation mode, driver inputs, command execution</td><td><span>Raw</span><span>Structured</span><span>Event</span></td></tr>
+              <tr><th>System manager &amp; operator</th><td>Warnings, faults, diagnostics, disengagement, manual-control, and recovery timestamps</td><td><span>Event</span></td></tr>
+              <tr><th>Map &amp; road survey</th><td>Route geometry, markings, surface, signs, intersections, shoulders, and work zones</td><td><span>Infrastructure</span><span>Event context</span></td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
 
     <section class="section sources" id="sources">
-      <div class="section-heading"><div><p class="eyebrow">Source notes</p><h2>Project materials</h2></div><p>The page synthesizes the three working slide decks supplied for this project. Thresholds are presented as candidate values, not validated safety limits.</p></div>
+      <div class="section-heading"><div><p class="eyebrow">Source notes</p><h2>Project materials</h2></div><p>The page synthesizes the working materials reviewed for this project. Dataset details should be updated as additional public documentation or collection decisions become available.</p></div>
       <div class="source-list">
-        <div><span>01</span><div><strong>RAV Data Collection</strong><p>Dataset scope, sensors, routes, comparison and planned Rural L3 dataset.</p></div></div>
-        <div><span>02</span><div><strong>Takeover Metrics</strong><p>TLC, inverse TTC, control oscillation, perception degradation and lateral stability.</p></div></div>
-        <div><span>03</span><div><strong>AV Stack Plots</strong><p>DataSpeed and Autoware software architecture baselines.</p></div></div>
+        <div><span>01</span><div><strong>RAV Data Collection</strong><p>Dataset scope, sensors, routes, comparison, and the planned rural automated-driving dataset.</p></div></div>
+        <div><span>02</span><div><strong>Takeover Metrics</strong><p>Candidate variables for lane margin, collision urgency, control stability, perception quality, and driver response.</p></div></div>
+        <div><span>03</span><div><strong>AV Stack Plots</strong><p>DataSpeed and Autoware architecture baselines used to identify the system records available for collection.</p></div></div>
+        <div><span>04</span><div><strong>Public data portals</strong><p><a href="https://adsforruralamerica.uiowa.edu/data" target="_blank" rel="noopener">ADS for Rural America ↗</a> and <a href="https://avadataportal.web.illinois.edu/index.html" target="_blank" rel="noopener">Automated Vehicles for All (AVA) ↗</a>.</p></div></div>
       </div>
     </section>
   </main>
 
   <footer>
-    <a class="brand footer-brand" href="#top"><span class="brand-mark">R</span><span><strong>Rural AV</strong><small>Research Atlas</small></span></a>
-    <p>Working research site · content prepared from project slide decks</p>
+    <a class="brand footer-brand" href="#overview"><span class="brand-mark" aria-hidden="true">R</span><span><strong>Rural AV</strong><small>Data Framework</small></span></a>
+    <p>Existing data landscape · proposed collection · disengagement research</p>
     <a href="#top">Back to top ↑</a>
   </footer>
   <script src="app.js"></script>
