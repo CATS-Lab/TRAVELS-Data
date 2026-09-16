@@ -3,262 +3,140 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="A comparison of existing rural automated-vehicle datasets and a proposed framework for linked raw, processed, infrastructure, and disengagement-event data." />
-  <meta name="theme-color" content="#111111" />
-  <title>Rural AV Data Collection Framework</title>
+  <meta name="description" content="TRAVELS at UW–Madison: existing rural automated-vehicle datasets, our planned data collection and research focus, and the vehicle platform used to collect the data." />
+  <meta name="theme-color" content="#C5050C" />
+  <title>TRAVELS Data · UW–Madison</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Red+Hat+Display:wght@400;500;700;800;900&family=Red+Hat+Text:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header" id="top">
-    <a class="brand" href="#overview" aria-label="Rural AV Data Collection Framework home">
-      <span class="brand-mark" aria-hidden="true">R</span>
-      <span><strong>Rural AV</strong><small>Data Framework</small></span>
+    <a class="brand" href="#overview" aria-label="UW Madison TRAVELS home">
+      <span class="brand-mark" aria-hidden="true">T</span>
+      <span><strong>TRAVELS</strong><small>UW Madison</small></span>
     </a>
     <button class="menu-button" type="button" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
     <nav class="main-nav" aria-label="Primary navigation">
-      <a href="#existing-data">Existing data</a>
-      <a href="#collection-plan">Data products</a>
-      <a href="#disengagement">Disengagement</a>
-      <a href="#data-pipeline">Data pipeline</a>
-      <a href="#sources">Sources</a>
+      <a href="#collection-plan">Collection plan</a>
+      <a href="#disengagement">Research focus</a>
+      <a href="#data-pipeline">Platform</a>
+      <a href="#existing-data">Comparison</a>
     </nav>
-    <span class="issue-tag">Research workspace · 2026</span>
   </header>
 
   <main id="main">
     <section class="purpose-hero" id="overview">
       <div class="hero-copy">
-        <p class="eyebrow">Rural automated driving research</p>
-        <h1>Rural AV data,<br /><span>from evidence to collection.</span></h1>
-        <p class="hero-purpose">This page summarizes publicly available rural automated-vehicle datasets and presents our proposed framework for collecting linked raw, processed, infrastructure, and disengagement-event data.</p>
+        <h1>TRAVELS <span>Rural Area AV Data</span></h1>
+        <p class="hero-purpose">To summarize existing rural AV datasets and present our planned data-collection framework.</p>
       </div>
-      <div class="hero-path" aria-label="Page research flow">
-        <div><span>01</span><strong>Compare public datasets</strong><small>What already exists?</small></div>
+      <div class="hero-path" tabindex="0" role="region" aria-label="Page contents">
+        <div><span>PART 01</span><strong>Collection plan</strong><small>What will we collect?</small></div>
         <i aria-hidden="true">→</i>
-        <div><span>02</span><strong>Define four data products</strong><small>What will we deliver?</small></div>
+        <div><span>PART 02</span><strong>Event data</strong><small>What do we study?</small></div>
         <i aria-hidden="true">→</i>
-        <div><span>03</span><strong>Study disengagement</strong><small>How and why does automation end?</small></div>
-      </div>
-      <div class="hero-stats" aria-label="Page scope">
-        <div><strong>02</strong><span>public dataset programs reviewed</span></div>
-        <div><strong>04</strong><span>linked planned data products</span></div>
-        <div><strong>01</strong><span>central event unit: disengagement</span></div>
-      </div>
-    </section>
-
-    <section class="section" id="existing-data">
-      <div class="section-heading">
-        <div><p class="eyebrow">Part 01 · Existing data landscape</p><h2>What public rural AV datasets contain</h2></div>
-        <p>The comparison focuses on the records needed to reuse a driving run: route context, raw measurements, processed outputs, human factors, and identifiable events.</p>
-      </div>
-
-      <div class="comparison-head">
-        <div><span>Dataset comparison</span><strong>Public information reviewed for this project</strong></div>
-        <p>“Not publicly specified” marks information that was not identified in the reviewed project materials.</p>
-      </div>
-      <div class="table-scroll" tabindex="0" role="region" aria-label="Comparison of public rural automated-vehicle datasets">
-        <table class="dataset-comparison">
-          <thead>
-            <tr>
-              <th scope="col">Dataset</th>
-              <th scope="col">Location / road type</th>
-              <th scope="col">Collection period</th>
-              <th scope="col">Route / runs</th>
-              <th scope="col">Sensors &amp; raw data</th>
-              <th scope="col">Forms / human factors</th>
-              <th scope="col">Structured / processed data</th>
-              <th scope="col">Event records</th>
-              <th scope="col">Public availability</th>
-              <th scope="col">Data link</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row"><span>01</span><strong>ADS for Rural America</strong><small>University of Iowa · DSRI</small></th>
-              <td>Eastern Iowa<br /><small>Urban, small-town and rural roads; highway, gravel and unmarked segments</small></td>
-              <td>2021–2023</td>
-              <td><strong>47 mi</strong> mixed-road route<br /><strong>80</strong> completed drives</td>
-              <td>Camera video; VLP-32C / VLP-16 LiDAR; ARS 408-21 radar; Mobileye 6; GNSS/IMU; CAN; PACMod</td>
-              <td>Surveys and physiological signals</td>
-              <td>HD map; Apollo perception; planned path; vehicle and control records</td>
-              <td>Automation engagement and takeover records</td>
-              <td><span class="status public">Public portal</span></td>
-              <td><a class="table-link" href="https://adsforruralamerica.uiowa.edu/data" target="_blank" rel="noopener">Open data ↗</a></td>
-            </tr>
-            <tr>
-              <th scope="row"><span>02</span><strong>Automated Vehicles for All (AVA)</strong><small>Texas A&amp;M–led collaboration</small></th>
-              <td>Bryan, Texas area<br /><small>Rural roads ranging from good pavement to severely degraded surfaces</small></td>
-              <td>2024–2025</td>
-              <td><strong>4</strong> portal runs shown<br /><small>2 good-pavement + 2 degraded-road runs</small></td>
-              <td>Camera; LiDAR; radar; GPS/IMU; NovAtel odometry</td>
-              <td><span class="not-specified">Not publicly specified</span></td>
-              <td>Objects and lanes; segmentation; trajectories; motion planning; control and vehicle performance</td>
-              <td>Automation status is available; dedicated disengagement-event records are not specified</td>
-              <td><span class="status public">Public portal</span></td>
-              <td><a class="table-link" href="https://avadataportal.web.illinois.edu/index.html" target="_blank" rel="noopener">Open data ↗</a></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="map-support">
-        <div class="map-copy">
-          <p class="panel-kicker">Supporting location view</p>
-          <h3>Reported U.S. collection footprint</h3>
-          <p>The comparison table contains the two portals with public run-level detail. The map also retains locations reported at program level, where a specific public route was not identified in the reviewed materials.</p>
-          <div class="map-legend"><span><i class="legend-dot solid"></i>Public run detail</span><span><i class="legend-dot ring"></i>Program-reported coverage</span></div>
-        </div>
-        <div class="mini-map-card">
-          <svg class="mini-map" viewBox="0 0 940 560" role="img" aria-labelledby="map-title map-desc">
-            <title id="map-title">United States map of reported rural automated-driving data collection</title>
-            <desc id="map-desc">Public run locations in eastern Iowa and near Bryan, Texas, with additional program-reported coverage in Illinois, Northern Virginia, and Washington, D.C.</desc>
-            <path class="map-land" d="M111 119L151 103L194 113L230 105L268 121L310 116L349 132L393 121L438 139L481 132L514 148L567 139L601 154L648 143L679 161L712 156L749 172L797 175L824 195L814 222L830 246L805 267L795 296L767 311L754 344L722 355L709 387L678 401L650 427L608 422L583 445L548 438L511 459L474 448L432 462L396 441L360 447L328 429L289 431L254 412L224 419L202 392L170 381L155 349L132 331L139 296L117 269L125 240L105 209L119 181L101 150Z" />
-            <path class="map-water" d="M540 157c16-17 45-16 64-1 10 8 16 23 6 33-11 11-30 2-41 11-8 7-6 19-12 27-10 12-31 9-39-4-8-14 3-30 11-41 5-7 5-17 11-25z" />
-            <path class="map-grid" d="M179 117l6 270M249 113l1 303M319 119l-3 311M389 124l4 316M461 137l-2 311M531 145l12 291M604 151l20 269M680 163l18 222M135 206l678 20M131 286l660 13M160 359l576-4" />
-            <g class="map-marker public-marker" transform="translate(525 246)"><circle class="marker-ring" r="21"/><circle r="8"/><text x="17" y="-18">IOWA</text></g>
-            <g class="map-marker public-marker" transform="translate(447 403)"><circle class="marker-ring" r="21"/><circle r="8"/><text x="17" y="-18">TEXAS</text></g>
-            <g class="map-marker program-marker" transform="translate(585 250)"><circle class="marker-ring" r="15"/><circle r="6"/><text x="14" y="17">IL</text></g>
-            <g class="map-marker program-marker" transform="translate(722 301)"><circle class="marker-ring" r="15"/><circle r="6"/><text x="14" y="17">VA</text></g>
-            <g class="map-marker program-marker" transform="translate(744 278)"><circle class="marker-ring" r="15"/><circle r="6"/><text x="14" y="-12">DC</text></g>
-          </svg>
-        </div>
+        <div><span>PART 03</span><strong>Collection platform</strong><small>What produces it?</small></div>
+        <i aria-hidden="true">→</i>
+        <div><span>PART 04</span><strong>Comparison</strong><small>How does it compare?</small></div>
       </div>
     </section>
 
     <section class="section dark-section" id="collection-plan">
       <div class="section-heading light">
-        <div><p class="eyebrow">Part 02 · Proposed collection</p><h2>Four linked data products</h2></div>
-        <p>The final collection is organized as four deliverables. Stable run and timestamp identifiers connect every raw record to processed outputs, route context, and event windows.</p>
+        <div><p class="eyebrow">Part 01 · Our collection plan</p><h2>Four data products</h2></div>
+        <p>Our data comes in four linked parts: raw, processed, infrastructure, and event.</p>
       </div>
 
-      <div class="product-relationship" aria-label="Relationship among the four proposed data products">
-        <div class="relationship-main">
-          <div class="relationship-node"><span>01</span><strong>Raw data</strong><small>Original observations</small></div>
+      <div class="product-relationship" role="tablist" aria-label="Four data products">
+        <div class="relationship-main" role="presentation">
+          <button class="relationship-node" type="button" role="tab" id="tab-raw" aria-controls="panel-raw" aria-selected="true"><span>01</span><strong>Raw data</strong><small>Original observations</small></button>
           <i aria-hidden="true">→</i>
-          <div class="relationship-node"><span>02</span><strong>Structured data</strong><small>Synchronized and processed</small></div>
+          <button class="relationship-node" type="button" role="tab" id="tab-processed" aria-controls="panel-processed" aria-selected="false" tabindex="-1"><span>02</span><strong>Processed data</strong><small>Synchronized and quality-checked</small></button>
           <i aria-hidden="true">→</i>
-          <div class="relationship-node event-node"><span>04</span><strong>Event data</strong><small>Indexed disengagement windows</small></div>
+          <button class="relationship-node" type="button" role="tab" id="tab-event" aria-controls="panel-event" aria-selected="false" tabindex="-1"><span>04</span><strong>Event data</strong><small>Indexed event windows, graded by level</small></button>
         </div>
-        <div class="relationship-context"><span>03</span><strong>Infrastructure data</strong><small>Road and environment context joined to runs and events by position and time</small></div>
+        <button class="relationship-context" type="button" role="tab" id="tab-infrastructure" aria-controls="panel-infrastructure" aria-selected="false" tabindex="-1"><span>03</span><strong>Infrastructure data</strong><small>An HD map of the collection routes, joined to runs and events by position</small></button>
       </div>
 
-      <div class="product-grid">
-        <article class="product-card raw-product">
-          <header><span>01</span><div><small>PRIMARY RECORD</small><h3>Raw data</h3></div></header>
+      <div class="product-panels">
+        <article class="product-card raw-product" role="tabpanel" id="panel-raw" aria-labelledby="tab-raw" tabindex="0">
+          <header><small>PRIMARY RECORD</small></header>
           <dl>
-            <div><dt>Purpose</dt><dd>Preserve original sensor, vehicle, and system measurements for replay and reprocessing.</dd></div>
-            <div><dt>Example contents</dt><dd>Camera, LiDAR, radar, GNSS/IMU, CAN, actuation feedback, and raw autonomy topics.</dd></div>
-            <div><dt>Planned format</dt><dd>MCAP / ROS bag, video or image files, point clouds, and timestamped CSV.</dd></div>
-            <div><dt>Connection</dt><dd>Source for processed outputs; event records point back to exact raw time windows.</dd></div>
+            <div><dt>Contents</dt><dd>Camera, LiDAR, GNSS/IMU, vehicle state, AV system diagnostics, and raw autonomy topics.</dd></div>
+            <div><dt>Format</dt><dd>ROS bag and its topic list. Images, point clouds, and timestamped CSV are extracted from the bag.</dd></div>
           </dl>
         </article>
-        <article class="product-card structured-product">
-          <header><span>02</span><div><small>ANALYSIS-READY RECORD</small><h3>Structured / processed data</h3></div></header>
+        <article class="product-card processed-product" role="tabpanel" id="panel-processed" aria-labelledby="tab-processed" tabindex="0" hidden>
+          <header><small>ANALYSIS-READY RECORD</small></header>
           <dl>
-            <div><dt>Purpose</dt><dd>Provide synchronized, quality-checked records that can be compared across runs.</dd></div>
-            <div><dt>Example contents</dt><dd>Objects, lanes, drivable space, localization, trajectories, commands, vehicle states, confidence, and annotations.</dd></div>
-            <div><dt>Planned format</dt><dd>Parquet or CSV tables with JSON metadata and GeoJSON where spatial records are required.</dd></div>
-            <div><dt>Connection</dt><dd>Derived from raw data and joined to infrastructure and event tables through run, time, and location keys.</dd></div>
+            <div><dt>Contents</dt><dd>Localization, trajectories, commands, vehicle states, environmental conditions, road conditions, and other annotations.</dd></div>
+            <div><dt>Format</dt><dd>Tables keyed on the camera image timestamp. Each row carries the corresponding LiDAR frame, vehicle state, driving commands, and world coordinates.</dd></div>
           </dl>
         </article>
-        <article class="product-card infrastructure-product">
-          <header><span>03</span><div><small>CONTEXT RECORD</small><h3>Infrastructure data</h3></div></header>
+        <article class="product-card infrastructure-product" role="tabpanel" id="panel-infrastructure" aria-labelledby="tab-infrastructure" tabindex="0" hidden>
+          <header><small>HD MAP RECORD</small></header>
           <dl>
-            <div><dt>Purpose</dt><dd>Describe the road and operating environment in which each AV record was produced.</dd></div>
-            <div><dt>Example contents</dt><dd>Road geometry, lane markings, surface condition, signs, intersections, shoulders, work zones, and visibility.</dd></div>
-            <div><dt>Planned format</dt><dd>GeoJSON or Lanelet2 layers, route tables, geotagged images, and inspection records.</dd></div>
-            <div><dt>Connection</dt><dd>Provides spatial context for complete runs and for the road segment surrounding each event.</dd></div>
+            <div><dt>Contents</dt><dd>Road geometry, lane markings, surface condition, signs, intersections, shoulders, work zones, and visibility.</dd></div>
+            <div><dt>Format</dt><dd>HD map layers in Lanelet2 or GeoJSON, with route tables, geotagged images, and inspection records.</dd></div>
           </dl>
         </article>
-        <article class="product-card event-product">
-          <header><span>04</span><div><small>RESEARCH-FOCUSED RECORD</small><h3>Event data</h3></div></header>
+        <article class="product-card event-product" role="tabpanel" id="panel-event" aria-labelledby="tab-event" tabindex="0" hidden>
+          <header><small>RESEARCH-FOCUSED RECORD</small></header>
           <dl>
-            <div><dt>Purpose</dt><dd>Make disengagements and other safety-relevant transitions searchable and directly reviewable.</dd></div>
-            <div><dt>Example contents</dt><dd>Degradation, warning, disengagement, takeover, manual-control, recovery, causes, outcomes, and derived variables.</dd></div>
-            <div><dt>Planned format</dt><dd>Event table, metadata JSON, synchronized video clips, and linked pre-event / post-event data windows.</dd></div>
-            <div><dt>Connection</dt><dd>Acts as an index into the corresponding raw, structured, and infrastructure records.</dd></div>
+            <div><dt>Contents</dt><dd>Events at three levels: degradation, warning, and disengagement.</dd></div>
+            <div><dt>Format</dt><dd>Clips of the raw and processed data around each event window, with the corresponding disengagement metrics.</dd></div>
           </dl>
         </article>
       </div>
 
       <div class="run-design">
-        <div class="run-total"><span>60</span><div><small>PLANNED COLLECTION</small><h3>paired rural runs</h3><p>Comparable human-driven and automated runs across fixed routes and operating conditions.</p></div></div>
+        <div class="run-total"><span>28</span><div><small>PLANNED COLLECTION</small><h3>paired rural runs</h3><p>Every automated run is driven again by a human over the same route as its baseline—that pair is one run.</p></div></div>
         <div class="run-equation" aria-label="Collection design calculation">
-          <div><strong>3</strong><span>fixed routes</span></div><i>×</i>
+          <div><strong>7</strong><span>fixed routes</span></div><i>×</i>
           <div><strong>2</strong><span>seasons</span></div><i>×</i>
-          <div><strong>5</strong><span>repetitions</span></div><i>×</i>
-          <div><strong>2</strong><span>driving modes</span></div><i>=</i>
-          <div class="equation-total"><strong>60</strong><span>runs</span></div>
+          <div><strong>2</strong><span>repetitions</span></div><i>=</i>
+          <div class="equation-total"><strong>28</strong><span>paired runs</span></div>
         </div>
       </div>
     </section>
 
     <section class="section disengagement-section" id="disengagement">
       <div class="section-heading">
-        <div><p class="eyebrow">Part 03 · Central research topic</p><h2>Disengagement Events</h2></div>
-        <p>A consistent event definition makes it possible to connect system behavior, driver action, road context, and vehicle recovery without treating every term as interchangeable.</p>
+        <div><p class="eyebrow">Part 02 · Our research focus</p><h2>Event Data</h2></div>
+        <p>Not every problem ends in a disengagement. Grading by severity keeps the milder events in the record, so we can ask how often a degradation escalates into a warning, and a warning into a disengagement.</p>
       </div>
 
       <div class="definition-box">
         <span>WORKING DEFINITION</span>
-        <p>A <strong>disengagement event</strong> is a transition in which automated driving is terminated, either by the system or through human intervention.</p>
+        <p>An <strong>event</strong> is a departure from normal automated driving. We record events at three escalating levels: degradation, warning, and disengagement.</p>
       </div>
 
-      <div class="event-lifecycle" tabindex="0" role="region" aria-label="Possible stages of a disengagement event">
-        <article><span>01</span><small>SYSTEM ATTRIBUTE</small><strong>Degradation</strong><p>Performance or confidence begins to decline.</p></article>
+      <div class="event-lifecycle" tabindex="0" role="region" aria-label="The three event levels, in increasing severity">
+        <article><small>LEVEL 01</small><strong>Degradation</strong><p>Performance or confidence declines while automated driving stays engaged.</p></article>
         <i aria-hidden="true">→</i>
-        <article><span>02</span><small>SYSTEM ACTION</small><strong>Warning / request</strong><p>The system issues an alert or takeover request.</p></article>
+        <article><small>LEVEL 02</small><strong>Warning</strong><p>The system alerts the driver or requests a takeover, with automation still engaged.</p></article>
         <i aria-hidden="true">→</i>
-        <article class="central-event"><span>03</span><small>CENTRAL EVENT</small><strong>Disengagement</strong><p>Automated driving mode ends.</p></article>
-        <i aria-hidden="true">→</i>
-        <article><span>04</span><small>RESPONSE</small><strong>Takeover / fallback</strong><p>The driver intervenes or the system executes fallback.</p></article>
-        <i aria-hidden="true">→</i>
-        <article><span>05</span><small>STATE</small><strong>Manual control</strong><p>The driver controls the vehicle after automation ends.</p></article>
-        <i aria-hidden="true">→</i>
-        <article><span>06</span><small>OUTCOME</small><strong>Recovery</strong><p>The vehicle returns to a stable operating state.</p></article>
-      </div>
-      <p class="lifecycle-note">Not every event must contain every stage. The event record preserves which transitions occurred, their order, and their timestamps.</p>
-
-      <div class="terminology-layout">
-        <div class="terminology-heading"><span>Consistent terminology</span><h3>One event, distinct stages and attributes</h3><p>“Disengagement event” is the central record. The remaining terms describe a precursor, trigger, response, state, outcome, or possible cause.</p></div>
-        <dl class="terminology-list">
-          <div><dt>System degradation</dt><dd>A measurable reduction in perception, localization, planning, or control performance.</dd></div>
-          <div><dt>Warning / takeover request</dt><dd>A system notification asking the driver to prepare or assume control.</dd></div>
-          <div><dt>Takeover / intervention</dt><dd>The driver’s action to assume control; it may initiate or follow disengagement.</dd></div>
-          <div><dt>Manual control</dt><dd>The vehicle operating state after the driver has assumed control.</dd></div>
-          <div><dt>Recovery</dt><dd>The stabilization of the vehicle and completion of the immediate response.</dd></div>
-          <div class="failure-term"><dt>Failure</dt><dd>A cause or attribute of an event—not a synonym for every degradation, intervention, or disengagement.</dd></div>
-        </dl>
+        <article><small>LEVEL 03</small><strong>Disengagement</strong><p>Automated driving ends, either by system fallback or by driver intervention.</p></article>
       </div>
 
-      <div class="event-record">
-        <div><p class="panel-kicker">Event-data deliverable</p><h3>What one disengagement record contains</h3></div>
-        <ol>
-          <li><span>01</span><p><strong>Event identity</strong>Run ID, event ID, location, start time, disengagement time, and end time.</p></li>
-          <li><span>02</span><p><strong>System sequence</strong>Degradation indicators, warnings, mode transitions, faults, and automation status.</p></li>
-          <li><span>03</span><p><strong>Human response</strong>Intervention type, reaction time, manual-control onset, and driver inputs.</p></li>
-          <li><span>04</span><p><strong>Linked evidence</strong>References to raw sensors, processed outputs, route infrastructure, and synchronized event windows.</p></li>
-          <li><span>05</span><p><strong>Outcome</strong>Minimum safety margin, recovery behavior, final vehicle state, and review labels.</p></li>
-        </ol>
-      </div>
+
 
       <details class="technical-appendix">
-        <summary><span>Technical appendix</span><strong>Derived variables for disengagement-event review</strong><i aria-hidden="true">+</i></summary>
+        <summary><span>Technical appendix</span><strong>Derived variables for event review</strong><i aria-hidden="true">+</i></summary>
         <div class="appendix-content">
-          <p>These variables are derived from the linked raw and structured records. Candidate thresholds are screening values from literature or simulation and require calibration on our vehicle, routes, and operating conditions.</p>
+          <p>These variables are derived from the linked raw and processed records. Candidate thresholds are screening values from literature or simulation and require calibration on our vehicle, routes, and operating conditions.</p>
           <div class="table-scroll" tabindex="0" role="region" aria-label="Derived event variables">
             <table class="method-table">
-              <thead><tr><th>Variable</th><th>Question</th><th>Calculation / candidate rule</th><th>Event-data role</th></tr></thead>
+              <colgroup><col class="col-variable" /><col class="col-question" /><col class="col-rule" /><col /></colgroup><thead><tr><th scope="col">Variable</th><th scope="col">Question</th><th scope="col">Calculation / candidate rule</th><th scope="col">Event-data role</th></tr></thead>
               <tbody>
-                <tr><th>TLC</th><td>How much time remains before a lane boundary is crossed?</td><td>TLC<sub>remaining</sub> = TLC<sub>at failure</sub> − reaction time; candidate flag &lt; 0.5 s</td><td>Lane-departure margin at disengagement and takeover</td></tr>
-                <tr><th>Inverse TTC</th><td>How urgently is the vehicle closing on an obstacle?</td><td>Closing speed ÷ distance; candidate flag &gt; 0.3 s<sup>−1</sup></td><td>Longitudinal conflict urgency</td></tr>
-                <tr><th>Control stability</th><td>Is steering becoming unstable or uncomfortable?</td><td>Low-frequency and high-frequency steering oscillation reviewed separately</td><td>Control degradation before and after disengagement</td></tr>
-                <tr><th>Perception quality</th><td>Is lane or object perception deteriorating?</td><td>Confidence, overlap, continuity, and missed-detection indicators</td><td>Candidate degradation cause or event attribute</td></tr>
-                <tr><th>Response &amp; recovery</th><td>How quickly did the driver respond and the vehicle stabilize?</td><td>Warning-to-input, disengagement-to-manual-control, and stabilization intervals</td><td>Driver response and event outcome</td></tr>
+                <tr><th scope="row">TLC</th><td>How much time remains before a lane boundary is crossed?</td><td class="rule">TLC<sub>remaining</sub> = TLC<sub>at failure</sub> − reaction time; candidate flag &lt; 0.5 s</td><td class="role">Lane-departure margin at disengagement and takeover</td></tr>
+                <tr><th scope="row">Inverse TTC</th><td>How urgently is the vehicle closing on an obstacle?</td><td class="rule">Closing speed ÷ distance; candidate flag &gt; 0.3 s<sup>−1</sup></td><td class="role">Longitudinal conflict urgency</td></tr>
+                <tr><th scope="row">Control stability</th><td>Is steering becoming unstable or uncomfortable?</td><td class="rule">Low-frequency and high-frequency steering oscillation reviewed separately</td><td class="role">Control degradation before and after disengagement</td></tr>
+                <tr><th scope="row">Perception quality</th><td>Is lane or object perception deteriorating?</td><td class="rule">Confidence, overlap, continuity, and missed-detection indicators</td><td class="role">Candidate degradation cause or event attribute</td></tr>
+                <tr><th scope="row">Response &amp; recovery</th><td>How quickly did the driver respond and the vehicle stabilize?</td><td class="rule">Warning-to-input, disengagement-to-manual-control, and stabilization intervals</td><td class="role">Driver response and event outcome</td></tr>
               </tbody>
             </table>
           </div>
@@ -268,57 +146,364 @@
 
     <section class="section dark-section pipeline-section" id="data-pipeline">
       <div class="section-heading light">
-        <div><p class="eyebrow">Part 04 · AV Stack and data</p><h2>How the AV system produces the dataset</h2></div>
-        <p>DataSpeed and Autoware are the development bases. Their sensor, autonomy, vehicle-interface, and system-state outputs are recorded and transformed into the four connected data products.</p>
+        <div><p class="eyebrow">Part 03 · Collection platform</p><h2>The platform that produces the data</h2></div>
+        <p>We develop on two AV stacks, DataSpeed and Autoware. Their sensor, autonomy, vehicle-interface, and system-state outputs are recorded and transformed into the four connected data products.</p>
       </div>
 
-      <div class="platform-bases">
-        <article><span>01 · VEHICLE PLATFORM</span><h3>DataSpeed</h3><p>Provides drive-by-wire integration, CAN and vehicle-state feedback, actuation commands, and the interface between autonomy software and the vehicle.</p></article>
-        <article><span>02 · AUTONOMY PLATFORM</span><h3>Autoware</h3><p>Provides sensing, perception, localization, planning, control, system operation, diagnostics, and automation-state outputs.</p></article>
+      <div class="platform-bases" role="tablist" aria-label="AV stacks">
+        <button type="button" role="tab" id="tab-dataspeed" aria-controls="panel-dataspeed" aria-selected="true"><span>AV STACK 01</span><h3>DataSpeed</h3><p>Provides drive-by-wire integration, CAN and vehicle-state feedback, actuation commands, and the interface between autonomy software and the vehicle.</p></button>
+        <button type="button" role="tab" id="tab-autoware" aria-controls="panel-autoware" aria-selected="false" tabindex="-1"><span>AV STACK 02</span><h3>Autoware</h3><p>Provides sensing, perception, localization, planning, control, system operation, diagnostics, and automation-state outputs.</p></button>
       </div>
 
-      <div class="production-flow" aria-label="AV data production pipeline">
-        <article><span>01</span><small>RECORD</small><strong>Vehicle + AV stack</strong><p>Capture sensors, autonomy topics, CAN, commands, feedback, modes, and diagnostics.</p></article>
-        <i aria-hidden="true">→</i>
-        <article><span>02</span><small>ALIGN</small><strong>Time synchronization</strong><p>Assign common clocks, coordinate frames, route IDs, run IDs, and data-quality flags.</p></article>
-        <i aria-hidden="true">→</i>
-        <article><span>03</span><small>ENRICH</small><strong>Processing + context</strong><p>Generate objects, lanes, trajectories, states, annotations, and route-infrastructure joins.</p></article>
-        <i aria-hidden="true">→</i>
-        <article class="flow-output"><span>04</span><small>DELIVER</small><strong>Runs + events</strong><p>Publish linked raw, structured, infrastructure, and disengagement-event records.</p></article>
+      <svg class="dg-defs" width="0" height="0" aria-hidden="true" focusable="false">
+        <defs>
+          <marker id="dg-arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#c5050c" /></marker>
+          <marker id="dg-arrow-light" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#e6e6e6" /></marker>
+          <marker id="dg-arrow-grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#8a8a8a" /></marker>
+        </defs>
+      </svg>
+      <div class="stack-figures">
+        <figure class="stack-figure" role="tabpanel" id="panel-dataspeed" aria-labelledby="tab-dataspeed" tabindex="0">
+          <figcaption>DataSpeed AV software architecture</figcaption>
+          <svg viewBox="0 0 1200 490" role="img" aria-labelledby="ds-title ds-desc">
+            <title id="ds-title">DataSpeed AV software architecture</title>
+            <desc id="ds-desc">Sensing feeds perception, then planning, then control, ending at the DataSpeed drive-by-wire vehicle interface. GNSS/IMU and a route database feed localization, which feeds planning. A system manager monitors control and reports to monitoring and HMI.</desc>
+
+            <g class="dg-flow">
+              <path d="M226 120 H258" />
+              <path d="M462 120 H494" />
+              <path d="M600 268 V178" />
+              <path d="M462 318 H494" />
+              <path d="M128 368 V400 H600 V376" />
+            </g>
+            <g class="dg-cmd">
+              <path d="M698 120 H730" />
+              <path d="M934 120 H966" />
+            </g>
+            <g class="dg-mon">
+              <path d="M836 260 V178" />
+              <path d="M1072 170 V252" />
+              <path d="M934 315 H966" />
+            </g>
+
+            <g class="dg-node accent">
+              <rect x="30" y="70" width="196" height="100" rx="8" />
+              <text x="128" y="112">Sensing</text>
+              <text class="sub" x="128" y="134">Cameras, LiDAR</text>
+            </g>
+            <g class="dg-node">
+              <rect x="266" y="70" width="196" height="100" rx="8" />
+              <text x="364" y="104">Perception</text>
+              <text class="sub" x="364" y="126">LiDAR segmentation</text>
+              <text class="sub" x="364" y="143">Obstacle tracking</text>
+            </g>
+            <g class="dg-node">
+              <rect x="502" y="70" width="196" height="100" rx="8" />
+              <text x="600" y="104">Planning</text>
+              <text class="sub" x="600" y="126">Route, speed profile</text>
+              <text class="sub" x="600" y="143">Trajectory</text>
+            </g>
+            <g class="dg-node">
+              <rect x="738" y="70" width="196" height="100" rx="8" />
+              <text x="836" y="104">Control</text>
+              <text class="sub" x="836" y="126">Steering and speed</text>
+              <text class="sub" x="836" y="143">commands</text>
+            </g>
+            <g class="dg-node accent">
+              <rect x="974" y="70" width="196" height="100" rx="8" />
+              <text x="1072" y="112">Vehicle interface</text>
+              <text class="sub" x="1072" y="134">DataSpeed DBW, CAN bus</text>
+            </g>
+
+            <g class="dg-node">
+              <rect x="30" y="268" width="196" height="100" rx="8" />
+              <text x="128" y="310">GNSS / IMU</text>
+              <text class="sub" x="128" y="332">NovAtel positioning</text>
+            </g>
+            <g class="dg-node">
+              <rect x="502" y="268" width="196" height="100" rx="8" />
+              <text x="600" y="310">Localization</text>
+              <text class="sub" x="600" y="332">Pose and vehicle state</text>
+            </g>
+            <g class="dg-node">
+              <rect x="266" y="268" width="196" height="100" rx="8" />
+              <text x="364" y="310">Route database</text>
+              <text class="sub" x="364" y="332">Route path</text>
+            </g>
+
+            <g class="dg-node dashed-accent">
+              <rect x="738" y="268" width="196" height="100" rx="8" />
+              <text x="836" y="310">System manager</text>
+              <text class="sub" x="836" y="332">Run enable, diagnostics</text>
+            </g>
+            <g class="dg-node dashed">
+              <rect x="974" y="268" width="196" height="100" rx="8" />
+              <text x="1072" y="310">Monitoring &amp; HMI</text>
+              <text class="sub" x="1072" y="332">RViz, markers, diagnostics</text>
+            </g>
+
+            <g class="dg-key">
+              <text class="label" x="30" y="450">KEY</text>
+              <path class="dg-flow-line" d="M78 445 H126" />
+              <text x="138" y="450">Data flow</text>
+              <path class="dg-cmd-line" d="M228 445 H276" />
+              <text x="288" y="450">Control command</text>
+              <path class="dg-mon-line" d="M424 445 H472" />
+              <text x="484" y="450">Monitoring</text>
+            </g>
+          </svg>
+        </figure>
+
+        <figure class="stack-figure" role="tabpanel" id="panel-autoware" aria-labelledby="tab-autoware" tabindex="0" hidden>
+          <figcaption>Autoware software architecture</figcaption>
+          <svg viewBox="0 0 1200 550" role="img" aria-labelledby="aw-title aw-desc">
+            <title id="aw-title">Autoware software architecture</title>
+            <desc id="aw-desc">Sensing feeds perception, planning and localization. Perception feeds planning, planning feeds control, and control feeds the vehicle interface. GNSS/IMU joins the same path, and the map also feeds localization, which feeds control. A system manager spans the stack for operation mode, routing, diagnostics and fail-safe, and a monitoring and HMI block provides system state and operator access.</desc>
+
+            <g class="dg-flow">
+              <path d="M226 230 H258" />
+              <path d="M462 230 H494" />
+              <path class="join" d="M128 360 V330" />
+              <path d="M128 280 V330 H600 V288" />
+              <path d="M128 280 V330 H600 V352" />
+              <path d="M698 410 H836 V288" />
+            </g>
+            <g class="dg-cmd">
+              <path d="M698 230 H730" />
+              <path d="M934 230 H966" />
+              <path d="M462 410 H494" />
+            </g>
+            <g class="dg-mon">
+              <path d="M600 118 V172" />
+              <path d="M1072 118 V172" />
+              <path d="M1072 280 V352" />
+            </g>
+
+            <g class="dg-node accent">
+              <rect x="30" y="40" width="1140" height="78" rx="8" />
+              <text x="600" y="76">System manager</text>
+              <text class="sub" x="600" y="98">Operation mode, routing, diagnostics, fail-safe and external interfaces</text>
+            </g>
+
+            <g class="dg-node accent">
+              <rect x="30" y="180" width="196" height="100" rx="8" />
+              <text x="128" y="222">Sensing</text>
+              <text class="sub" x="128" y="244">Camera, LiDAR</text>
+            </g>
+            <g class="dg-node">
+              <rect x="266" y="180" width="196" height="100" rx="8" />
+              <text x="364" y="214">Perception</text>
+              <text class="sub" x="364" y="236">Objects, traffic lights</text>
+              <text class="sub" x="364" y="253">Free space</text>
+            </g>
+            <g class="dg-node">
+              <rect x="502" y="180" width="196" height="100" rx="8" />
+              <text x="600" y="214">Planning</text>
+              <text class="sub" x="600" y="236">Mission, behavior</text>
+              <text class="sub" x="600" y="253">Motion trajectory</text>
+            </g>
+            <g class="dg-node">
+              <rect x="738" y="180" width="196" height="100" rx="8" />
+              <text x="836" y="214">Control</text>
+              <text class="sub" x="836" y="236">Lateral and longitudinal</text>
+              <text class="sub" x="836" y="253">control</text>
+            </g>
+            <g class="dg-node accent">
+              <rect x="974" y="180" width="196" height="100" rx="8" />
+              <text x="1072" y="214">Vehicle interface</text>
+              <text class="sub" x="1072" y="236">Commands, status and</text>
+              <text class="sub" x="1072" y="253">platform adapters</text>
+            </g>
+
+            <g class="dg-node">
+              <rect x="30" y="360" width="196" height="100" rx="8" />
+              <text x="128" y="402">GNSS / IMU</text>
+              <text class="sub" x="128" y="424">Positioning</text>
+            </g>
+            <g class="dg-node">
+              <rect x="266" y="360" width="196" height="100" rx="8" />
+              <text x="364" y="394">Map</text>
+              <text class="sub" x="364" y="416">Lanelet2 vector map</text>
+              <text class="sub" x="364" y="433">Point cloud map</text>
+            </g>
+            <g class="dg-node">
+              <rect x="502" y="360" width="196" height="100" rx="8" />
+              <text x="600" y="394">Localization</text>
+              <text class="sub" x="600" y="416">Pose, twist</text>
+              <text class="sub" x="600" y="433">and acceleration</text>
+            </g>
+            <g class="dg-node dashed">
+              <rect x="974" y="360" width="196" height="100" rx="8" />
+              <text x="1072" y="394">Monitoring &amp; HMI</text>
+              <text class="sub" x="1072" y="416">System state</text>
+              <text class="sub" x="1072" y="433">and operator access</text>
+            </g>
+
+            <g class="dg-key">
+              <text class="label" x="30" y="510">KEY</text>
+              <path class="dg-flow-line" d="M78 505 H126" />
+              <text x="138" y="510">Data flow</text>
+              <path class="dg-cmd-line" d="M228 505 H276" />
+              <text x="288" y="510">Control command</text>
+              <path class="dg-mon-line" d="M424 505 H472" />
+              <text x="484" y="510">Monitoring</text>
+            </g>
+          </svg>
+        </figure>
       </div>
 
-      <div class="pipeline-table-wrap">
-        <div class="pipeline-table-head"><span>Data provenance</span><strong>From system component to data product</strong></div>
-        <div class="table-scroll dark-table-scroll" tabindex="0" role="region" aria-label="AV stack data provenance table">
-          <table class="pipeline-table">
-            <thead><tr><th>System source</th><th>Records produced</th><th>Primary data products</th></tr></thead>
-            <tbody>
-              <tr><th>Sensors &amp; drivers</th><td>Camera images, LiDAR point clouds, radar detections, GNSS/IMU</td><td><span>Raw</span><span>Structured</span></td></tr>
-              <tr><th>Perception &amp; localization</th><td>Objects, lanes, drivable space, pose, velocity, confidence, localization quality</td><td><span>Structured</span><span>Event</span></td></tr>
-              <tr><th>Planning &amp; control</th><td>Behavior state, planned trajectory, steering and speed commands, tracking error</td><td><span>Raw</span><span>Structured</span><span>Event</span></td></tr>
-              <tr><th>DataSpeed vehicle interface</th><td>CAN states, actuation feedback, automation mode, driver inputs, command execution</td><td><span>Raw</span><span>Structured</span><span>Event</span></td></tr>
-              <tr><th>System manager &amp; operator</th><td>Warnings, faults, diagnostics, disengagement, manual-control, and recovery timestamps</td><td><span>Event</span></td></tr>
-              <tr><th>Map &amp; road survey</th><td>Route geometry, markings, surface, signs, intersections, shoulders, and work zones</td><td><span>Infrastructure</span><span>Event context</span></td></tr>
-            </tbody>
-          </table>
+    </section>
+
+    <section class="section" id="existing-data">
+      <div class="section-heading">
+        <div><p class="eyebrow">Part 04 · Comparison</p><h2>How our dataset compares</h2></div>
+        <p>Set against the public rural AV datasets, the comparison focuses on the records needed to reuse a driving run: route context, raw measurements, processed outputs, human factors, and identifiable events.</p>
+      </div>
+
+      <div class="comparison-head">
+        <div><span>Dataset comparison</span><strong>Public datasets and our planned collection</strong></div>
+        <p>“Not verified” means the field could not be confirmed from the reviewed public materials—it does not mean zero. Reviewed 2026-09-16.</p>
+      </div>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Comparison of public rural automated-vehicle datasets">
+        <table class="dataset-comparison">
+          <thead>
+            <tr><th scope="col">Dataset</th><th scope="col">Collection period / location</th><th scope="col">Road coverage</th><th scope="col">Routes</th><th scope="col">Route length / runs</th><th scope="col">AV stack / vehicle</th><th scope="col">Documented sensors</th><th scope="col">Raw-stream availability</th><th scope="col">Forms / human factors</th><th scope="col">Processed / structured data</th><th scope="col">Event records</th><th scope="col">Public availability</th><th scope="col">Data link</th></tr>
+          </thead>
+          <tbody>
+            <tr data-dataset="ads">
+              <th scope="row"><button type="button" class="dataset-select" data-dataset="ads" aria-pressed="false"><span>01</span><strong>ADS for Rural America</strong><small>University of Iowa · DSRI / NADS</small></button></th>
+              <td><strong>2021–2023</strong><br /><small>Study drives 19 Oct 2021 – 25 May 2023</small><ul class="cell-list"><li>Iowa</li></ul></td>
+              <td><ul class="cell-list"><li>Urban and small-town streets</li><li>Highways and ramps</li><li>Unmarked paved and gravel roads</li><li>Parking areas</li></ul></td>
+              <td><strong>1</strong> fixed study loop<br /><small>Four stops and six study phases are not independent routes</small></td>
+              <td><strong>47 mi</strong> nominal<br /><small>Recorded trip distances vary</small><span class="cell-split"><strong>80</strong> completed drives<br /><small>Completed by phase: 10 / 17 / 13 / 10 / 10 / 20</small></span></td>
+              <td>AutonomouStuff-customized Apollo<br /><small>v5.0 in the Phase 1 report, v5.5 in Phase 6</small><span class="cell-split">Ford Transit 350HD shuttle; PACMod drive-by-wire<br /><small>PACMod is the vehicle interface, not the AV stack</small></span></td>
+              <td><ul class="cell-list"><li>Cameras</li><li>LiDAR</li><li>Radar</li><li>GNSS/IMU</li><li>Mobileye</li><li>Road-weather sensing</li><li>V2X equipment</li><li>Wearable physiology sensors</li></ul><small>Inventory may vary by phase</small></td>
+              <td>Collection is documented, but public raw image / point-cloud / radar export coverage was not audited.</td>
+              <td>Rider trust and acceptance questionnaires; rider and safety-driver physiology; driver questionnaires; participant video (restricted access).</td>
+              <td><ul class="cell-list"><li>Vehicle and automation-performance records</li><li>Environmental measures</li><li>Per-drive summaries</li><li>Event information</li></ul><small>Full downloadable field inventory not audited</small></td>
+              <td><ul class="cell-list"><li>Automation engagement</li><li>Voluntary and forced takeovers</li><li>Safety-critical events</li><li>V2V events</li></ul><small>From the phase reports; aggregate portal counts need rechecking</small></td>
+              <td><span class="status public">Public portal</span><br /><small>Registration for full Playground queries; participant video needs a Data Usage Agreement</small></td>
+              <td><a class="table-link" href="https://data.adsforruralamerica.uiowa.edu/" target="_blank" rel="noopener">Open data ↗</a></td>
+            </tr>
+            <tr data-dataset="ava">
+              <th scope="row"><button type="button" class="dataset-select" data-dataset="ava" aria-pressed="false"><span>02</span><strong>Automated Vehicles for All (AVA)</strong><small>Texas A&amp;M</small></button></th>
+              <td><strong>2024–2025</strong><ul class="cell-list"><li>Texas</li><li>Illinois</li><li>Virginia</li><li>Washington, D.C.</li></ul></td>
+              <td><ul class="cell-list"><li>Rural roads — good pavement</li><li>Rural roads — degraded pavement</li><li>Rural roads — severely degraded pavement</li></ul><small>Announced scope also covers unpaved and poorly marked roads, non-standard geometry, and pedestrian-cyclist interactions in Washington, D.C.</small></td>
+              <td><span class="not-specified">Not verified</span><br /><small>Four planned sites do not imply four routes</small></td>
+              <td><span class="not-specified">Length not verified</span><span class="cell-split"><strong>4</strong> runs<br /><small>2 good pavement, 1 degraded, 1 severely degraded</small></span></td>
+              <td>Project-developed modular ADS; ROS-based components documented.<br /><small>Base stack and per-run versions not verified; not Apollo or Autoware</small><span class="cell-split">Multi-vehicle research project; drive-by-wire shown in the architecture.<br /><small>Models for each released run not verified</small></span></td>
+              <td><ul class="cell-list"><li>Cameras</li><li>LiDAR</li><li>Radar</li><li>GPS/IMU</li></ul><small>Shown in the system architecture; deployment for each public run not verified</small></td>
+              <td><span class="not-specified">Not verified</span><br /><small>Architecture inputs are not evidence of released raw files</small></td>
+              <td>Not identified in the reviewed public materials.<br /><small>This does not establish that none were collected</small></td>
+              <td><ul class="cell-list"><li>NovAtel odometry CSVs</li><li>Smoothed-trajectory CSVs</li><li>Linked MP4s</li><li>Vehicle-performance visualization</li></ul><small>As described on the portal</small></td>
+              <td><ul class="cell-list"><li>Takeover trigger in the architecture</li></ul><small>Dedicated public disengagement or takeover event files not verified</small></td>
+              <td><span class="status public">Public portal</span><br /><small>Download coverage, raw-data access and licensing not verified</small></td>
+              <td><a class="table-link" href="https://avadataportal.web.illinois.edu/visualization.html" target="_blank" rel="noopener">Open data ↗</a></td>
+            </tr>
+            <tr data-dataset="travels">
+              <th scope="row"><button type="button" class="dataset-select" data-dataset="travels" aria-pressed="true"><span>03</span><strong>TRAVELS Rural Area AV Data</strong><small>UW–Madison · TRAVELS</small></button></th>
+              <td><strong>2026–2032</strong> <span class="not-specified">planned</span><ul class="cell-list"><li>Wisconsin</li><li>Oklahoma</li><li>Georgia</li></ul></td>
+              <td><ul class="cell-list"><li>Rural roads</li><li>Repeated across two seasons</li><li>Varied operating conditions</li></ul></td>
+              <td><strong>7</strong> fixed routes</td>
+              <td><span class="not-specified">Length planned</span><span class="cell-split"><strong>28</strong> paired runs<br /><small>7 routes × 2 seasons × 2 repetitions; each automated run paired with a human-driven baseline over the same route</small></span></td>
+              <td>DataSpeed and Autoware<br /><small>Two parallel AV stacks</small><span class="cell-split">Ford E-Transit; DataSpeed drive-by-wire</span></td>
+              <td><ul class="cell-list"><li>Camera</li><li>LiDAR</li><li>GNSS/IMU</li><li>Vehicle state</li><li>AV system diagnostics</li></ul></td>
+              <td>ROS bag and its topic list; images, point clouds and timestamped CSV extracted from the bag.</td>
+              <td>Driver inputs, intervention type, reaction time and manual-control onset.</td>
+              <td><ul class="cell-list"><li>Localization</li><li>Trajectories</li><li>Commands</li><li>Vehicle states</li><li>Environmental conditions</li><li>Road conditions</li><li>Other annotations</li></ul></td>
+              <td><ul class="cell-list"><li>Degradation</li><li>Warning</li><li>Disengagement</li></ul><small>Each record links pre-event and post-event windows</small></td>
+              <td><span class="status planned">Planned release</span></td>
+              <td><span class="not-specified">In preparation</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="map-support" data-active="travels">
+        <div class="map-copy">
+          <p class="panel-kicker">Supporting location view</p>
+          <h3>Reported U.S. collection footprint</h3>
+          <p>Select a dataset in the table above to shade the states it covers. For AVA these are the announced collection sites, not confirmed released-data coverage.</p>
+          <div class="map-legend"><span class="key-ads"><i class="legend-swatch ads"></i>ADS for Rural America</span><span class="key-ava"><i class="legend-swatch ava"></i>Automated Vehicles for All</span><span class="key-travels"><i class="legend-swatch travels"></i>TRAVELS</span></div>
+        </div>
+        <div class="mini-map-card">
+          <svg class="us-map" viewBox="0 0 940 560" role="img" aria-labelledby="map-title map-desc">
+            <title id="map-title">U.S. map of rural automated-driving data collection</title>
+            <desc id="map-desc">States are shaded for the dataset selected in the comparison table: Iowa for ADS for Rural America; Texas, Illinois, Virginia and Washington, D.C. for the announced Automated Vehicles for All sites; and Wisconsin, Oklahoma and Georgia for TRAVELS.</desc>
+            <path class="us-state" d="M614 444L617 443L614 444L614 444ZM608 347L617 346L620 345L630 345L635 344L638 344L647 343L651 343L652 348L654 356L656 362L657 367L659 373L662 385L664 387L664 389L666 392L667 394L667 396L669 397L668 398L666 400L667 402L666 405L666 408L667 410L668 412L668 414L668 417L668 419L669 420L670 422L666 423L661 424L654 424L644 425L635 426L625 427L625 430L626 432L629 433L628 436L630 438L629 440L625 442L623 443L619 443L621 443L623 442L622 441L621 440L620 438L620 435L618 434L618 436L617 437L617 441L616 442L615 441L612 441L612 437L611 431L610 424L608 410L609 405L609 393L609 389L609 369L609 366L610 355L610 348L608 347Z"><title>Alabama</title></path>
+            <path class="us-state" d="M163 367L165 367L166 366L168 364L167 362L165 361L165 359L166 356L166 354L169 351L170 348L170 346L171 344L173 342L174 340L176 339L179 338L178 336L176 334L175 328L174 327L173 324L173 322L174 320L175 318L175 315L175 312L175 311L175 309L175 307L175 305L176 304L176 301L176 299L178 299L180 299L182 299L183 301L184 302L187 300L188 295L189 291L191 283L202 285L215 288L232 291L238 291L247 293L261 295L270 296L266 326L265 330L263 347L262 357L261 360L261 362L254 411L250 411L238 409L230 408L219 406L199 394L187 387L181 384L160 371L161 369L163 367Z"><title>Arizona</title></path>
+            <path class="us-state" d="M281 215L294 217L303 218L320 220L324 220L331 221L345 222L357 223L372 225L379 225L387 226L386 246L385 253L385 260L385 264L383 286L383 289L382 308L372 307L367 307L355 306L345 305L335 304L333 304L315 302L305 301L296 300L283 298L270 296L271 286L273 273L273 270L275 261L275 258L280 225L281 215Z"><title>Colorado</title></path>
+            <path class="us-state" d="M756 539L760 537L757 539L756 539ZM744 544L745 542L748 540L750 538L753 539L754 540L752 542L750 542L747 544L744 544L744 544ZM741 545L743 544L741 545L741 545ZM730 503L732 506L734 507L731 507L730 505L730 503ZM679 446L680 445L679 447L679 446ZM670 422L671 425L672 427L681 427L698 426L711 426L719 425L720 427L721 429L723 428L723 426L723 424L722 423L722 421L723 419L725 419L727 420L729 420L731 420L732 422L733 424L734 426L734 428L737 435L738 437L741 443L743 447L746 451L751 457L754 460L755 463L754 465L755 469L756 470L757 472L760 477L762 479L763 481L764 483L765 486L767 488L768 490L770 494L770 498L770 502L771 505L771 511L771 514L771 517L769 516L769 518L768 520L769 522L769 524L771 521L770 527L768 530L766 533L765 534L766 531L767 530L768 528L766 527L763 528L762 529L760 529L758 531L755 530L754 528L754 526L753 524L752 522L750 520L748 519L747 518L745 518L744 517L741 516L740 514L739 511L738 509L736 506L734 505L732 504L733 500L732 498L731 498L731 501L730 501L727 499L725 496L725 494L723 492L721 490L719 488L721 486L722 484L723 482L724 480L722 479L723 481L721 479L718 477L718 479L720 479L721 481L720 483L719 484L719 486L718 484L717 482L716 481L716 478L715 474L715 475L716 477L716 474L717 472L717 470L717 467L717 465L716 463L715 461L714 458L713 456L713 455L709 455L708 454L706 453L705 451L704 450L701 449L701 447L700 446L698 445L697 443L696 442L694 441L691 440L689 439L687 439L685 439L683 441L684 443L682 443L681 444L679 445L675 448L673 448L671 449L672 450L675 449L676 448L678 447L677 448L675 449L673 451L671 450L669 450L667 450L666 449L665 447L667 449L667 447L666 446L664 444L662 443L660 442L658 441L656 440L653 439L649 438L647 438L643 438L641 438L638 439L634 440L632 440L628 442L629 439L628 436L629 435L627 432L625 430L625 428L635 426L644 425L654 424L661 424L666 423L670 422Z"><title>Florida</title></path>
+            <path class="us-state ds-travels" d="M651 343L653 342L661 341L672 340L683 339L691 337L690 340L688 342L689 344L691 345L693 347L695 348L696 347L697 348L698 350L700 352L700 354L702 355L704 357L705 358L707 359L709 361L710 362L711 364L713 364L714 365L715 367L717 369L719 370L721 372L723 373L724 375L725 377L726 378L727 381L728 382L729 383L731 384L732 386L732 388L733 390L735 391L737 392L738 393L736 394L735 396L735 398L733 399L734 401L733 403L733 406L733 407L733 410L732 411L731 414L732 416L732 419L730 420L727 420L725 419L724 419L723 420L722 422L723 424L723 426L723 428L721 429L720 427L719 425L711 426L698 426L681 427L673 428L671 426L670 424L670 421L668 419L667 417L667 415L668 413L667 410L666 409L666 406L666 404L667 401L667 399L668 398L668 396L667 394L666 392L664 389L664 387L662 385L659 373L657 367L656 362L654 356L652 348L651 343Z"><title>Georgia</title></path>
+            <path class="us-state" d="M607 208L609 209L611 210L616 207L617 206L622 206L633 205L643 204L647 203L648 209L651 233L652 240L653 248L653 253L654 257L652 258L654 260L655 262L654 264L652 264L650 265L648 266L646 266L645 266L645 269L645 271L643 272L642 275L640 276L639 277L639 280L638 282L637 283L635 282L633 281L633 279L632 278L631 280L629 282L629 283L628 285L627 285L625 283L623 284L622 285L621 287L619 287L617 286L615 285L613 286L612 288L611 286L609 287L607 287L608 288L606 289L605 287L606 285L606 283L607 282L606 280L607 278L608 277L609 275L611 274L611 271L613 269L611 267L612 265L611 263L610 260L610 258L610 257L610 250L610 244L609 238L609 234L607 213L607 208Z"><title>Indiana</title></path>
+            <path class="us-state" d="M386 246L400 247L406 247L420 248L435 248L444 249L460 249L475 249L482 249L490 249L491 250L493 252L494 251L496 252L497 254L495 256L494 257L493 259L495 260L496 261L497 264L497 265L499 266L501 266L501 275L501 277L501 289L501 304L501 306L501 311L487 311L476 311L466 311L453 310L441 310L426 310L421 310L412 309L403 309L391 308L382 308L383 289L383 286L385 264L385 260L385 253L386 246Z"><title>Kansas</title></path>
+            <path class="us-state" d="M868 109L869 107L870 109L869 111L868 109L868 109ZM866 107L867 104L867 107L866 107ZM849 137L846 136L846 134L844 132L843 130L842 128L840 123L835 107L831 94L834 93L835 95L835 93L834 91L836 91L835 89L836 87L837 85L839 83L839 81L839 79L838 77L838 75L837 74L838 72L838 70L839 69L839 63L845 45L847 45L848 48L851 49L853 47L854 46L857 45L857 43L860 43L862 45L864 46L866 47L869 56L873 68L873 69L874 71L874 74L876 74L879 74L880 76L880 77L881 80L883 82L884 82L886 81L888 83L889 85L891 87L890 89L889 91L887 93L887 91L886 92L885 94L884 97L883 96L881 96L881 99L879 100L878 101L877 103L874 104L873 103L874 101L872 101L871 102L873 105L872 107L873 109L872 110L871 108L870 106L869 105L868 103L868 101L867 103L865 103L866 105L866 107L865 110L867 112L865 113L864 114L863 114L861 116L860 118L858 120L857 121L856 120L855 121L854 122L853 124L853 126L851 126L851 128L851 130L849 131L849 133L849 135L849 137L849 137Z"><title>Maine</title></path>
+            <path class="us-state" d="M864 170L867 169L868 168L869 169L867 170L864 170L864 170ZM856 171L857 169L859 168L860 169L861 170L859 170L858 171L856 171ZM813 153L825 150L836 148L842 146L843 145L844 143L845 142L847 141L848 142L849 144L851 144L852 146L849 148L849 149L848 151L848 153L850 152L852 153L853 155L855 156L855 157L856 158L858 160L859 161L862 161L864 160L865 159L864 157L863 155L861 155L862 154L864 155L865 157L866 159L867 161L867 163L866 162L863 163L861 164L860 166L858 167L857 168L855 170L856 168L857 166L857 164L855 163L855 165L853 166L853 168L852 169L850 166L848 166L846 165L846 162L844 160L838 162L828 164L824 165L821 166L814 167L813 159L813 153Z"><title>Massachusetts</title></path>
+            <path class="us-state" d="M463 66L467 66L480 66L491 66L491 58L493 58L495 59L496 63L497 68L497 70L499 72L503 72L506 73L509 73L509 75L511 75L514 75L515 73L517 72L520 73L524 74L525 76L527 76L528 78L529 81L530 79L533 78L534 79L535 80L538 81L538 82L540 82L542 83L544 83L546 81L548 80L550 79L551 81L552 82L553 81L556 82L559 81L561 83L563 84L565 83L567 83L568 83L567 84L566 84L564 85L563 86L559 88L557 89L554 90L552 92L550 93L547 96L543 101L542 102L540 105L538 106L534 109L535 111L533 110L532 112L532 124L530 125L528 127L526 128L525 130L523 133L525 135L527 137L526 139L526 142L526 144L526 145L526 147L526 149L525 151L528 153L529 155L532 155L533 156L536 158L538 159L539 162L541 163L544 165L546 166L548 169L548 172L549 174L549 176L539 176L527 177L521 177L509 177L500 177L483 177L473 177L473 156L473 154L473 149L473 141L470 138L469 137L467 134L469 133L470 131L471 128L471 126L471 122L471 120L469 118L469 115L468 113L468 110L469 107L468 104L468 102L467 100L467 98L467 94L467 92L466 91L465 89L465 87L464 85L464 83L464 81L464 79L464 76L464 74L464 71L463 69L462 66L463 66Z"><title>Minnesota</title></path>
+            <path class="us-state" d="M794 223L795 221L795 219L798 217L799 215L800 213L802 212L803 210L803 208L801 207L799 205L798 205L797 203L795 203L795 201L795 198L796 196L794 194L796 193L797 190L797 187L798 186L804 187L812 190L812 193L812 196L810 198L809 200L810 202L812 201L814 202L815 204L815 208L815 212L815 215L814 220L814 221L812 224L811 225L810 228L809 230L808 233L807 235L806 233L806 231L805 229L803 230L800 229L798 228L797 227L795 226L795 224L794 223Z"><title>New Jersey</title></path>
+            <path class="us-state" d="M807 316L810 312L811 311L813 310L813 309L813 304L812 302L811 300L813 302L813 303L814 306L814 311L810 313L808 315L807 316ZM710 302L715 301L718 301L723 300L726 300L732 299L735 299L745 297L761 294L765 293L780 290L786 289L788 289L794 287L803 286L805 291L806 293L808 295L811 300L809 297L808 296L806 293L804 291L803 288L801 287L802 289L804 292L805 293L806 295L804 293L803 292L804 293L802 293L799 292L801 293L799 295L798 294L799 296L797 295L795 295L796 296L795 298L794 299L792 298L791 296L791 294L790 297L791 298L792 300L795 300L797 299L799 298L802 297L803 299L802 300L804 304L804 302L804 299L805 297L807 299L808 301L809 302L808 305L806 305L806 307L805 309L803 311L802 311L800 311L798 311L795 309L797 308L795 308L796 311L794 311L792 311L790 311L795 312L798 312L798 314L798 316L797 318L794 321L791 319L793 321L795 321L797 319L799 318L801 319L802 318L802 321L801 322L800 324L799 325L798 324L797 325L800 326L801 323L802 321L804 319L806 316L805 318L804 320L803 321L802 323L801 324L800 327L797 326L795 326L792 327L790 328L788 331L786 333L784 334L782 336L781 340L780 342L780 344L780 347L777 346L774 346L773 347L771 348L764 344L756 339L754 337L748 333L745 333L740 334L730 335L730 333L727 330L725 331L725 329L721 330L715 330L704 331L703 331L700 333L699 334L697 335L691 337L683 339L672 340L672 335L675 334L676 333L675 331L677 329L678 328L684 327L685 325L687 323L689 322L691 321L692 319L693 317L694 316L696 315L697 316L699 315L700 314L701 312L704 312L706 312L707 308L709 307L710 304L710 303L710 302Z"><title>North Carolina</title></path>
+            <path class="us-state" d="M371 61L380 62L395 63L406 64L410 64L419 64L427 65L434 65L440 65L453 66L463 66L463 68L464 71L464 73L463 75L464 78L464 80L464 83L464 85L465 87L465 89L466 90L467 92L467 94L467 98L468 99L468 102L468 104L468 107L468 109L468 112L468 114L469 117L470 119L471 122L471 125L471 128L461 128L451 127L445 127L432 127L422 126L413 126L401 125L394 125L380 124L371 123L365 123L370 74L371 61Z"><title>North Dakota</title></path>
+            <path class="us-state ds-travels" d="M367 307L370 307L382 308L391 308L403 309L412 309L421 310L426 310L441 310L453 310L466 311L476 311L487 311L501 311L502 321L502 323L502 327L503 329L504 335L505 343L505 349L505 354L505 358L505 361L505 368L505 379L503 379L501 378L500 377L498 377L497 376L495 375L494 373L492 373L491 375L488 375L486 374L484 374L483 375L480 375L478 376L477 376L476 377L474 377L473 378L472 377L470 376L469 375L466 376L464 375L464 373L463 374L461 375L461 377L459 376L459 374L457 375L456 376L455 375L453 374L451 372L450 373L448 375L447 374L447 372L444 372L444 370L442 369L440 368L439 370L436 369L434 369L432 368L430 368L428 367L426 367L426 364L425 363L423 362L423 363L421 363L419 363L417 363L416 362L414 359L414 320L407 319L397 319L388 318L378 318L366 317L366 315L367 307Z"><title>Oklahoma</title></path>
+            <path class="us-state" d="M710 190L713 188L715 186L716 185L718 184L721 182L722 187L735 185L739 184L748 183L761 180L766 179L772 178L781 176L786 175L788 177L791 177L792 179L793 181L794 183L796 184L798 184L799 185L797 187L797 189L796 191L795 193L796 196L795 198L795 200L795 203L797 203L798 205L799 205L801 207L803 208L803 210L802 212L800 213L799 215L798 217L796 218L794 218L791 219L790 222L778 224L772 225L764 227L751 230L734 233L725 234L718 235L715 217L710 190Z"><title>Pennsylvania</title></path>
+            <path class="us-state" d="M364 142L365 127L365 123L371 123L380 124L394 125L401 125L413 126L422 126L432 127L445 127L451 127L461 128L471 128L471 130L470 132L467 134L468 136L469 138L472 139L473 149L473 154L473 156L473 177L470 177L471 180L471 181L471 183L472 185L472 186L471 188L471 191L470 192L471 194L472 197L470 198L469 196L467 194L466 193L462 192L461 191L459 190L457 190L455 190L453 190L451 192L449 192L448 191L446 190L443 188L436 187L426 187L418 186L407 186L396 185L393 185L383 184L376 184L360 183L361 176L363 144L364 142Z"><title>South Dakota</title></path>
+            <path class="us-state ds-ava" d="M366 317L378 318L388 318L397 319L407 319L414 320L413 359L416 362L417 363L419 363L421 363L423 363L423 362L425 363L426 364L426 367L428 367L430 368L432 368L434 369L436 369L438 370L439 369L441 369L443 369L444 372L446 372L446 374L448 375L450 373L451 372L452 374L454 374L455 376L457 375L459 374L460 375L460 378L461 376L463 374L464 373L464 375L466 375L468 374L470 376L472 377L473 378L474 377L476 377L477 376L478 376L480 375L482 376L483 374L486 374L488 375L490 375L492 373L494 373L495 375L497 376L498 377L500 377L501 378L503 379L504 380L506 381L508 381L510 380L512 381L512 392L513 413L514 414L516 416L517 418L517 420L517 422L518 423L519 425L519 427L521 429L522 431L522 432L522 434L522 437L521 438L520 440L519 442L519 444L518 447L519 448L520 451L519 453L518 455L516 457L517 460L514 460L512 461L504 465L502 466L501 466L502 465L504 464L505 464L501 463L502 461L502 459L500 459L499 460L497 461L497 463L498 464L499 467L498 468L497 470L495 471L494 472L497 470L499 468L502 467L500 468L497 471L495 472L493 474L490 477L485 480L483 481L479 483L475 485L473 486L471 488L468 490L466 491L463 494L461 496L460 498L457 503L456 506L455 508L454 512L454 513L454 515L455 519L455 522L456 525L457 529L458 533L457 530L456 527L456 524L454 524L455 522L454 519L454 517L454 514L454 512L454 507L456 504L457 502L458 499L460 496L461 495L463 493L464 492L466 491L468 489L470 488L471 487L469 487L467 488L467 486L465 488L465 490L463 491L462 492L461 491L458 492L457 493L460 492L460 494L458 498L455 497L453 497L454 499L455 500L455 503L454 506L454 508L452 509L452 507L449 509L451 510L453 509L453 511L453 515L452 518L453 522L453 525L455 529L455 531L456 533L457 534L458 536L456 536L454 538L452 537L451 536L449 534L447 534L445 534L443 534L441 533L439 533L437 532L436 531L434 530L432 529L430 529L428 528L426 527L425 526L423 526L422 524L421 523L421 521L420 519L420 517L419 516L417 514L416 513L417 511L417 509L415 507L416 505L415 503L415 501L413 500L411 499L409 497L409 495L408 493L407 492L406 490L404 489L402 487L401 485L402 483L400 482L400 480L399 478L398 476L397 474L396 472L396 470L394 469L393 466L392 465L390 463L388 462L386 461L386 459L384 458L384 456L382 456L379 456L377 455L375 455L373 455L371 454L369 454L367 453L367 455L364 454L362 455L360 457L360 459L358 461L358 463L357 465L356 466L353 468L353 470L351 470L349 469L347 468L346 466L344 465L342 465L341 463L338 462L336 461L334 459L332 457L329 455L328 452L327 450L327 447L327 445L327 443L326 441L325 440L324 438L324 435L322 432L321 431L319 430L316 428L313 425L313 423L311 422L310 421L309 419L307 417L305 416L303 415L303 413L302 411L301 410L300 408L298 407L297 406L297 403L318 405L333 407L347 408L358 409L360 387L360 383L360 380L361 373L361 369L363 342L364 335L365 320L365 317L366 317Z"><title>Texas</title></path>
+            <path class="us-state" d="M364 142L363 144L361 176L360 183L357 223L345 222L331 221L324 220L320 220L303 218L294 217L281 215L274 214L266 213L263 212L256 211L251 211L252 203L253 199L254 190L256 178L257 176L260 157L261 147L262 143L262 140L263 137L263 132L264 130L268 130L273 131L276 132L282 132L292 134L303 135L320 137L328 138L337 139L345 140L358 141L364 142Z"><title>Wyoming</title></path>
+            <path class="us-state" d="M814 167L821 166L823 165L827 164L838 162L839 164L840 167L841 170L841 174L841 176L839 176L837 177L834 179L831 180L829 180L826 181L825 182L823 184L821 185L820 186L818 187L817 188L815 187L818 184L816 182L816 180L815 175L814 167Z"><title>Connecticut</title></path>
+            <path class="us-state" d="M483 237L492 237L501 237L509 237L516 237L520 237L531 236L539 235L545 235L546 236L547 238L548 240L548 243L549 247L550 248L550 250L551 251L552 254L554 255L555 257L557 259L560 261L561 263L562 265L563 268L564 270L566 268L568 268L571 270L571 271L571 274L570 277L569 278L568 280L568 283L571 285L573 287L574 288L575 289L577 289L579 290L580 291L581 293L583 294L583 296L584 299L583 300L584 302L585 304L586 306L587 307L589 307L590 309L589 311L589 313L589 315L587 314L586 317L585 316L584 317L584 320L583 321L584 322L582 323L583 324L582 326L581 328L571 329L572 327L573 325L574 324L575 323L575 320L574 318L554 319L535 320L527 320L514 321L502 321L501 311L501 306L501 304L501 290L501 277L501 275L501 267L500 266L498 265L497 264L497 262L495 260L493 259L494 257L495 256L497 254L497 253L494 251L493 252L491 250L490 249L488 248L487 245L486 244L484 241L484 239L483 237Z"><title>Missouri</title></path>
+            <path class="us-state" d="M690 267L693 266L694 265L694 263L696 262L696 260L695 258L696 256L696 254L698 254L699 255L701 255L701 253L701 251L701 249L702 247L703 247L704 244L706 245L708 244L709 243L711 240L712 239L713 237L713 234L713 232L713 229L714 227L714 225L715 223L714 222L714 219L713 217L715 217L718 235L725 234L734 233L736 243L738 241L739 239L740 238L741 236L743 237L745 233L747 234L750 234L751 232L753 231L754 230L756 230L759 231L760 232L761 234L762 236L761 240L756 237L752 235L752 237L752 239L752 241L751 242L750 244L749 246L747 248L747 250L744 249L744 252L743 254L742 257L741 259L738 258L737 256L735 256L735 258L735 260L734 262L732 265L732 267L732 269L730 272L729 274L729 276L728 278L726 282L725 281L722 284L720 283L721 284L719 285L717 286L715 287L713 286L712 287L711 288L708 289L707 288L705 288L704 287L702 285L702 283L700 283L699 282L697 281L696 279L694 278L693 276L692 274L690 272L691 271L691 269L690 267Z"><title>West Virginia</title></path>
+            <path class="us-state ds-ava" d="M550 240L550 237L550 235L552 234L554 233L554 231L555 230L556 228L556 226L556 225L554 223L553 222L554 219L555 218L557 217L559 217L561 216L563 215L565 214L565 212L567 209L567 207L567 205L567 203L563 201L562 199L560 197L559 196L561 195L573 195L576 194L587 194L589 194L597 193L601 193L601 195L601 197L602 199L603 200L604 202L605 204L606 207L607 213L609 234L609 238L610 243L610 250L611 257L610 258L610 260L611 263L612 265L611 267L612 268L612 270L610 273L609 275L609 277L608 279L606 280L607 282L606 283L606 285L606 287L605 288L606 290L604 292L605 294L606 295L603 296L601 297L599 298L599 300L600 302L600 304L599 304L595 303L593 302L591 302L590 304L589 306L587 306L585 304L584 303L583 301L584 300L583 296L583 294L581 293L580 291L579 290L577 289L575 289L575 288L573 287L571 285L570 284L568 282L568 280L570 277L571 275L570 273L571 271L569 269L567 268L565 269L563 269L562 266L562 264L560 261L557 259L555 257L554 255L552 254L551 253L550 251L550 249L549 247L548 244L549 240L550 240Z"><title>Illinois</title></path>
+            <path class="us-state" d="M270 296L283 298L296 300L305 301L315 302L333 304L335 304L345 305L355 306L367 307L366 315L366 317L365 320L364 335L363 342L361 369L361 373L360 380L360 383L360 387L358 409L347 408L333 407L318 405L297 403L297 405L297 407L285 406L270 404L268 413L254 411L261 362L261 360L262 357L263 347L265 331L266 326L270 296Z"><title>New Mexico</title></path>
+            <path class="us-state" d="M502 321L514 321L527 320L535 320L554 319L574 318L575 320L575 323L574 324L573 325L572 327L571 329L581 328L583 329L581 331L580 333L578 334L579 335L578 337L577 338L577 340L576 339L575 340L576 341L576 342L577 344L577 346L575 346L575 348L573 349L574 351L571 352L571 354L570 353L569 355L571 355L569 356L570 358L570 361L568 362L566 363L565 364L564 365L566 366L564 367L565 368L563 370L562 370L562 373L563 374L561 375L562 376L560 376L561 378L559 379L559 382L561 381L560 382L562 381L561 383L562 386L562 387L561 388L562 389L548 391L538 391L529 392L524 392L512 392L512 381L510 381L508 381L506 381L505 379L505 368L505 361L505 358L505 354L505 349L505 343L504 337L503 329L502 327L502 323L502 321Z"><title>Arkansas</title></path>
+            <path class="us-state" d="M102 338L104 339L106 342L104 341L104 339L102 338ZM100 347L101 349L103 352L101 351L100 347L100 347ZM84 321L85 322L87 323L89 322L87 323L84 323L84 321ZM78 321L80 321L81 322L79 323L78 321ZM62 146L70 148L74 149L77 150L85 152L87 153L92 154L94 155L102 157L108 159L118 162L123 163L117 188L113 201L111 208L109 216L109 218L108 222L109 224L113 231L118 239L121 243L125 249L131 257L133 261L139 270L153 291L163 307L167 311L173 322L173 324L174 327L175 328L176 332L178 336L179 337L177 339L175 340L173 341L171 343L170 346L170 348L169 350L167 353L165 355L165 359L165 361L167 362L168 364L166 366L165 367L163 367L138 364L122 362L122 361L122 359L121 357L121 355L122 352L121 350L119 345L118 344L117 342L116 340L114 338L113 337L112 335L110 334L109 335L107 334L107 331L107 329L106 327L104 326L101 327L99 325L97 324L95 322L95 319L94 318L92 317L91 315L89 315L87 314L84 313L82 312L79 311L77 311L76 309L75 308L76 305L77 302L77 299L78 297L76 295L74 294L75 291L75 289L73 289L72 286L72 284L70 282L69 280L68 278L69 276L67 275L67 273L66 271L65 269L64 267L64 264L65 263L67 262L68 259L68 256L66 255L64 254L63 253L62 251L61 248L62 245L62 243L61 241L62 240L63 236L64 236L65 238L64 240L65 241L66 243L67 244L67 242L67 240L67 238L66 236L65 234L66 232L68 232L67 230L65 230L64 231L64 233L64 235L61 233L59 232L58 230L56 230L58 228L58 225L58 223L57 220L56 218L55 217L54 213L53 212L52 210L51 208L52 206L52 203L52 201L52 199L53 198L54 196L54 193L54 192L54 190L54 188L53 185L52 183L49 179L50 177L51 174L52 172L56 169L57 167L58 165L58 163L59 161L61 157L61 155L61 153L61 151L60 150L62 147L62 146Z"><title>California</title></path>
+            <path class="us-state" d="M790 222L791 220L793 219L795 219L795 221L793 223L794 225L795 227L797 229L798 231L799 233L800 235L803 238L805 238L806 240L807 245L801 246L797 247L790 223L790 222Z"><title>Delaware</title></path>
+            <path class="us-state ds-ava" d="M773 242L774 240L776 242L775 244L775 243L773 242Z"><title>District of Columbia</title></path>
+            <path class="us-state ds-ads" d="M473 177L483 177L500 177L509 177L521 177L527 177L539 176L549 176L550 177L551 179L551 182L550 185L551 187L552 188L553 191L554 192L557 193L559 195L560 197L562 198L562 200L566 202L567 205L567 206L567 209L565 210L564 213L564 214L561 215L560 217L557 217L555 218L554 219L553 222L554 223L556 225L556 226L556 228L555 230L554 231L554 233L552 234L550 235L550 237L550 238L548 240L548 238L546 237L545 236L539 235L531 236L520 237L516 237L509 237L501 237L492 237L483 237L482 235L481 234L482 232L482 229L481 227L481 225L480 223L480 221L480 219L479 218L477 216L478 214L478 212L477 210L476 208L475 207L474 205L474 202L473 200L473 198L472 195L470 194L470 192L471 189L472 188L473 185L472 183L471 182L471 180L470 178L473 177Z"><title>Iowa</title></path>
+            <path class="us-state" d="M590 307L589 305L590 303L592 302L595 302L597 304L599 305L601 303L599 301L599 299L600 297L602 296L606 296L605 294L604 292L606 290L607 289L607 287L609 287L611 286L612 288L612 286L614 286L616 285L619 287L620 288L621 286L623 284L625 283L626 285L628 285L630 284L629 282L631 281L632 280L633 281L635 282L637 283L638 282L639 280L639 277L640 276L642 275L643 272L644 271L646 270L645 266L646 266L648 266L650 265L652 264L654 264L655 262L653 261L652 258L654 257L655 256L657 257L658 257L661 258L663 261L664 262L666 263L668 262L670 263L671 264L673 265L675 263L677 263L679 264L681 264L682 262L684 260L686 264L688 264L689 265L690 267L691 269L690 270L690 272L692 274L693 275L693 277L695 279L697 281L699 282L700 283L702 283L697 290L695 291L693 292L692 293L691 296L690 298L689 299L687 300L686 301L683 303L681 304L678 305L673 307L668 307L664 308L659 308L656 308L652 309L649 309L643 310L640 310L635 310L632 310L623 311L617 312L611 313L607 312L608 314L600 316L592 317L588 317L586 317L586 315L588 316L589 314L589 312L589 310L590 307L590 307ZM585 317L583 316L585 317L585 317Z"><title>Kentucky</title></path>
+            <path class="us-state" d="M792 255L793 253L794 255L792 255ZM734 233L751 230L764 227L772 225L778 224L790 222L797 245L801 246L807 245L807 247L806 251L806 254L800 256L798 257L797 258L796 256L796 254L795 254L796 252L795 249L794 251L793 249L792 251L791 253L789 251L787 248L788 247L788 245L790 245L789 244L787 243L786 244L786 242L786 241L787 239L785 240L785 237L787 238L787 235L787 237L785 235L785 232L786 230L788 229L788 228L788 225L786 226L787 228L785 230L784 229L784 230L783 232L783 234L780 233L781 235L783 236L783 237L783 239L783 241L782 243L783 245L784 248L786 250L786 252L787 254L789 255L789 257L788 256L786 256L784 254L781 255L780 253L780 254L778 253L777 251L774 254L772 251L773 249L774 247L775 246L776 242L774 240L773 242L771 241L769 240L767 240L766 238L765 236L763 235L762 234L761 233L759 231L757 231L755 230L753 231L750 232L750 234L748 234L746 234L743 236L741 236L740 238L739 239L738 241L736 243L734 233Z"><title>Maryland</title></path>
+            <path class="us-state" d="M640 120L644 121L642 122L640 120ZM627 127L627 124L628 123L628 126L627 127ZM611 128L612 129L611 128L611 128ZM617 206L619 205L620 203L621 199L623 196L624 193L624 192L624 188L624 186L624 183L623 180L623 178L620 174L620 172L619 170L618 168L618 165L619 163L618 161L617 159L618 158L619 155L620 153L620 151L620 148L620 146L621 145L622 143L622 141L624 140L625 140L626 138L627 136L629 134L628 136L628 139L628 142L628 143L629 141L629 139L630 141L629 143L630 142L631 140L631 137L631 134L631 133L632 132L634 130L636 130L635 129L634 126L635 125L636 123L638 122L641 123L643 124L645 123L646 123L648 125L649 126L651 126L653 127L656 128L659 129L660 131L661 134L659 133L659 136L661 137L662 140L662 142L662 144L662 146L662 148L661 150L660 150L659 152L659 154L658 156L656 156L655 158L655 160L656 163L657 163L659 164L661 161L662 159L663 158L664 156L666 155L667 154L669 153L671 153L673 156L674 158L675 162L676 165L677 169L678 171L679 173L679 175L679 177L679 180L678 183L676 182L677 180L675 181L675 183L674 184L674 187L672 188L671 190L671 192L671 195L670 197L669 198L668 200L663 202L654 203L647 204L643 204L633 205L622 206L617 206ZM572 85L577 81L580 79L581 78L583 78L581 80L580 82L577 83L575 84L574 86L572 85ZM557 113L559 112L561 111L563 110L564 109L566 107L567 107L570 106L573 105L575 103L577 102L578 101L579 100L581 98L583 96L584 94L587 92L590 92L592 92L594 93L591 93L589 96L588 97L587 99L586 100L585 102L584 105L586 104L587 103L587 105L588 104L590 103L592 103L594 104L597 105L598 107L599 109L600 110L602 111L604 111L606 110L607 111L609 111L610 109L611 111L612 109L614 108L617 106L621 105L623 105L625 105L629 103L632 102L633 102L632 103L633 106L633 108L635 108L638 107L639 108L641 108L642 106L644 106L645 105L645 108L646 110L646 111L645 113L646 112L648 113L649 115L650 116L652 115L651 113L653 113L655 115L656 116L653 116L650 116L648 117L644 117L641 117L639 116L639 117L639 120L637 120L636 119L634 117L632 117L630 116L628 116L626 118L625 119L623 119L622 120L619 120L618 120L616 121L616 124L614 125L613 127L611 127L612 125L613 123L612 123L610 123L609 125L608 127L607 124L606 126L605 127L603 130L603 132L601 136L599 139L597 138L598 136L598 134L595 135L595 133L596 132L596 130L595 127L593 127L591 126L591 123L589 123L587 122L585 122L584 123L582 122L577 120L562 117L560 114L558 113L557 113Z"><title>Michigan</title></path>
+            <path class="us-state" d="M610 444L612 444L611 445L610 444ZM602 445L604 444L602 445L602 445ZM599 445L601 444L599 445L599 445ZM561 391L560 388L562 388L562 386L561 385L562 382L561 383L561 381L559 382L560 380L561 378L559 377L562 377L561 376L562 375L562 373L563 371L563 370L565 368L563 367L565 367L564 365L565 364L567 363L568 362L570 361L570 359L569 357L569 355L569 354L571 354L571 353L573 352L574 350L587 348L596 347L608 347L609 348L610 355L609 366L609 369L609 389L609 393L609 405L608 410L610 424L611 431L612 437L612 441L611 442L609 442L606 442L605 441L602 441L600 442L598 443L597 444L595 443L595 445L594 446L591 446L591 443L590 442L589 440L587 439L587 437L587 435L587 432L588 431L577 431L569 431L555 432L556 430L555 429L555 427L557 426L556 424L557 422L558 421L556 419L558 419L558 417L561 416L559 416L559 414L561 414L562 413L563 411L562 410L564 409L564 407L562 408L564 406L565 406L567 403L565 404L565 402L563 401L565 401L563 400L564 398L562 399L562 397L561 396L562 394L563 392L562 391L561 393L561 391Z"><title>Mississippi</title></path>
+            <path class="us-state" d="M210 37L221 40L233 42L242 44L251 45L267 48L277 50L288 52L304 54L311 55L325 57L336 58L343 59L357 60L363 61L371 61L370 73L365 123L365 127L364 142L358 141L345 140L338 139L328 138L320 138L303 135L292 134L282 132L277 132L274 131L269 131L264 130L263 132L263 137L262 140L261 139L260 138L259 135L257 135L256 137L254 137L251 138L250 137L247 137L246 136L244 136L243 138L242 137L239 136L238 136L237 138L235 137L234 135L234 133L234 131L234 129L232 128L229 127L229 125L230 123L229 121L228 118L227 116L227 114L227 111L226 109L224 110L223 111L221 111L219 112L218 110L217 108L218 107L217 105L219 104L220 104L220 102L219 100L219 99L221 96L222 94L222 91L224 89L222 88L220 88L220 86L218 86L217 84L217 82L215 80L215 78L214 76L213 74L210 72L208 69L210 69L208 67L209 65L209 63L208 61L206 58L207 53L207 51L210 37Z"><title>Montana</title></path>
+            <path class="us-state" d="M827 101L827 99L827 97L829 95L831 95L835 107L840 121L842 128L843 130L843 132L846 134L846 136L849 137L848 140L845 142L844 143L843 145L842 146L836 148L825 150L823 148L823 146L823 144L823 142L823 140L823 137L823 135L822 133L822 130L824 129L823 127L824 124L824 122L823 120L823 117L825 116L826 115L828 113L829 112L828 109L827 107L827 105L828 103L827 102L827 101Z"><title>New Hampshire</title></path>
+            <path class="us-state" d="M812 197L812 199L810 201L810 198L812 197ZM721 182L722 181L725 178L726 176L727 175L729 173L730 172L731 170L732 168L730 166L729 164L728 162L727 160L731 158L733 157L735 156L737 156L739 156L741 155L745 155L748 156L750 156L752 155L753 155L756 154L758 154L760 153L762 150L763 149L765 147L766 147L767 146L766 141L765 140L767 139L766 138L764 137L763 134L765 132L767 130L769 127L770 126L771 123L772 121L775 118L778 115L779 114L781 113L783 113L788 112L790 111L796 110L801 108L802 110L802 112L802 113L803 115L803 117L804 118L805 121L805 122L805 124L805 127L806 130L806 132L807 134L807 136L809 135L810 137L811 142L813 150L813 152L813 159L813 167L815 175L816 180L816 182L818 184L815 187L816 188L815 191L815 193L816 192L818 190L820 189L822 189L824 188L825 187L829 186L831 185L833 183L835 181L836 180L835 182L837 183L839 183L841 182L842 181L839 184L835 187L833 189L829 191L827 193L825 195L823 195L820 197L816 197L814 199L812 198L812 196L812 193L813 190L804 187L799 185L798 184L796 184L794 183L792 182L792 179L791 177L788 177L788 175L781 176L772 178L766 179L761 180L748 183L739 184L735 185L722 187L721 182Z"><title>New York</title></path>
+            <path class="us-state" d="M677 202L677 200L677 202L677 202ZM647 204L654 203L663 202L668 201L670 201L672 203L674 203L676 204L677 203L679 203L681 206L683 206L685 205L687 204L690 202L692 203L694 202L695 201L697 199L698 198L700 196L704 193L705 193L710 190L715 217L713 217L714 219L714 222L715 223L714 225L714 227L713 229L714 231L713 233L713 235L713 238L711 240L710 242L708 244L707 245L704 244L703 246L702 247L701 249L701 251L701 253L701 255L700 256L698 253L697 254L696 256L695 258L696 260L696 262L694 263L694 265L693 266L691 267L689 265L688 264L686 264L685 262L683 261L681 263L679 264L677 263L676 263L673 263L671 264L670 263L668 262L666 263L664 262L663 261L662 259L660 257L658 257L656 257L654 257L653 253L653 248L652 240L651 233L648 209L647 204Z"><title>Ohio</title></path>
+            <path class="us-state" d="M96 65L98 66L98 68L101 68L104 71L105 74L105 76L104 79L105 82L107 83L109 84L111 84L115 84L117 83L119 84L122 84L123 85L125 86L126 87L129 87L132 87L134 87L136 88L138 88L140 88L143 87L145 87L147 88L149 87L153 88L155 88L156 88L165 89L178 92L186 94L186 96L187 98L188 99L190 100L190 102L189 105L186 108L184 112L183 113L182 114L181 117L180 118L178 119L177 120L176 122L175 123L174 125L174 127L175 128L177 129L178 130L177 132L176 134L175 136L166 173L158 171L143 168L134 166L123 163L118 162L108 159L102 157L94 155L92 154L87 153L85 152L79 151L74 149L71 148L62 146L61 143L61 142L61 140L61 138L62 136L63 134L63 132L63 130L62 128L63 126L65 125L66 123L67 120L68 119L70 116L72 113L74 109L76 105L77 102L78 99L80 94L81 93L81 91L83 87L84 85L85 83L86 80L86 78L88 75L88 73L89 70L90 67L90 64L91 66L93 66L95 66L96 65Z"><title>Oregon</title></path>
+            <path class="us-state" d="M581 328L582 326L583 324L581 323L583 323L583 321L584 320L584 318L586 317L588 317L592 317L600 316L608 316L607 312L611 312L617 312L623 311L631 310L635 310L640 310L643 310L649 309L652 309L656 308L659 308L664 308L668 307L673 307L678 306L680 306L684 305L694 304L697 303L706 302L710 301L710 303L710 304L710 307L708 307L706 312L704 313L703 312L701 313L699 315L698 317L697 315L694 316L694 318L692 319L691 321L689 322L687 323L686 324L684 326L679 327L677 328L676 330L676 332L675 334L673 335L672 340L661 341L653 342L651 343L647 343L638 344L635 344L630 345L620 345L617 346L608 346L596 347L587 348L573 349L575 348L575 346L577 346L577 344L575 343L576 341L575 341L576 339L577 340L577 338L579 338L578 336L580 335L578 334L580 333L582 331L581 330L581 328Z"><title>Tennessee</title></path>
+            <path class="us-state" d="M210 183L213 183L227 186L237 187L248 189L254 190L253 199L252 203L251 211L256 211L263 212L266 213L274 214L281 215L280 224L275 258L275 261L273 270L273 273L272 286L270 296L261 295L247 293L238 291L232 291L215 288L202 285L191 283L194 268L194 263L195 260L196 255L197 249L203 221L203 218L205 207L206 203L210 183Z"><title>Utah</title></path>
+            <path class="us-state ds-ava" d="M800 257L806 254L805 255L805 257L803 258L803 259L802 263L801 267L801 269L800 270L800 273L799 274L797 273L797 271L797 268L797 266L798 263L798 261L800 259L800 257ZM702 283L702 285L704 287L705 288L707 288L708 289L710 289L712 287L713 286L715 287L717 286L719 285L721 284L720 283L722 284L724 282L726 281L729 280L729 278L728 276L730 272L731 270L732 268L733 266L734 263L735 260L735 258L735 256L737 256L738 258L741 259L742 257L743 254L744 252L744 250L747 250L747 248L748 246L750 245L751 242L752 241L752 239L753 237L752 235L756 237L761 240L762 237L764 236L767 237L766 239L769 240L771 240L772 241L775 243L775 244L774 246L773 248L772 251L772 253L775 254L776 252L777 254L778 256L781 256L782 256L784 256L785 257L787 258L789 259L791 260L790 262L791 264L791 265L788 265L786 263L784 263L782 261L780 260L782 262L784 263L786 264L787 266L789 266L791 267L792 268L793 270L793 272L790 270L791 272L790 274L791 274L793 275L794 278L792 279L789 277L788 276L786 275L784 275L786 276L788 277L789 278L791 280L793 280L794 279L797 279L799 278L800 281L801 283L803 286L794 287L788 289L786 289L780 290L765 293L761 294L745 297L735 299L732 299L726 300L723 300L718 301L715 301L710 302L706 302L697 303L694 304L685 305L680 306L678 306L680 304L683 303L685 302L687 300L689 299L690 298L690 296L692 295L693 292L695 291L697 290L702 283Z"><title>Virginia</title></path>
+            <path class="us-state" d="M116 48L117 46L119 48L116 48L116 48ZM118 30L119 29L120 27L122 29L120 30L119 31L120 32L120 33L120 35L120 34L121 35L122 37L121 36L119 35L120 33L119 31L118 30ZM114 21L116 23L119 20L121 22L120 24L119 25L118 26L116 25L115 23L114 21ZM115 19L116 21L115 20L115 19ZM197 35L196 39L195 47L193 52L191 64L186 86L186 88L186 90L185 92L186 94L178 92L165 89L157 87L155 88L153 88L150 87L148 87L145 87L143 87L141 88L139 88L136 88L134 87L132 87L130 87L127 87L125 87L123 85L122 84L119 84L117 83L115 84L112 84L110 84L108 83L105 82L104 80L104 77L104 75L104 72L102 68L99 69L98 67L97 65L95 65L93 64L91 64L91 63L89 63L90 61L91 59L92 56L91 59L91 61L92 59L93 56L95 55L93 55L92 54L92 50L96 51L94 49L93 48L93 50L93 46L93 43L93 41L93 37L93 33L93 31L92 29L92 27L92 26L92 24L94 21L96 21L97 23L99 24L101 25L102 27L104 28L107 29L109 29L111 31L113 30L114 32L115 32L115 34L116 33L118 32L117 34L118 35L118 37L116 39L115 40L115 39L114 40L112 41L109 44L108 46L110 46L111 46L109 46L112 42L114 41L116 40L119 38L119 36L119 41L118 42L117 44L117 46L116 48L116 49L114 49L115 47L113 49L114 51L113 52L112 49L113 47L111 48L111 50L113 52L115 51L116 49L118 50L119 49L119 47L119 45L120 44L120 41L121 40L123 37L124 36L123 34L123 32L122 33L122 35L121 33L121 31L123 31L122 29L122 27L120 26L122 25L123 27L123 25L124 23L125 21L123 21L122 18L122 16L131 18L136 19L142 21L149 23L158 25L166 27L174 29L182 31L197 35Z"><title>Washington</title></path>
+            <path class="us-state ds-travels" d="M608 133L610 132L609 135L608 133ZM554 106L555 105L554 106L554 106ZM552 104L554 103L555 104L553 105L552 104L552 104ZM552 109L554 107L554 108L552 109L552 109ZM535 111L538 111L540 110L542 110L544 108L546 107L548 107L549 106L551 105L552 106L551 109L550 111L551 113L553 111L555 112L557 113L559 114L562 117L577 120L581 122L583 123L585 122L587 122L589 123L591 123L591 126L593 126L594 126L596 128L596 131L595 133L595 135L598 134L598 136L597 138L599 139L599 142L597 142L597 144L596 145L595 148L594 149L595 151L597 149L598 148L600 145L602 144L603 141L604 139L604 138L606 137L607 135L608 136L607 139L606 141L606 142L605 144L604 147L603 149L602 150L602 155L602 157L602 159L601 161L600 164L600 167L600 168L600 171L599 173L599 175L598 178L599 180L599 182L600 185L601 187L601 190L601 193L597 193L589 194L587 194L576 194L573 195L561 195L559 195L558 193L554 192L553 191L552 188L551 187L550 185L550 183L552 181L550 179L549 177L549 175L548 172L549 170L546 166L544 165L542 164L540 162L539 160L538 158L534 157L532 155L529 155L528 153L526 152L526 149L526 147L526 145L526 144L525 142L525 140L527 138L526 136L524 134L524 131L526 128L528 127L530 125L531 124L531 112L533 111L534 110L535 111Z"><title>Wisconsin</title></path>
+            <path class="us-state" d="M360 183L376 184L383 184L393 185L396 185L407 186L418 186L426 187L436 187L442 187L446 190L448 191L449 192L451 192L452 190L454 191L456 191L458 191L460 190L461 191L465 192L467 194L469 195L470 197L471 198L473 198L473 201L474 203L475 206L476 208L477 209L477 211L478 213L477 215L478 217L479 218L480 219L480 221L480 223L480 225L481 227L481 229L482 231L482 233L482 235L483 237L483 238L485 238L484 240L485 243L487 244L489 247L490 249L482 249L475 249L460 249L444 249L435 248L420 248L406 247L400 247L386 246L387 226L379 225L372 225L357 223L360 183Z"><title>Nebraska</title></path>
+            <path class="us-state" d="M691 337L697 335L699 334L700 333L702 332L704 331L715 330L721 330L725 329L725 331L727 330L730 333L730 335L740 334L745 333L748 333L754 337L756 339L764 344L770 348L768 350L766 351L764 354L764 355L763 357L762 359L762 362L762 364L760 366L760 368L758 368L756 369L756 370L755 372L752 374L751 377L748 379L745 381L743 381L744 383L742 386L739 386L740 388L738 390L737 392L735 391L733 391L732 388L732 386L731 385L729 383L728 382L727 381L726 379L726 377L724 375L723 373L721 372L719 372L718 370L716 368L716 366L713 364L711 364L710 362L709 361L707 359L705 358L704 357L703 356L701 354L700 353L699 351L698 350L697 347L695 348L693 347L692 345L689 344L689 343L690 340L691 339L691 337Z"><title>South Carolina</title></path>
+            <path class="us-state" d="M186 94L185 92L186 91L186 89L185 86L191 64L193 52L195 47L196 39L197 35L206 36L210 37L207 51L207 53L206 58L207 61L208 63L209 64L209 66L209 68L208 69L210 71L212 73L213 75L214 76L215 79L217 82L217 84L218 85L220 86L220 88L222 89L224 88L223 91L222 94L221 96L221 98L219 100L220 102L220 104L219 104L217 105L218 107L217 108L218 110L219 112L221 111L223 111L224 110L225 108L226 110L227 112L227 115L228 118L229 120L230 121L230 124L229 127L231 128L234 129L234 131L234 133L235 134L235 137L236 138L238 136L239 136L241 137L243 138L244 136L246 136L247 137L249 137L251 137L253 137L255 137L256 138L257 135L258 134L260 137L261 139L262 140L262 143L261 147L260 156L257 176L256 178L254 190L248 189L238 188L227 186L213 183L210 183L204 181L202 181L199 180L196 180L191 179L176 176L166 173L174 137L176 135L177 133L178 131L177 129L175 128L174 127L174 125L175 123L176 122L177 120L178 119L180 118L181 117L182 114L183 113L184 112L185 110L188 106L190 103L190 101L189 99L188 98L187 97L186 94Z"><title>Idaho</title></path>
+            <path class="us-state" d="M123 163L134 166L142 168L158 171L166 173L176 176L191 179L196 180L199 180L202 181L204 181L210 183L206 203L205 207L203 218L203 221L197 249L196 255L195 260L194 263L194 268L191 283L189 291L188 295L188 299L185 303L183 301L182 299L180 299L178 299L176 299L176 301L176 303L175 305L175 307L175 309L175 311L175 312L175 315L175 318L174 320L173 322L167 311L163 307L153 291L139 270L133 261L131 257L125 249L121 243L118 239L113 231L109 224L108 222L109 218L109 216L111 208L113 201L116 188L123 163Z"><title>Nevada</title></path>
+            <path class="us-state" d="M801 108L805 107L811 106L813 105L816 105L819 104L827 101L828 103L827 105L827 107L828 109L829 110L828 112L827 114L826 116L823 117L823 119L824 121L824 123L824 125L824 128L823 129L823 132L822 134L823 137L823 140L823 142L823 144L824 145L823 148L824 150L813 153L813 151L811 142L810 137L809 135L808 137L807 134L807 133L806 131L805 128L805 126L805 123L805 121L804 118L803 117L803 115L802 113L802 112L802 110L801 108Z"><title>Vermont</title></path>
+            <path class="us-state" d="M604 448L606 450L605 452L605 454L605 452L605 451L604 448ZM596 449L599 446L598 448L596 449L596 449ZM573 471L574 470L573 471L573 471ZM550 461L551 460L554 461L554 463L549 461L550 461ZM512 392L524 392L529 392L538 391L548 391L561 391L560 392L562 391L563 392L562 394L561 396L563 396L562 398L563 399L564 400L563 400L564 402L565 404L566 403L566 405L565 406L562 407L564 408L563 410L562 411L561 414L559 416L561 416L559 416L558 419L557 419L558 419L556 421L557 424L556 424L557 425L556 426L556 428L556 430L555 432L569 431L577 431L588 430L588 432L587 434L586 437L587 439L589 440L590 442L591 443L591 446L593 446L591 447L590 449L588 450L588 452L590 451L590 453L592 453L592 450L593 449L596 449L595 450L596 452L597 450L597 452L597 454L595 455L595 457L594 456L594 458L592 457L591 458L591 460L593 460L594 462L596 462L599 464L601 465L603 465L602 467L601 469L599 468L597 471L598 469L599 467L597 468L595 466L593 465L588 464L585 467L582 469L581 468L580 466L579 467L578 464L576 465L575 467L574 468L572 470L570 471L570 469L568 468L566 468L564 468L562 466L563 465L564 466L566 467L565 465L564 464L562 464L562 462L560 463L558 462L558 460L556 460L556 458L554 457L552 458L552 457L551 456L549 457L546 458L548 459L548 460L545 462L539 461L537 461L533 459L529 458L527 458L524 458L520 459L517 460L516 458L517 456L518 454L520 452L519 449L519 448L519 445L519 443L520 441L521 440L521 437L522 435L521 433L522 432L522 429L520 427L520 426L519 424L518 422L516 421L517 419L517 417L515 415L513 413L512 392Z"><title>Louisiana</title></path>
+            <path class="us-state" d="M849 166L851 169L849 169L848 170L848 168L849 166ZM847 171L847 169L847 171L847 171ZM841 176L841 174L841 170L840 167L839 164L838 162L844 160L845 163L846 165L848 166L848 167L846 165L845 167L846 169L847 171L846 173L844 174L841 176L841 176Z"><title>Rhode Island</title></path>
+            <text class="us-label ds-ads" x="517" y="211">IA</text>
+            <text class="us-label ds-ava" x="422" y="428">TX</text>
+            <text class="us-label ds-ava" x="584" y="249">IL</text>
+            <text class="us-label ds-ava" x="751" y="281">VA</text>
+            <text class="us-label ds-ava dc" x="800" y="238">DC</text>
+            <text class="us-label ds-travels" x="566" y="157">WI</text>
+            <text class="us-label ds-travels" x="455" y="344">OK</text>
+            <text class="us-label ds-travels" x="692" y="391">GA</text>
+          </svg>
         </div>
       </div>
     </section>
 
-    <section class="section sources" id="sources">
-      <div class="section-heading"><div><p class="eyebrow">Source notes</p><h2>Project materials</h2></div><p>The page synthesizes the working materials reviewed for this project. Dataset details should be updated as additional public documentation or collection decisions become available.</p></div>
-      <div class="source-list">
-        <div><span>01</span><div><strong>RAV Data Collection</strong><p>Dataset scope, sensors, routes, comparison, and the planned rural automated-driving dataset.</p></div></div>
-        <div><span>02</span><div><strong>Takeover Metrics</strong><p>Candidate variables for lane margin, collision urgency, control stability, perception quality, and driver response.</p></div></div>
-        <div><span>03</span><div><strong>AV Stack Plots</strong><p>DataSpeed and Autoware architecture baselines used to identify the system records available for collection.</p></div></div>
-        <div><span>04</span><div><strong>Public data portals</strong><p><a href="https://adsforruralamerica.uiowa.edu/data" target="_blank" rel="noopener">ADS for Rural America ↗</a> and <a href="https://avadataportal.web.illinois.edu/index.html" target="_blank" rel="noopener">Automated Vehicles for All (AVA) ↗</a>.</p></div></div>
-      </div>
-    </section>
+
+
+
+
   </main>
 
   <footer>
-    <a class="brand footer-brand" href="#overview"><span class="brand-mark" aria-hidden="true">R</span><span><strong>Rural AV</strong><small>Data Framework</small></span></a>
-    <p>Existing data landscape · proposed collection · disengagement research</p>
+    <a class="brand footer-brand" href="#overview"><span class="brand-mark" aria-hidden="true">T</span><span><strong>TRAVELS</strong><small>UW Madison</small></span></a>
+    <div class="footer-text">
+      <p>Tribal &amp; Rural Autonomous Vehicles for Efficiency, Livability and Safety · University of Wisconsin–Madison</p>
+      <p>© 2026 Board of Regents of the University of Wisconsin System</p>
+    </div>
     <a href="#top">Back to top ↑</a>
   </footer>
   <script src="app.js"></script>
