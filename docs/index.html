@@ -73,6 +73,10 @@
             </tbody>
           </table>
           <p class="record-note">Everything is recorded as a ROS bag; images, point clouds and CSV are extracted from it, and the topic list documents what the bag contains.</p>
+          <div class="preview-slot" data-preview="raw" aria-label="Raw data preview placeholder">
+            <span class="preview-kicker">Preview</span>
+            <p>Raw data sample will appear here.</p>
+          </div>
         </article>
         <article class="product-card processed-product" role="tabpanel" id="panel-processed" aria-labelledby="tab-processed" tabindex="0" hidden>
           <header><small>ANALYSIS-READY RECORD</small></header>
@@ -87,6 +91,10 @@
             </tbody>
           </table>
           <p class="record-note">One table keyed on the camera image timestamp; each row also links the matching LiDAR frame.</p>
+          <div class="preview-slot" data-preview="processed" aria-label="Processed data preview placeholder">
+            <span class="preview-kicker">Preview</span>
+            <p>Processed data sample will appear here.</p>
+          </div>
         </article>
         <article class="product-card infrastructure-product" role="tabpanel" id="panel-infrastructure" aria-labelledby="tab-infrastructure" tabindex="0" hidden>
           <header><small>HD MAP RECORD</small></header>
@@ -94,6 +102,10 @@
             <div><dt>Contents</dt><dd>Road geometry, lane markings, surface condition, signs, intersections, shoulders, work zones, and visibility.</dd></div>
             <div><dt>Format</dt><dd>HD map layers in Lanelet2 or GeoJSON, with route tables, geotagged images, and inspection records.</dd></div>
           </dl>
+          <div class="preview-slot" data-preview="infrastructure" aria-label="Infrastructure data preview placeholder">
+            <span class="preview-kicker">Preview</span>
+            <p>Infrastructure data sample will appear here.</p>
+          </div>
         </article>
         <article class="product-card event-product" role="tabpanel" id="panel-event" aria-labelledby="tab-event" tabindex="0" hidden>
           <header><small>RESEARCH-FOCUSED RECORD</small></header>
@@ -171,6 +183,10 @@
               </div>
             </div>
           </details>
+          <div class="preview-slot" data-preview="event" aria-label="Event data preview placeholder">
+            <span class="preview-kicker">Preview</span>
+            <p>Event data sample will appear here.</p>
+          </div>
         </article>
       </div>
 
