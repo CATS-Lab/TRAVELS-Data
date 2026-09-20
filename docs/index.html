@@ -173,16 +173,16 @@
               <p>These variables are derived from the linked raw and processed records. Candidate thresholds are screening values from literature or simulation and require calibration on our vehicle, routes, and operating conditions.</p>
               <div class="table-scroll" tabindex="0" role="region" aria-label="Derived event variables">
                 <table class="method-table">
-                  <colgroup><col class="col-variable" /><col class="col-question" /><col class="col-rule" /><col /></colgroup><thead><tr><th scope="col">Variable</th><th scope="col">Question</th><th scope="col">Calculation / candidate rule</th><th scope="col">Event-data role</th></tr></thead>
+                  <colgroup><col class="col-variable" /><col class="col-question" /><col class="col-rule" /><col class="col-threshold" /><col class="col-role" /></colgroup><thead><tr><th scope="col">Variable</th><th scope="col">Question</th><th scope="col">Notation / calculation</th><th scope="col">Disengagement threshold</th><th scope="col">Event-data role</th></tr></thead>
                   <tbody>
-                    <tr><th scope="row">TLC</th><td>How much time remains before a lane boundary is crossed?</td><td class="rule">TLC<sub>remaining</sub> = TLC<sub>at failure</sub> − reaction time; candidate flag &lt; 0.5 s</td><td class="role">Lane-departure margin at disengagement and takeover</td></tr>
-                    <tr><th scope="row">Inverse TTC</th><td>How urgently is the vehicle closing on an obstacle?</td><td class="rule">Closing speed ÷ distance; candidate flag &gt; 0.3 s<sup>−1</sup></td><td class="role">Longitudinal conflict urgency</td></tr>
-                    <tr><th scope="row">Control stability</th><td>Is steering becoming unstable or uncomfortable?</td><td class="rule">Low-frequency and high-frequency steering oscillation reviewed separately</td><td class="role">Control degradation before and after disengagement</td></tr>
-                    <tr><th scope="row">Perception quality</th><td>Is lane or object perception deteriorating?</td><td class="rule">Confidence, overlap, continuity, and missed-detection indicators</td><td class="role">Candidate degradation cause or event attribute</td></tr>
-                    <tr><th scope="row">Response &amp; recovery</th><td>How quickly did the driver respond and the vehicle stabilize?</td><td class="rule">Warning-to-input, disengagement-to-manual-control, and stabilization intervals</td><td class="role">Driver response and event outcome</td></tr>
+                    <tr><th scope="row">TLC</th><td>Time remaining before lane crossing?</td><td class="rule">TLC<sub>T</sub> = TLC<sub>F</sub> − RT: TLC at failure onset minus takeover response time.</td><td class="rule"><strong>TLC<sub>T</sub> &lt; 0.5 s</strong>: simulation-based safety-margin threshold.</td><td class="role">Lateral safety margin at takeover.</td></tr>
+                    <tr><th scope="row">Inverse TTC</th><td>How urgent is the closing conflict?</td><td class="rule">invTTC = Δv/d: closing speed ÷ gap.</td><td class="rule"><strong>invTTC ≳ 0.3 s<sup>−1</sup></strong>: observed high urgency at avoidance onset; TTC ≲ 3.33 s.</td><td class="role">Longitudinal conflict urgency.</td></tr>
+                    <tr><th scope="row">Control stability</th><td>Is steering unstable or uncomfortable?</td><td class="rule">M<sub>ε</sub>: low-frequency oscillation, <strong>1.1–4 Hz</strong>; M<sub>ζ</sub>: high-frequency oscillation, <strong>4–10 Hz</strong>.</td><td class="rule"><strong>M<sub>ε</sub> &gt; 0.25</strong>: potential instability; <strong>M<sub>ζ</sub> &gt; 0.7</strong>: reduced comfort.</td><td class="role">Control instability and comfort degradation.</td></tr>
+                    <tr><th scope="row">Perception quality</th><td>Is lane detection deteriorating?</td><td class="rule">y: predicted lane-detection multi-dice score.</td><td class="rule"><strong>y &lt; 0.85</strong>: candidate degradation flag; not a confidence-score threshold.</td><td class="role">Perception degradation and fallback trigger.</td></tr>
                   </tbody>
                 </table>
               </div>
+              <p class="appendix-note"><strong>Note</strong><span>Values are not universal failure thresholds.</span></p>
             </div>
           </details>
           <div class="preview-slot" data-preview="event" aria-label="Event data preview placeholder">

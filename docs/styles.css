@@ -284,11 +284,15 @@ img, svg { display: block; max-width: 100%; }
 .method-table thead th { background: var(--ink); color: white; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
 .method-table tbody tr:last-child th, .method-table tbody tr:last-child td { border-bottom: 0; }
 .method-table col.col-variable { width: 15%; }
-.method-table col.col-question { width: 24%; }
-.method-table col.col-rule { width: 34%; }
+.method-table col.col-question { width: 19%; }
+.method-table col.col-rule { width: 24%; }
+.method-table col.col-threshold { width: 24%; }
+.method-table col.col-role { width: 18%; }
 .method-table tbody th { color: var(--red); font-weight: 700; }
 .method-table .rule { font-family: "DM Mono", monospace; font-size: .9rem; }
 .method-table .role { color: var(--muted); }
+.appendix-content > .appendix-note { display: flex; align-items: baseline; gap: 12px; max-width: none; margin: 20px 0 0; padding: 14px 18px; border-left: 3px solid var(--red); background: var(--paper); font-size: .9rem; line-height: 1.6; }
+.appendix-note strong { flex-shrink: 0; color: var(--red); font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; }
 
 .run-design { display: grid; grid-template-columns: .72fr 1.28fr; margin-top: 44px; border: 1px solid var(--line-strong); }
 .run-total { min-height: 230px; padding: 32px; background: var(--red); color: white; display: grid; grid-template-columns: 150px 1fr; gap: 24px; align-items: center; }
