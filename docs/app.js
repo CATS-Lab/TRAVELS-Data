@@ -48,7 +48,7 @@ document.querySelectorAll('[role="tablist"]').forEach((tablist) => {
   });
 });
 
-document.querySelectorAll('.table-scroll, .event-lifecycle, .hero-path').forEach((region) => {
+document.querySelectorAll('.table-scroll, .event-lifecycle').forEach((region) => {
   region.addEventListener('keydown', (event) => {
     if (event.key === 'ArrowRight') {
       event.preventDefault();
