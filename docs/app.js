@@ -70,7 +70,9 @@ if (mapSupport && datasetButtons.length) {
     datasetButtons.forEach((button) => {
       const active = button.dataset.dataset === name;
       button.setAttribute('aria-pressed', String(active));
-      button.closest('tr').classList.toggle('is-selected', active);
+    });
+    document.querySelectorAll('.dataset-comparison [data-dataset]').forEach((cell) => {
+      cell.classList.toggle('is-selected', cell.dataset.dataset === name);
     });
   };
 
@@ -80,3 +82,14 @@ if (mapSupport && datasetButtons.length) {
 
   selectDataset(mapSupport.dataset.active);
 }
+
+document.querySelectorAll('.tab-link[data-tab]').forEach((link) => {
+  link.addEventListener('click', (event) => {
+    event.preventDefault();
+    const tab = document.getElementById(link.dataset.tab);
+    if (tab) {
+      tab.click();
+      tab.focus();
+    }
+  });
+});
