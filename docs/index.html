@@ -75,10 +75,14 @@
             </tbody>
           </table>
           <p class="record-note">Everything is recorded as a ROS bag; images, point clouds and CSV are extracted from it, and the topic list documents what the bag contains.</p>
-          <div class="preview-slot" data-preview="raw" aria-label="Raw data preview placeholder">
-            <span class="preview-kicker">Preview</span>
-            <p>Raw data sample will appear here.</p>
-          </div>
+          <figure class="preview-media" data-preview="raw">
+            <figcaption class="preview-kicker">Preview</figcaption>
+            <video controls preload="metadata" playsinline width="960" height="1000" poster="preview-raw.jpg" aria-label="Raw data preview: left, front and right camera views with a bird&rsquo;s-eye LiDAR point cloud, the driven trajectory and a LiDAR range map.">
+              <source src="preview-raw.mp4" type="video/mp4" />
+              <p>Your browser cannot play this clip. <a href="preview-raw.mp4">Download the MP4</a>.</p>
+            </video>
+            <p class="preview-caption">Left, front and right cameras, bird&rsquo;s-eye LiDAR, trajectory and LiDAR range map, played back together on one clock.</p>
+          </figure>
         </article>
         <article class="product-card processed-product" role="tabpanel" id="panel-processed" aria-labelledby="tab-processed" tabindex="0" hidden>
           <header><small>ANALYSIS-READY RECORD</small></header>
@@ -93,10 +97,14 @@
             </tbody>
           </table>
           <p class="record-note">One table keyed on the camera image timestamp; each row also links the matching LiDAR frame.</p>
-          <div class="preview-slot" data-preview="processed" aria-label="Processed data preview placeholder">
-            <span class="preview-kicker">Preview</span>
-            <p>Processed data sample will appear here.</p>
-          </div>
+          <figure class="preview-media" data-preview="processed">
+            <figcaption class="preview-kicker">Preview</figcaption>
+            <video controls preload="metadata" playsinline width="1920" height="1080" poster="preview-processed.jpg" aria-label="Processed data preview: the driven trajectory on a map, the front camera, the recorded conditions and speed and steering gauges.">
+              <source src="preview-processed.mp4" type="video/mp4" />
+              <p>Your browser cannot play this clip. <a href="preview-processed.mp4">Download the MP4</a>.</p>
+            </video>
+            <p class="preview-caption">Trajectory on the route map, front camera, recorded conditions, and speed and steering read from the same timestamp.</p>
+          </figure>
         </article>
         <article class="product-card infrastructure-product" role="tabpanel" id="panel-infrastructure" aria-labelledby="tab-infrastructure" tabindex="0" hidden>
           <header><small>HD MAP RECORD</small></header>
