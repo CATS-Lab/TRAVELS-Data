@@ -112,10 +112,14 @@
             <div><dt>Contents</dt><dd>Road geometry, lane markings, surface condition, signs, intersections, shoulders, work zones, and visibility.</dd></div>
             <div><dt>Format</dt><dd>HD map layers in Lanelet2 or GeoJSON, with route tables, geotagged images, and inspection records.</dd></div>
           </dl>
-          <div class="preview-slot" data-preview="infrastructure" aria-label="Infrastructure data preview placeholder">
-            <span class="preview-kicker">Preview</span>
-            <p>Infrastructure data sample will appear here.</p>
-          </div>
+          <table class="record-table">
+            <thead><tr><th scope="col">Layer</th><th scope="col">What it holds</th><th scope="col">Download</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Lanelet2 HD map</th><td>The collection route as a Lanelet2 vector map (71 lanelets): road geometry, lanes, boundaries, stop lines, traffic signs and direction of travel</td><td><a href="hdmap/lanelet2_hdmap.osm" download>lanelet2_hdmap.osm</a></td></tr>
+              <tr><th scope="row">Route challenges</th><td>Categorised AV difficulty spots along the route (unmarked road, rural two-way, wide multi-lane, speed bumps&hellip;), keyed to the map</td><td><a href="hdmap/route-challenges.json" download>route-challenges.json</a></td></tr>
+            </tbody>
+          </table>
+          <p class="record-note">Explore the HD map draped over the LiDAR point cloud, with the challenges called out, in the <a class="tab-link" href="https://uga-mobility-lab.github.io/rav-demo/" target="_blank" rel="noopener">interactive 3D viewer &#8599;</a>.</p>
         </article>
         <article class="product-card event-product" role="tabpanel" id="panel-event" aria-labelledby="tab-event" tabindex="0" hidden>
           <header><small>RESEARCH-FOCUSED RECORD</small></header>
