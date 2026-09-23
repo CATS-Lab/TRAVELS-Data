@@ -177,7 +177,7 @@
             <text class="sd-axis-label right" x="1200" y="398">Severity</text>
             </svg>
           </figure>
-          <details class="technical-appendix">
+          <details class="technical-appendix" open>
             <summary><span>Technical appendix</span><strong>Derived variables for event review</strong><i aria-hidden="true">+</i></summary>
             <div class="appendix-content">
               <p>These variables are derived from the linked raw and processed records. Candidate thresholds are screening values from literature or simulation and require calibration on our vehicle, routes, and operating conditions.</p>
@@ -392,7 +392,7 @@
               <th scope="row" class="sub">Radar</th>
               <td data-dataset="ads"><span class="mark unknown" aria-label="Not verified">?</span></td>
               <td data-dataset="ava"><span class="mark yes" aria-label="Documented">✓</span></td>
-              <td data-dataset="travels"><span class="mark yes" aria-label="Documented">✓</span></td>
+              <td data-dataset="travels"><span class="mark no" aria-label="Not covered">✗</span></td>
             </tr>
             <tr>
               <th scope="row" class="sub">GNSS/IMU</th>
@@ -690,6 +690,23 @@
     </div>
     <a href="#top">Back to top ↑</a>
   </footer>
+  <div class="assistant" id="assistant">
+    <div class="assistant-panel" id="assistant-panel" role="dialog" aria-labelledby="assistant-title" hidden>
+      <header class="assistant-head">
+        <div><span>TRAVELS</span><strong id="assistant-title">Dataset assistant</strong></div>
+        <button type="button" class="assistant-close" aria-label="Close the assistant">&#215;</button>
+      </header>
+      <div class="assistant-log" id="assistant-log" role="log" aria-live="polite" aria-label="Conversation"></div>
+      <div class="assistant-prompts" id="assistant-prompts" aria-label="Suggested questions"></div>
+      <p class="assistant-foot">Answers are written from this page.</p>
+    </div>
+    <button type="button" class="assistant-launcher" id="assistant-launcher" aria-expanded="false" aria-controls="assistant-panel">
+      <svg class="icon-open" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h16v12H8l-4 4V4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="9" cy="10" r="1.1" fill="currentColor"/><circle cx="12.5" cy="10" r="1.1" fill="currentColor"/><circle cx="16" cy="10" r="1.1" fill="currentColor"/></svg>
+      <svg class="icon-close" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <span class="assistant-launcher-label">Ask about this dataset</span>
+    </button>
+  </div>
+
   <script src="app.js"></script>
 </body>
 </html>
