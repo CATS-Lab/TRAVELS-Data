@@ -101,9 +101,13 @@ if (assistant) {
   const panel = document.getElementById('assistant-panel');
   const log = document.getElementById('assistant-log');
   const prompts = document.getElementById('assistant-prompts');
+  const form = document.getElementById('assistant-form');
+  const input = document.getElementById('assistant-input');
+  const foot = document.getElementById('assistant-foot');
   const closeButton = assistant.querySelector('.assistant-close');
 
-  // Fixed question set. Every answer is written from what this page states.
+  // Preset questions keep their written answers even when the live model is
+  // available: they are instant, free, and link to the right part of the page.
   const topics = [
     {
       question: 'What will TRAVELS collect?',
@@ -133,8 +137,67 @@ if (assistant) {
   ];
 
   const asked = new Set();
+  const history = [];
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let endpoint = null;   // base URL of the live service once one answers /api/health
+  let probe = null;
+  let busy = false;
 
+  // ---- live service discovery: ?assistant=<url>, then data-endpoint, then this origin
+  const usable = (url) => {
+    try {
+      const u = new URL(url, location.href);
+      return u.protocol === 'https:' || /^(localhost|127\.0\.0\.1)$/.test(u.hostname) ? u.origin : null;
+    } catch (error) {
+      return null;
+    }
+  };
+
+  const findService = () => {
+    if (probe) return probe;
+    const override = new URLSearchParams(location.search).get('assistant');
+    const candidates = [override, assistant.dataset.endpoint].map((c) => c && usable(c)).filter(Boolean);
+    probe = (async () => {
+      // The published site learns the current tunnel address from assistant-config.json.
+      try {
+        const response = await fetch('assistant-config.json', { cache: 'no-store' });
+        if (response.ok) {
+          const config = await response.json();
+          const configured = config && config.endpoint && usable(config.endpoint);
+          if (configured) candidates.push(configured);
+        }
+      } catch (error) { /* no config: presets only */ }
+      const origin = usable(location.origin);
+      if (origin) candidates.push(origin);   // the page is served by the assistant itself
+      for (const base of [...new Set(candidates)]) {
+        try {
+          const controller = new AbortController();
+          const timer = setTimeout(() => controller.abort(), 4000);
+          const response = await fetch(base + '/api/health', { signal: controller.signal, cache: 'no-store' });
+          clearTimeout(timer);
+          if (response.ok && (await response.json()).ok) return base;
+        } catch (error) { /* try the next candidate */ }
+      }
+      return null;
+    })();
+    return probe;
+  };
+
+  const goLive = (base) => {
+    endpoint = base;
+    assistant.dataset.live = 'true';
+    form.hidden = false;
+    foot.textContent = 'AI answers drawn from the TRAVELS web pages. Check the linked sources.';
+  };
+
+  const goOffline = () => {
+    endpoint = null;
+    assistant.dataset.live = 'false';
+    form.hidden = true;
+    foot.textContent = 'Answers are written from this page.';
+  };
+
+  // ---- rendering
   const scrollLog = () => { log.scrollTop = log.scrollHeight; };
 
   const addMessage = (from, html) => {
@@ -146,6 +209,69 @@ if (assistant) {
     return node;
   };
 
+  const escapeHtml = (text) => text.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  // Model output is untrusted: escape everything, then allow only **bold**, [n] citations and "- " lists.
+  const renderAnswer = (text) => {
+    const inline = (line) => escapeHtml(line)
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\[(\d{1,2})\]/g, '<sup>[$1]</sup>');
+    const out = [];
+    let list = null;
+    let para = [];
+    const flush = () => {
+      if (para.length) { out.push('<p>' + para.join('<br>') + '</p>'); para = []; }
+      if (list) { out.push('<ul>' + list.join('') + '</ul>'); list = null; }
+    };
+    text.split('\n').forEach((raw) => {
+      const line = raw.trim();
+      const bullet = line.match(/^[-*•]\s+(.*)$/);
+      if (!line) { flush(); return; }
+      if (bullet) {
+        if (para.length) { out.push('<p>' + para.join('<br>') + '</p>'); para = []; }
+        (list = list || []).push('<li>' + inline(bullet[1]) + '</li>');
+      } else {
+        if (list) { out.push('<ul>' + list.join('') + '</ul>'); list = null; }
+        para.push(inline(line));
+      }
+    });
+    flush();
+    return out.join('');
+  };
+
+  const addSources = (node, sources) => {
+    const safe = (sources || []).filter((s) => s && /^https?:\/\//.test(s.url));
+    if (!safe.length) return;
+    const box = document.createElement('div');
+    box.className = 'assistant-sources';
+    const label = document.createElement('span');
+    label.textContent = 'Sources';
+    box.appendChild(label);
+    const list = document.createElement('ol');
+    safe.slice(0, 4).forEach((s) => {
+      const item = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = s.url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.textContent = s.title || s.url;
+      item.appendChild(link);
+      list.appendChild(item);
+    });
+    box.appendChild(list);
+    node.appendChild(box);
+  };
+
+  const showTyping = () => {
+    const typing = document.createElement('div');
+    typing.className = 'assistant-typing';
+    typing.setAttribute('aria-label', 'The assistant is answering');
+    typing.innerHTML = '<i></i><i></i><i></i>';
+    log.appendChild(typing);
+    scrollLog();
+    return typing;
+  };
+
   const goTo = (jump) => {
     if (jump.tab) {
       const tab = document.getElementById(jump.tab);
@@ -155,6 +281,7 @@ if (assistant) {
     if (target) target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
   };
 
+  // ---- preset questions
   const renderPrompts = () => {
     prompts.textContent = '';
     topics.forEach((topic) => {
@@ -162,22 +289,17 @@ if (assistant) {
       const button = document.createElement('button');
       button.type = 'button';
       button.textContent = topic.question;
-      button.addEventListener('click', () => ask(topic));
+      button.addEventListener('click', () => askPreset(topic));
       prompts.appendChild(button);
     });
   };
 
-  const ask = (topic) => {
+  const askPreset = (topic) => {
     asked.add(topic.question);
-    addMessage('user', '<p>' + topic.question + '</p>');
+    assistant.dataset.started = 'true';
+    addMessage('user', '<p>' + escapeHtml(topic.question) + '</p>');
     renderPrompts();
-
-    const typing = document.createElement('div');
-    typing.className = 'assistant-typing';
-    typing.innerHTML = '<i></i><i></i><i></i>';
-    log.appendChild(typing);
-    scrollLog();
-
+    const typing = showTyping();
     window.setTimeout(() => {
       typing.remove();
       const node = addMessage('bot', topic.answer);
@@ -190,26 +312,94 @@ if (assistant) {
         node.appendChild(link);
         scrollLog();
       }
-      if (asked.size === topics.length) {
+      if (!endpoint && asked.size === topics.length) {
         addMessage('bot', '<p>That is everything I have on hand. The page itself carries the detail behind each answer.</p>');
       }
     }, reduceMotion ? 0 : 420);
   };
 
+  // ---- free-text questions to the live service
+  const askLive = async (question) => {
+    busy = true;
+    assistant.dataset.started = 'true';
+    form.querySelector('button').disabled = true;
+    addMessage('user', '<p>' + escapeHtml(question) + '</p>');
+    const typing = showTyping();
+    try {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 60000);
+      const response = await fetch(endpoint + '/api/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question, history: history.slice(-4) }),
+        signal: controller.signal
+      });
+      clearTimeout(timer);
+      const data = await response.json().catch(() => ({}));
+      typing.remove();
+      if (!response.ok) {
+        addMessage('bot', '<p>' + escapeHtml(data.error || 'Something went wrong. Please try again.') + '</p>');
+      } else {
+        const node = addMessage('bot', renderAnswer(String(data.answer || '')));
+        if (data.refused) node.classList.add('is-refusal');
+        addSources(node, data.sources);
+        scrollLog();
+        if (!data.refused) {
+          history.push({ role: 'user', content: question }, { role: 'assistant', content: String(data.answer || '') });
+        }
+      }
+    } catch (error) {
+      typing.remove();
+      addMessage('bot', '<p>The live assistant is offline right now. The suggested questions still work.</p>');
+      goOffline();
+    } finally {
+      busy = false;
+      form.querySelector('button').disabled = false;
+      if (!form.hidden) input.focus();
+    }
+  };
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const question = input.value.trim();
+    if (!question || busy || !endpoint) return;
+    input.value = '';
+    input.style.height = '';
+    askLive(question);
+  });
+
+  input.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' && !event.shiftKey && !event.isComposing) {
+      event.preventDefault();
+      form.requestSubmit();
+    }
+  });
+
+  input.addEventListener('input', () => {
+    input.style.height = '';
+    input.style.height = Math.min(input.scrollHeight, 120) + 'px';
+  });
+
+  // ---- open / close
   const setOpen = (open) => {
     assistant.dataset.open = String(open);
     panel.hidden = !open;
     launcher.setAttribute('aria-expanded', String(open));
     launcher.setAttribute('aria-label', open ? 'Close the dataset assistant' : 'Ask about this dataset');
-    if (open) {
-      if (!log.childElementCount) {
-        addMessage('bot', '<p>Ask about the TRAVELS rural AV dataset &mdash; what we are collecting, how it compares, and what records it.</p>');
-      }
-      window.setTimeout(() => {
-        const first = prompts.querySelector('button');
-        (first || closeButton).focus();
-      }, 0);
+    if (!open) return;
+    if (!log.childElementCount) {
+      addMessage('bot', '<p>Ask about the TRAVELS rural AV dataset &mdash; what we are collecting, how it compares, and what records it.</p>');
     }
+    window.setTimeout(() => {
+      const first = endpoint ? input : prompts.querySelector('button');
+      (first || closeButton).focus();
+    }, 0);
+    findService().then((base) => {
+      if (base && !endpoint) {
+        goLive(base);
+        if (!panel.hidden && document.activeElement !== input) input.focus();
+      }
+    });
   };
 
   launcher.setAttribute('aria-label', 'Ask about this dataset');

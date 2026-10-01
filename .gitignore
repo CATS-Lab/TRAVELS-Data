@@ -1,0 +1,20 @@
+# Local secrets - never publish (docs/ is served by GitHub Pages)
+*api*.txt
+*.key
+.env
+.env.*
+.dev.vars
+
+# Local source material
+*.pptx
+*.mp4
+!docs/*.mp4
+background.png
+Rural_AV_Dataset_Comparison.md
+
+# Build artifacts
+node_modules/
+__pycache__/
+
+# Assistant runtime data (visitor questions, embeddings, tunnel log)
+assistant/data/

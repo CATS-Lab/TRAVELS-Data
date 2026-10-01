@@ -447,7 +447,7 @@ footer > a:last-child { color: white; font-size: .95rem; text-decoration: underl
 .assistant-panel { display: flex; flex-direction: column; width: 372px; max-height: min(560px, calc(100vh - 140px)); border: 1px solid var(--line-strong); background: var(--white); box-shadow: 0 10px 34px rgba(0,0,0,.22); }
 .assistant-panel[hidden] { display: none; }
 
-.assistant-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 16px 18px; background: var(--red); color: white; }
+.assistant-head { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 16px 18px; background: var(--red); color: white; }
 .assistant-head span { display: block; font-size: .68rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; opacity: .85; }
 .assistant-head strong { display: block; margin-top: 2px; font-family: "Red Hat Display", Arial, sans-serif; font-size: 1.05rem; }
 .assistant-close { width: 30px; height: 30px; padding: 0; border: none; background: transparent; color: white; font-size: 1.5rem; line-height: 1; cursor: pointer; opacity: .85; }
@@ -470,13 +470,38 @@ footer > a:last-child { color: white; font-size: .95rem; text-decoration: underl
 .assistant-typing i:nth-child(3) { animation-delay: .3s; }
 @keyframes assistant-bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-5px); } }
 
-.assistant-prompts { display: flex; flex-direction: column; gap: 8px; padding: 14px 18px; border-top: 1px solid var(--line); background: var(--white); }
+.assistant-prompts { flex: none; display: flex; flex-direction: column; gap: 8px; padding: 14px 18px; border-top: 1px solid var(--line); background: var(--white); }
 .assistant-prompts button { padding: 10px 13px; border: 1px solid var(--line-strong); background: var(--white); color: var(--text); font: inherit; font-size: .88rem; text-align: left; cursor: pointer; transition: border-color .15s ease, background .15s ease, color .15s ease; }
 .assistant-prompts button:hover { border-color: var(--red); background: var(--red-tint); color: var(--red-dark); }
 .assistant-prompts button:focus-visible { outline: 2px solid var(--red); outline-offset: 1px; }
 .assistant-prompts:empty { display: none; }
 
-.assistant-foot { margin: 0; padding: 0 18px 14px; color: var(--muted); font-size: .75rem; }
+.assistant-msg ul { margin: 6px 0 0; padding-left: 1.2em; }
+.assistant-msg li + li { margin-top: 4px; }
+.assistant-msg sup { color: var(--muted); font-size: .7em; }
+.assistant-msg.is-refusal { border-left-color: var(--line-strong); color: var(--muted); }
+.assistant-sources { margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line); font-size: .8rem; }
+.assistant-sources span { color: var(--muted); font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.assistant-sources ol { margin: 4px 0 0; padding-left: 1.4em; }
+.assistant-sources a { color: var(--blue); overflow-wrap: anywhere; }
+.assistant-sources a:hover { color: var(--red); }
+
+.assistant[data-live="true"] .assistant-prompts { flex-direction: row; flex-wrap: wrap; gap: 6px; padding: 10px 18px; }
+.assistant[data-live="true"] .assistant-prompts button { padding: 6px 10px; font-size: .78rem; }
+.assistant[data-live="true"][data-started="true"] .assistant-prompts { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: thin; }
+.assistant[data-live="true"][data-started="true"] .assistant-prompts button { flex: none; white-space: nowrap; }
+
+.assistant-form { flex: none; display: flex; align-items: flex-end; gap: 8px; padding: 10px 18px 12px; border-top: 1px solid var(--line); }
+.assistant-form[hidden] { display: none; }
+.assistant-form textarea { flex: 1; min-height: 40px; max-height: 120px; padding: 9px 12px; border: 1px solid var(--line-strong); font: inherit; font-size: .92rem; line-height: 1.4; resize: none; color: var(--text); background: var(--white); }
+.assistant-form textarea:focus { outline: 2px solid var(--red); outline-offset: -1px; border-color: var(--red); }
+.assistant-form button { flex: none; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; padding: 0; border: none; background: var(--red); color: white; cursor: pointer; }
+.assistant-form button:hover { background: var(--red-dark); }
+.assistant-form button:disabled { background: var(--line-strong); cursor: wait; }
+.assistant-form button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.assistant-form svg { width: 20px; height: 20px; }
+
+.assistant-foot { margin: 0; padding: 0 18px 12px; color: var(--muted); font-size: .75rem; }
 
 @media (max-width: 620px) {
   .assistant { left: 16px; right: 16px; bottom: 16px; }
