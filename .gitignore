@@ -16,5 +16,3 @@ Rural_AV_Dataset_Comparison.md
 node_modules/
 __pycache__/
 
-# Assistant runtime data (visitor questions, embeddings, tunnel log)
-assistant/data/
