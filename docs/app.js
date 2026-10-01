@@ -100,50 +100,16 @@ if (assistant) {
   const launcher = document.getElementById('assistant-launcher');
   const panel = document.getElementById('assistant-panel');
   const log = document.getElementById('assistant-log');
-  const prompts = document.getElementById('assistant-prompts');
   const form = document.getElementById('assistant-form');
   const input = document.getElementById('assistant-input');
-  const foot = document.getElementById('assistant-foot');
+  const sendButton = form.querySelector('button');
   const closeButton = assistant.querySelector('.assistant-close');
 
-  // Preset questions keep their written answers even when the live model is
-  // available: they are instant, free, and link to the right part of the page.
-  const topics = [
-    {
-      question: 'What will TRAVELS collect?',
-      answer: '<p>Four linked data products. <strong>Raw</strong> &mdash; camera images, LiDAR point clouds, GNSS/IMU, vehicle state, and the full ROS bag behind them. <strong>Processed</strong> &mdash; localization, trajectories, vehicle state and driving commands, aligned on the image timestamp. <strong>Infrastructure</strong> &mdash; an HD map of road geometry, markings, surface condition and signs. <strong>Event</strong> &mdash; clips cut from the first two and graded by severity.</p><p>The plan is 28 paired rural runs: 7 fixed routes &times; 2 seasons &times; 2 repetitions. Every automated run is driven again by a human over the same route as its baseline.</p>',
-      jump: { label: 'Open Part 01', target: 'collection-plan', tab: 'tab-raw' }
-    },
-    {
-      question: 'What counts as an event?',
-      answer: '<p>Three rising levels. <strong>01 Degradation</strong> &mdash; performance or confidence declines while automated driving stays engaged. <strong>02 Warning</strong> &mdash; the system alerts the driver or requests a takeover, automation still engaged. <strong>03 Disengagement</strong> &mdash; automated driving ends, by system fallback or by driver intervention.</p><p>Most of a drive sits below all three. The technical appendix lists the derived variables used to grade an event, with a reference for each.</p>',
-      jump: { label: 'Open the event record', target: 'collection-plan', tab: 'tab-event' }
-    },
-    {
-      question: 'How does it compare with existing datasets?',
-      answer: '<p>Part 02 sets it beside ADS for Rural America and Automated Vehicles for All.</p><p>The clearest gap is road surface: both existing programs document marked, good pavement, and we add marked degraded, unmarked degraded, and unmarked unpaved. We also record all three event levels, where ADS for Rural America documents two and Automated Vehicles for All one.</p>',
-      jump: { label: 'Open the comparison', target: 'existing-data' }
-    },
-    {
-      question: 'What platform and sensors do you use?',
-      answer: '<p>Two AV stacks. <strong>DataSpeed</strong> handles drive-by-wire, CAN and vehicle-state feedback, and the interface between autonomy software and the vehicle. <strong>Autoware</strong> handles sensing, perception, localization, planning, control and diagnostics.</p><p>Three vehicle types &mdash; shuttle, SUV and sedan. The recorded sensors are cameras, LiDAR, GNSS/IMU, V2X and vehicle state; there is no radar on the platform.</p>',
-      jump: { label: 'Open Part 03', target: 'data-pipeline' }
-    },
-    {
-      question: 'When can I download the data?',
-      answer: '<p>Not yet &mdash; the TRAVELS collection is still in preparation, so the comparison table lists no data link for it.</p><p>The two programs it is measured against are open today: ADS for Rural America and Automated Vehicles for All both publish data portals, linked from the first row of that table.</p>',
-      jump: { label: 'Open the comparison', target: 'existing-data' }
-    }
-  ];
-
-  const asked = new Set();
   const history = [];
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let endpoint = null;   // base URL of the live service once one answers /api/health
-  let probe = null;
+  let endpoint = null;
   let busy = false;
 
-  // ---- live service discovery: ?assistant=<url>, then data-endpoint, then this origin
+  // ---- find the live service: ?assistant=<url>, data-endpoint, assistant-config.json, then this origin
   const usable = (url) => {
     try {
       const u = new URL(url, location.href);
@@ -153,52 +119,36 @@ if (assistant) {
     }
   };
 
-  const findService = () => {
-    if (probe) return probe;
+  const findService = async () => {
     const override = new URLSearchParams(location.search).get('assistant');
     const candidates = [override, assistant.dataset.endpoint].map((c) => c && usable(c)).filter(Boolean);
-    probe = (async () => {
-      // The published site learns the current tunnel address from assistant-config.json.
-      try {
-        const response = await fetch('assistant-config.json', { cache: 'no-store' });
-        if (response.ok) {
-          const config = await response.json();
-          const configured = config && config.endpoint && usable(config.endpoint);
-          if (configured) candidates.push(configured);
-        }
-      } catch (error) { /* no config: presets only */ }
-      const origin = usable(location.origin);
-      if (origin) candidates.push(origin);   // the page is served by the assistant itself
-      for (const base of [...new Set(candidates)]) {
-        try {
-          const controller = new AbortController();
-          const timer = setTimeout(() => controller.abort(), 4000);
-          const response = await fetch(base + '/api/health', { signal: controller.signal, cache: 'no-store' });
-          clearTimeout(timer);
-          if (response.ok && (await response.json()).ok) return base;
-        } catch (error) { /* try the next candidate */ }
+    try {
+      const response = await fetch('assistant-config.json', { cache: 'no-store' });
+      if (response.ok) {
+        const config = await response.json();
+        const configured = config && config.endpoint && usable(config.endpoint);
+        if (configured) candidates.push(configured);
       }
-      return null;
-    })();
-    return probe;
-  };
-
-  const goLive = (base) => {
-    endpoint = base;
-    assistant.dataset.live = 'true';
-    form.hidden = false;
-    foot.textContent = 'AI answers drawn from the TRAVELS web pages. Check the linked sources.';
-  };
-
-  const goOffline = () => {
-    endpoint = null;
-    assistant.dataset.live = 'false';
-    form.hidden = true;
-    foot.textContent = 'Answers are written from this page.';
+    } catch (error) { /* no config */ }
+    const origin = usable(location.origin);
+    if (origin) candidates.push(origin);   // the page is served by the assistant itself
+    for (const base of [...new Set(candidates)]) {
+      try {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 5000);
+        const response = await fetch(base + '/api/health', { signal: controller.signal, cache: 'no-store' });
+        clearTimeout(timer);
+        if (response.ok && (await response.json()).ok) return base;
+      } catch (error) { /* try the next candidate */ }
+    }
+    return null;
   };
 
   // ---- rendering
-  const scrollLog = () => { log.scrollTop = log.scrollHeight; };
+  const scrollLog = () => {
+    log.scrollTop = log.scrollHeight;
+    requestAnimationFrame(() => { log.scrollTop = log.scrollHeight; });   // again once layout settles
+  };
 
   const addMessage = (from, html) => {
     const node = document.createElement('div');
@@ -219,23 +169,22 @@ if (assistant) {
     const out = [];
     let list = null;
     let para = [];
-    const flush = () => {
-      if (para.length) { out.push('<p>' + para.join('<br>') + '</p>'); para = []; }
-      if (list) { out.push('<ul>' + list.join('') + '</ul>'); list = null; }
-    };
+    const closePara = () => { if (para.length) { out.push('<p>' + para.join('<br>') + '</p>'); para = []; } };
+    const closeList = () => { if (list) { out.push('<ul>' + list.join('') + '</ul>'); list = null; } };
     text.split('\n').forEach((raw) => {
       const line = raw.trim();
       const bullet = line.match(/^[-*•]\s+(.*)$/);
-      if (!line) { flush(); return; }
+      if (!line) { closePara(); closeList(); return; }
       if (bullet) {
-        if (para.length) { out.push('<p>' + para.join('<br>') + '</p>'); para = []; }
+        closePara();
         (list = list || []).push('<li>' + inline(bullet[1]) + '</li>');
       } else {
-        if (list) { out.push('<ul>' + list.join('') + '</ul>'); list = null; }
+        closeList();
         para.push(inline(line));
       }
     });
-    flush();
+    closePara();
+    closeList();
     return out.join('');
   };
 
@@ -262,69 +211,17 @@ if (assistant) {
     node.appendChild(box);
   };
 
-  const showTyping = () => {
+  // ---- asking
+  const ask = async (question) => {
+    busy = true;
+    sendButton.disabled = true;
+    addMessage('user', '<p>' + escapeHtml(question) + '</p>');
     const typing = document.createElement('div');
     typing.className = 'assistant-typing';
     typing.setAttribute('aria-label', 'The assistant is answering');
     typing.innerHTML = '<i></i><i></i><i></i>';
     log.appendChild(typing);
     scrollLog();
-    return typing;
-  };
-
-  const goTo = (jump) => {
-    if (jump.tab) {
-      const tab = document.getElementById(jump.tab);
-      if (tab) tab.click();
-    }
-    const target = document.getElementById(jump.target);
-    if (target) target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
-  };
-
-  // ---- preset questions
-  const renderPrompts = () => {
-    prompts.textContent = '';
-    topics.forEach((topic) => {
-      if (asked.has(topic.question)) return;
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.textContent = topic.question;
-      button.addEventListener('click', () => askPreset(topic));
-      prompts.appendChild(button);
-    });
-  };
-
-  const askPreset = (topic) => {
-    asked.add(topic.question);
-    assistant.dataset.started = 'true';
-    addMessage('user', '<p>' + escapeHtml(topic.question) + '</p>');
-    renderPrompts();
-    const typing = showTyping();
-    window.setTimeout(() => {
-      typing.remove();
-      const node = addMessage('bot', topic.answer);
-      if (topic.jump) {
-        const link = document.createElement('button');
-        link.type = 'button';
-        link.className = 'jump';
-        link.textContent = topic.jump.label + ' ↓';
-        link.addEventListener('click', () => goTo(topic.jump));
-        node.appendChild(link);
-        scrollLog();
-      }
-      if (!endpoint && asked.size === topics.length) {
-        addMessage('bot', '<p>That is everything I have on hand. The page itself carries the detail behind each answer.</p>');
-      }
-    }, reduceMotion ? 0 : 420);
-  };
-
-  // ---- free-text questions to the live service
-  const askLive = async (question) => {
-    busy = true;
-    assistant.dataset.started = 'true';
-    form.querySelector('button').disabled = true;
-    addMessage('user', '<p>' + escapeHtml(question) + '</p>');
-    const typing = showTyping();
     try {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), 60000);
@@ -338,7 +235,7 @@ if (assistant) {
       const data = await response.json().catch(() => ({}));
       typing.remove();
       if (!response.ok) {
-        addMessage('bot', '<p>' + escapeHtml(data.error || 'Something went wrong. Please try again.') + '</p>');
+        addMessage('bot', '<p>' + escapeHtml(data.error || 'Something went wrong. Please try again.') + '</p>').classList.add('is-error');
       } else {
         const node = addMessage('bot', renderAnswer(String(data.answer || '')));
         if (data.refused) node.classList.add('is-refusal');
@@ -350,12 +247,11 @@ if (assistant) {
       }
     } catch (error) {
       typing.remove();
-      addMessage('bot', '<p>The live assistant is offline right now. The suggested questions still work.</p>');
-      goOffline();
+      addMessage('bot', '<p>The assistant is not reachable right now. Please try again later.</p>').classList.add('is-error');
     } finally {
       busy = false;
-      form.querySelector('button').disabled = false;
-      if (!form.hidden) input.focus();
+      sendButton.disabled = false;
+      input.focus();
     }
   };
 
@@ -365,7 +261,7 @@ if (assistant) {
     if (!question || busy || !endpoint) return;
     input.value = '';
     input.style.height = '';
-    askLive(question);
+    ask(question);
   });
 
   input.addEventListener('keydown', (event) => {
@@ -380,31 +276,94 @@ if (assistant) {
     input.style.height = Math.min(input.scrollHeight, 120) + 'px';
   });
 
+  // ---- resizing: drag the top-left corner or the left/top edge; the panel is pinned bottom-right
+  const SIZE_KEY = 'travels-assistant-size';
+  const MIN_W = 300;
+  const MIN_H = 360;
+  const compact = window.matchMedia('(max-width: 620px)');
+  const limits = () => ({ w: window.innerWidth - 48, h: window.innerHeight - 120 });
+
+  const applySize = (w, h) => {
+    const max = limits();
+    panel.style.width = Math.round(Math.max(MIN_W, Math.min(w, max.w))) + 'px';
+    panel.style.height = Math.round(Math.max(MIN_H, Math.min(h, max.h))) + 'px';
+  };
+
+  const saveSize = () => {
+    try {
+      localStorage.setItem(SIZE_KEY, JSON.stringify({ w: panel.offsetWidth, h: panel.offsetHeight }));
+    } catch (error) { /* storage unavailable: size just isn't remembered */ }
+  };
+
+  const resetSize = () => {
+    panel.style.width = '';
+    panel.style.height = '';
+    try { localStorage.removeItem(SIZE_KEY); } catch (error) { /* ignore */ }
+  };
+
+  const restoreSize = () => {
+    if (compact.matches) { panel.style.width = ''; panel.style.height = ''; return; }
+    try {
+      const saved = JSON.parse(localStorage.getItem(SIZE_KEY) || 'null');
+      if (saved && saved.w && saved.h) applySize(saved.w, saved.h);
+    } catch (error) { /* ignore a bad or unreadable value */ }
+  };
+
+  assistant.querySelectorAll('.assistant-resize').forEach((handle) => {
+    const edge = handle.dataset.edge;
+    handle.addEventListener('pointerdown', (event) => {
+      if (compact.matches || event.button !== 0) return;
+      event.preventDefault();
+      try { handle.setPointerCapture(event.pointerId); } catch (error) { /* window listeners still track it */ }
+      const start = { x: event.clientX, y: event.clientY, w: panel.offsetWidth, h: panel.offsetHeight };
+      assistant.classList.add('is-resizing');
+      const move = (e) => applySize(
+        edge === 'top' ? start.w : start.w + (start.x - e.clientX),
+        edge === 'left' ? start.h : start.h + (start.y - e.clientY)
+      );
+      const stop = () => {
+        window.removeEventListener('pointermove', move);
+        window.removeEventListener('pointerup', stop);
+        window.removeEventListener('pointercancel', stop);
+        assistant.classList.remove('is-resizing');
+        saveSize();
+      };
+      window.addEventListener('pointermove', move);
+      window.addEventListener('pointerup', stop);
+      window.addEventListener('pointercancel', stop);
+    });
+  });
+
+  const corner = assistant.querySelector('.assistant-resize[data-edge="corner"]');
+  corner.addEventListener('dblclick', resetSize);
+  corner.addEventListener('keydown', (event) => {
+    const step = event.shiftKey ? 60 : 20;
+    const delta = { ArrowLeft: [step, 0], ArrowRight: [-step, 0], ArrowUp: [0, step], ArrowDown: [0, -step] }[event.key];
+    if (!delta) return;
+    event.preventDefault();
+    applySize(panel.offsetWidth + delta[0], panel.offsetHeight + delta[1]);
+    saveSize();
+  });
+
+  window.addEventListener('resize', () => {
+    if (panel.style.width) applySize(panel.offsetWidth, panel.offsetHeight);
+  });
+
   // ---- open / close
   const setOpen = (open) => {
     assistant.dataset.open = String(open);
     panel.hidden = !open;
     launcher.setAttribute('aria-expanded', String(open));
-    launcher.setAttribute('aria-label', open ? 'Close the dataset assistant' : 'Ask about this dataset');
+    launcher.setAttribute('aria-label', open ? 'Close the TRAVELS assistant' : 'Ask about TRAVELS');
     if (!open) return;
+    restoreSize();
     if (!log.childElementCount) {
-      addMessage('bot', '<p>Ask about the TRAVELS rural AV dataset &mdash; what we are collecting, how it compares, and what records it.</p>');
+      addMessage('bot', '<p>Hi! Ask me anything about TRAVELS &mdash; the data we are collecting, the event levels, the collection platform, or the program&rsquo;s sites and partners.</p>');
     }
-    window.setTimeout(() => {
-      const first = endpoint ? input : prompts.querySelector('button');
-      (first || closeButton).focus();
-    }, 0);
-    findService().then((base) => {
-      if (base && !endpoint) {
-        goLive(base);
-        if (!panel.hidden && document.activeElement !== input) input.focus();
-      }
-    });
+    window.setTimeout(() => input.focus(), 0);
   };
 
-  launcher.setAttribute('aria-label', 'Ask about this dataset');
-  renderPrompts();
-
+  launcher.setAttribute('aria-label', 'Ask about TRAVELS');
   launcher.addEventListener('click', () => setOpen(panel.hidden));
   closeButton.addEventListener('click', () => { setOpen(false); launcher.focus(); });
 
@@ -413,5 +372,12 @@ if (assistant) {
       setOpen(false);
       launcher.focus();
     }
+  });
+
+  // Without a reachable service there is nothing to offer, so the launcher stays hidden.
+  findService().then((base) => {
+    if (!base) return;
+    endpoint = base;
+    assistant.hidden = false;
   });
 }

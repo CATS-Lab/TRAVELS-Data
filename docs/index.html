@@ -711,25 +711,28 @@
     </div>
     <a href="#top">Back to top ↑</a>
   </footer>
-  <div class="assistant" id="assistant" data-endpoint="">
+  <div class="assistant" id="assistant" data-endpoint="" hidden>
     <div class="assistant-panel" id="assistant-panel" role="dialog" aria-labelledby="assistant-title" hidden>
+      <button type="button" class="assistant-resize" data-edge="corner" aria-label="Resize the assistant: arrow keys, or double-click to reset" title="Drag to resize &middot; double-click to reset"></button>
+      <span class="assistant-resize" data-edge="left" aria-hidden="true"></span>
+      <span class="assistant-resize" data-edge="top" aria-hidden="true"></span>
       <header class="assistant-head">
-        <div><span>TRAVELS</span><strong id="assistant-title">Dataset assistant</strong></div>
+        <span class="assistant-avatar" aria-hidden="true">T</span>
+        <div><strong id="assistant-title">TRAVELS assistant</strong><span>Answers from the TRAVELS web pages</span></div>
         <button type="button" class="assistant-close" aria-label="Close the assistant">&#215;</button>
       </header>
       <div class="assistant-log" id="assistant-log" role="log" aria-live="polite" aria-label="Conversation"></div>
-      <div class="assistant-prompts" id="assistant-prompts" aria-label="Suggested questions"></div>
-      <form class="assistant-form" id="assistant-form" hidden>
+      <form class="assistant-form" id="assistant-form">
         <label class="assistant-launcher-label" for="assistant-input">Ask a question about TRAVELS</label>
         <textarea id="assistant-input" rows="1" maxlength="500" placeholder="Ask about TRAVELS&hellip;" autocomplete="off"></textarea>
         <button type="submit" aria-label="Send question"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </form>
-      <p class="assistant-foot" id="assistant-foot">Answers are written from this page.</p>
+      <p class="assistant-foot">AI-generated from public TRAVELS pages &middot; check the sources</p>
     </div>
     <button type="button" class="assistant-launcher" id="assistant-launcher" aria-expanded="false" aria-controls="assistant-panel">
       <svg class="icon-open" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h16v12H8l-4 4V4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="9" cy="10" r="1.1" fill="currentColor"/><circle cx="12.5" cy="10" r="1.1" fill="currentColor"/><circle cx="16" cy="10" r="1.1" fill="currentColor"/></svg>
       <svg class="icon-close" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      <span class="assistant-launcher-label">Ask about this dataset</span>
+      <span class="assistant-launcher-label">Ask about TRAVELS</span>
     </button>
   </div>
 
